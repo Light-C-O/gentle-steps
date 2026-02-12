@@ -1,7 +1,12 @@
 import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-export default async function Home() {
+import Link from "next/link";
+
+// This is the page that shows the list of chapters
+
+
+export default async function ChapterPage() {
     const querySnapshot = await getDocs(collection(db, "chapters"));
 
     const chapters = querySnapshot.docs.map((doc) => ({
@@ -11,7 +16,8 @@ export default async function Home() {
 
     return (
     <main className="p-8">
-        <h1 className="text-3xl font-bold mb-6">Gentle Steps</h1>
+        <h1 className="text-3xl font-bold mb-6">Chapters</h1>
+
 
         {chapters.map((chapter: any) => (
         <div key={chapter.id} className="mb-6 p-4 border rounded-xl">
@@ -19,6 +25,9 @@ export default async function Home() {
             <p className="text-gray-600">{chapter.summary}</p>
         </div>
         ))}
+        <Link href="/" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
+        Go Back 
+        </Link> 
     </main>
     );
 }
