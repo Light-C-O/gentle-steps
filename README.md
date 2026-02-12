@@ -6,3 +6,5 @@
   - Installed and added a database called Firebase
 - **Wednesday - 11th Feb:**
   - Installed PWA
+- **Thursday - 12th Feb:**
+  - Imported the database to the repo, tested it and it works
