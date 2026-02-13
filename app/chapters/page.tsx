@@ -20,7 +20,7 @@ export default async function ChapterPage() {
 
 
         {chapters.map((chapter: any) => (
-        <Link href={`/chapters/${chapter.id}`}>
+        <Link href={`/chapters/${chapter.id}`} key={chapter.id}>
             <div key={chapter.id} className="mb-6 p-4 border rounded-xl">
                 <h2 className="text-xl font-semibold">{chapter.title}</h2>
                 <p className="text-gray-600">{chapter.summary}</p>
