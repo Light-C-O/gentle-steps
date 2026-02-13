@@ -20,10 +20,12 @@ export default async function ChapterPage() {
 
 
         {chapters.map((chapter: any) => (
-        <div key={chapter.id} className="mb-6 p-4 border rounded-xl">
-            <h2 className="text-xl font-semibold">{chapter.title}</h2>
-            <p className="text-gray-600">{chapter.summary}</p>
-        </div>
+        <Link href={`/chapters/${chapter.id}`}>
+            <div key={chapter.id} className="mb-6 p-4 border rounded-xl">
+                <h2 className="text-xl font-semibold">{chapter.title}</h2>
+                <p className="text-gray-600">{chapter.summary}</p>
+            </div>
+        </Link>
         ))}
         <Link href="/" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
         Go Back 

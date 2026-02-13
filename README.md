@@ -9,3 +9,8 @@
 - **Thursday - 12th Feb:**
   - Imported the database to the repo, tested it and it works
   - Managed redirect between pages using Link tag with href of the route. The link tag is for navigation.
+- **Friday - 13th Feb:**
+  - Created page.tsx files to display the information by pulling from the firebase using import { db } data/firebase.
+  - In order of the contents in the collections and documents, using querySnapshot is essential, you are telling Firebase to give you all the documents from collection.
+  - I used map() for the Sections collection as it is an array. I could use a normal For loop, however map() returns me a new array list. And is what I want.
+  - I now understand the concept of pulling infiom from the firebase sand displaying the info
