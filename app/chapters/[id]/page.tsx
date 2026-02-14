@@ -1,84 +1,92 @@
 'use client';
 import { db } from "@/data/firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { use, useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 // This is the page that shows the details of a chapter
 type Chapter = {
-    content: string;
     title: string;
     summary: string;
     order: number;
+    sections?: Record<string, {
+            title: string;
+            content: string[] | string;
+            [key: string]: any;
+    }>;
 }
 
-type Section = {
-    title: string;
-    content: string;
-}
 
-export default function ChapterDetails({
-    params
-}: {
-    params: Promise<{ id: string }>
-    // Get the chapter id from the route and set its type as string
-}) {
-    const param = use(params);
-    const chapterId= param.id;
+export default function ChapterDetails() {
+    const params = useParams();
+    // Get the chapter id from the params and set its type as string
+    const chapterId= params.id as string;
 
     // the Chapter object is optional, null or not
     const [chapterData, setChapterData] = useState <Chapter | null>(null);
-    const [sectionData, setSectionData] = useState<Section[] | null>(null);
 
     // Only run this function if the chapter id changes
     useEffect(() => {
-        const fetchField = async () => { 
+        const fetchChapter = async () => { 
             if(!chapterId) return;
 
-            // Fetch chapter
-            const docRef = doc(db, 'chapters', chapterId)
-            const querySnapshot = await getDoc(docRef);
+            try{
+                // Fetch chapter
+                const docRef = doc(db, 'chapters', chapterId)
+                const querySnapshot = await getDoc(docRef);
 
-            //Fetch the subcollection - a collection of a document
-            const sectionRef = collection(db, `chapters/${chapterId}/sections`)
-            const sectionQuery = await getDocs(sectionRef);
+                // if it exists, set the data.
+                if(querySnapshot.exists()) {
+                    const data = querySnapshot.data();
+                    console.log("FULL DOCUMENT:");
+                    console.log(data);
+                    console.log("SECTIONS FIELD:");
+                    console.log(data.sections);
+                    setChapterData(data as Chapter)
 
-            // if it exists, set the data.
-            if(querySnapshot.exists() && sectionQuery) {
-                setChapterData(querySnapshot.data() as Chapter)
+                } else {
+                    console.log('Chapter not found :(')
+                }
 
-                // loop through the sections since it is a collection
-                const data: Section[] = []
-                sectionQuery.docs.forEach(v => data.push(v.data() as Section))
-                setSectionData(data)
-                return;
-
-            } else {
-                console.log('Cant find document')
+            } catch (error) {
+                console.error(error);
             }
-        }
+        };
 
-        fetchField();
+        fetchChapter();
     }, [chapterId] )
 
-    if(!chapterData || !sectionData) return;
+    if(!chapterData) return;
 
-    // keep doing shit here
 
     return (
         <div>
             <h1 className="text-3xl font-bold mb-6">{chapterData.title}</h1>
             <p className="text-base font-light">{chapterData.summary}</p>
-            {/* Showcase all the fields in the sections collection */}
-            {sectionData.map((section, index) => {
-                return (
-                    <div key={index}>
-                        <h1>{section.title}</h1>
-                        <p>{section.content}</p>
+        
+            {/*loop throught the maped fields*/}
+            {
+                chapterData.sections && Object.entries(chapterData.sections).map(([key, sectionMap]) => (
+                    <div key={key} className="mb-4">
+                        <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
+
+                        {(() => {
+                            const content = sectionMap.content;
+
+                            if(Array.isArray(content)){
+                                return content.map((line, i) => <p key={i} className="mb-2">{line}</p>);
+                            } else if(typeof content === "string") { 
+                                return <p>{content}</p>;
+                            } else {
+                                return <p></p>;
+                            }
+                        })()}
+
                     </div>
-                )
-            })}
+                ))
+            }
         </div>
-    )
+    );
 
 
 }
