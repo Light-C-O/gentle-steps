@@ -4,6 +4,7 @@ import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
+import CheckForm from "@/components/check-form";
 
 export default function CheckPage() {
     const [checklists, setChecklists] = useState<any[]>([]);
@@ -34,7 +35,7 @@ export default function CheckPage() {
             i === index ? { ...item, completed:!item.completed} : item
             );
 
-            //update te firestore
+            //update the firestore
             await updateDoc(doc(db, "checklists", checklistId), {
                 items: updatedItems,
             });
@@ -44,31 +45,66 @@ export default function CheckPage() {
                 checklist.id === checklistId ? { ...checklist, items: updatedItems} : checklist
             ));
     };
+
+    const addItem = async (checklistId: string, info: string) => {
+            setChecklists((prev)=>
+                prev.map((checklist) => {
+                    if (checklist.id !== checklistId) return checklist;
+
+                    const updatedItems= [...checklist.items,
+                        {info, completed: false},
+                    ];
+
+                    //update the firestore
+                    updateDoc(doc(db, "checklists", checklistId), {
+                        items: updatedItems,
+                    });
+
+                    return { ...checklist, items:updatedItems}
+                    })
+            );
+
+    }
     
 
         return(
             <main className="p-8">
-                <h1 className="text-3xl font-bold mb-6">Checklists</h1>
+                <div className="mb-4">
+                    <h1 className="text-3xl font-bold mb-6">Checklists</h1>
 
-                {checklists.map((checklist) => (
-                
-                    <div key={checklist.id} className="mb-6 p-4 border rounded-xl">
-                        <h2 className="text-xl font-semibold">{checklist.title}</h2>
-                        <ul className="mt-3 space-y-2">
-                            {
-                                checklist.items?.map((item: any, index: number) => (
-                                    <li key ={index} className="flex items-center gap-2">
-                                        <input type="checkbox" checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
-                                        <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info}</span>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </div>
-                ))}
-                <Link href="/" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
-                Go Back 
-                </Link> 
+                    {checklists.map((checklist) => (
+                    
+                        <div key={checklist.id} className="mb-6 p-4 border rounded-xl">
+                            <h2 className="text-xl font-semibold">{checklist.title}</h2>
+                            <ul className="mt-3 space-y-2 mb-4">
+                                {
+                                    checklist.items?.map((item: any, index: number) => (
+                                        <li key ={index} className="flex items-center gap-2">
+                                            <input type="checkbox" checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
+                                            <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info}</span>
+                                        </li>
+                                    ))}
+                            </ul>
+                            <div>
+                                <h2 className="text-xl font-semibold">My List:</h2>
+                                <ul>
+                                    <CheckForm
+                                    checklistId={checklist.id}
+                                    onAdd= {(info)=> addItem(
+                                        checklist.id, info
+                                    )}
+                                    />
+                                </ul>
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+                <div>
+                    <Link href="/" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
+                    Go Back 
+                    </Link> 
+                </div>
             </main>
         )
 }

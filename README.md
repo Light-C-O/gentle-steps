@@ -24,3 +24,9 @@
   - I added a toggle funtionallity in order to update what the client does into the database. In this case, useState was implemented. It allows you to add a state to a functional componment. It returns an array containing the curretn state and a function to update. This makes sure my component can remember and mage data. I also added a updateDoc for Firestore to update based on the changes. 
   - Now the chackbox toogels both way; can tick and untick. However for it to actually update in FireStore, it needs permission. The inital rule was (allow read: if true; allo wwrite: if false;), not it has been updated to (allow read, write: if true). Now, the checkboxes can be toggled without any errors.
   - The checlists are dispalyed properly with item having a line-through when completed (ticked), and user can now tick/untick with the changes being updated remembers in Firestore. I have completed the checklists page
+
+### WEEK 5
+- **Monday 16th Feb:**
+  - In regard to checklists, I implemented that the user has a premade template. Howeer they can also add their own info as well.
+  - I has to do almost the same thing like the checkbox. But not it is the information. I made an addItem function that allows the user to add an item and it updates in the databse. 
+  - I created a compoment called check-form, that is where the user can wtite their own list and then I imported it the checklists page for it to be displayed there.
