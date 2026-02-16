@@ -30,3 +30,5 @@
   - In regard to checklists, I implemented that the user has a premade template. Howeer they can also add their own info as well.
   - I has to do almost the same thing like the checkbox. But not it is the information. I made an addItem function that allows the user to add an item and it updates in the databse. 
   - I created a compoment called check-form, that is where the user can wtite their own list and then I imported it the checklists page for it to be displayed there.
+  - I ran into commplettion, I wanted that user gets a temple an then ad thirs on top, however it is multi user yet. Meaning if someone changes it veryone had the same update. So, I must made auth/page.tsx.
+  - I have now added a one page that has both login and sighn up
