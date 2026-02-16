@@ -32,4 +32,4 @@
   - I created a compoment called check-form, that is where the user can wtite their own list and then I imported it the checklists page for it to be displayed there.
   - I ran into commplettion, I wanted that user gets a temple an then ad thirs on top, however it is multi user yet. Meaning if someone changes it veryone had the same update. So, I must made auth/page.tsx.
   - I have now added a one page that has both login and sighn up.
-  - I have now managed to created a user document anytime a new user user is created and they automatically get a copy of the checklist.
+  - I have now managed to created a user document anytime a new user user is created and they automatically get a copy of the checklist. And changed the route to make it more seemless. Added comments for more clearity.
