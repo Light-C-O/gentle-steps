@@ -16,28 +16,50 @@ export default function AuthPage(){
     const router = useRouter();
 
     const handleAuth = async (e: React.SyntheticEvent) => {e.preventDefault();
+
+        if (!email || !password){
+            alert("Please enter and password");
+            return;
+        }
         try {
         //Tr logging in
-        await signInWithEmailAndPassword (auth, email, password);
+        console.log('Attempting signIn with:', email, password);
+        await signInWithEmailAndPassword(auth, email, password);
+        //success
         router.push("/checklists");
-        } catch (error:any) {
-            if (error.code === "auth/user-not-found") {
+        } catch (error: any) {
+            if (error.code !== "auth/invalid-credential"){
+                console.error("Unexpected sign-in errror:", error);
+            }
+            if (
+                error.code === "auth/invalid-credential"
+            ) {
+                if (!username){
+                    alert("Please enter a username");
+                    return;
+                }
+
                 //then create an account
-                const userCredential = await createUserWithEmailAndPassword (auth, email, password);
+                const userCredential = 
+                await createUserWithEmailAndPassword (auth, email, password);
 
                 const user = userCredential.user;
 
                 //then add the user 
-                await updateProfile(user, {displayName: username});
+                await updateProfile(user, { displayName: username});
 
-                //make user doc in firebase
-                await setDoc(doc(db, "users", user.uid), {username, email, createdAt:new Date(), 
+                //save user info in firebase
+                await setDoc(doc(db, "users", user.uid), {
+                    username, 
+                    email, 
+                    createdAt:new Date(), 
                 });
 
-                //copy the template
-                const templateSnapshot = await getDocs ( collection(db, "checklistTemplates"));
+                //copy the template to new user
+                const templateSnapshot = await getDocs(collection(db, "checklistTemplates"));
 
-                await Promise.all (templateSnapshot.docs.map(async (templateDoc) => {
+                //Use Promise.all to wait for all setDoc promises
+                await Promise.all(templateSnapshot.docs.map(async (templateDoc) => {
                         await setDoc(
                             doc(db, "users", user.uid, "checklists", templateDoc.id),
                             templateDoc.data()
@@ -45,12 +67,14 @@ export default function AuthPage(){
                     })
                 );
 
-                router.push("/checklists");
+                router.push("/");
+
                 } else{
+                alert("Incorrect password or login error.");
                 console.error(error);
             }
         }
-    }
+    };
 
     return (
         <main className="p-8">
@@ -58,7 +82,7 @@ export default function AuthPage(){
 
             <form 
             onSubmit={handleAuth}
-            className="flex flex-col gap-4 max-w-md"
+            className="gap-4 max-w-md"
             >
                 <input 
                 type="text"
