@@ -34,4 +34,5 @@
   - I have now added a one page that has both login and sighn up.
   - I have now managed to created a user document anytime a new user user is created and they automatically get a copy of the checklist. And changed the route to make it more seemless. Added comments for more clearity.
 - **Tuesday 17th Feb:**
-  - Modified the chaters page for the section to respond based on the order field added.
+  - Modified the chapters page for the section to respond based on the order field added.
+  - Started the tracking page. It was more of the same. import the data from the dtabase and display it. It shows up nicely. The basic functions are working, evetually I will adda carousel to show the week in a more presentable way.
