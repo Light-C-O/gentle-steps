@@ -12,6 +12,7 @@ type Chapter = {
     sections?: Record<string, {
             title: string;
             content: string[] | string;
+            order:number
             [key: string]: any;
     }>;
 }
@@ -65,8 +66,10 @@ export default function ChapterDetails() {
             <p className="text-base font-light">{chapterData.summary}</p>
         
             {/*loop throught the maped fields*/}
+            
             {
-                chapterData.sections && Object.entries(chapterData.sections).map(([key, sectionMap]) => (
+                chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order)
+                .map(([key, sectionMap]) => (
                     <div key={key} className="mb-4">
                         <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
 
