@@ -36,3 +36,4 @@
 - **Tuesday 17th Feb:**
   - Modified the chapters page for the section to respond based on the order field added.
   - Started the tracking page. It was more of the same. import the data from the dtabase and display it. It shows up nicely. The basic functions are working, evetually I will adda carousel to show the week in a more presentable way.
+  - Attempting to add a carousel using boostrap, not sure if it is the right one to use.
