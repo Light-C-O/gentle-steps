@@ -36,11 +36,13 @@ export default function ChapterDetails() {
                 const docRef = doc(db, 'chapters', chapterId)
                 const querySnapshot = await getDoc(docRef);
 
-                // if it exists, set the data.
+                // if it exists, set the data. This is to debug
                 if(querySnapshot.exists()) {
                     const data = querySnapshot.data();
+                    //shows the document
                     console.log("FULL DOCUMENT:");
                     console.log(data);
+                    //shows the sections
                     console.log("SECTIONS FIELD:");
                     console.log(data.sections);
                     setChapterData(data as Chapter)
@@ -68,6 +70,7 @@ export default function ChapterDetails() {
             {/*loop throught the maped fields*/}
             
             {
+                //take all the section sort them based on order field
                 chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order)
                 .map(([key, sectionMap]) => (
                     <div key={key} className="mb-4">

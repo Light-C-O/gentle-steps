@@ -1,38 +1,73 @@
+'use client';
 import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import { Carousel} from "react-bootstrap/Carousel";
-import {useState} from "react";
+import { Carousel} from "flowbite-react";
+import {useEffect, useState, useRef, use} from "react";
 
-export default async function TrackPage() {
-    const [carousel, setCarouel] = useState(0)
-
-    const handleSelect = (selectedCarousel) => {
-        setCarouel(selectedCarousel)
-    };
-
-    const querySnapshot = await getDocs(collection(db, "tracks"));
-
-    const tracks = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-    }));
+//the track collection structure/blue print
+type Track = {
+    id: string;
+    title: string;
+    sizeComp: string;
+    development: string;
+    week: number;
+}
 
 
+export default function TrackPage() {
+    //create a box to store lists of tracks from the database
+    const [tracks, setTracks] = useState<Track []>([]);
+    const carouselRef = useRef<any>(null);
 
-    return (
-        <main className="p-8">
+    //runs once when the carousel first loads, 
+    useEffect (() => {
+        //get the data from the collection called tracks
+        const fetchTracks = async () => {
+            const querySnapshot = await getDocs(collection(db, "tracks"));
+            //then converts them into objects
+            const data = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            })) as Track[];
 
-            <Carousel activeIndex={carousel} onSelect={handleSelect}>
-                {tracks.map((track: any) => (
-                    <div key={track.id} className="mb-6 p-4 border rounded-xl">
-                        <h2 className="text-xl font-semibold">{track.title}</h2>
-                        <p className="text-gray-600">{track.sizeComp}</p>
-                    </div>
-                ))};
-            </Carousel>
-            <h1 className="text-3xl font-bold mb-6">Traking Week by Week</h1>
-
+            //sort the sildes based on the week field from small to big
+            data.sort((a,b)=> a.week - b.week)
             
+            setTracks(data);
+        };
+        fetchTracks();
+    }, []);
+    
+    return (
+        <main className="p-8" >
+            <h1 className="text-3xl font-bold mb-6">Traking Week by Week</h1>
+                <div id="controls-carousel" className="relative w-full" data-carousel="static">
+                    <div className=" min-h-300 md:min-h-400">
+                        <Carousel
+                            ref={carouselRef} 
+                            leftControl={null}
+                            rightControl={null}
+                        >
+                            {/* for each doc, create a silde in side the carousel*/}
+                            {tracks.map((track) => ( 
+                                <div key={track.id} className="mb-6 items-center p-4 border rounded-xl">
+                                    <p className="text-gray-600">{track.week}</p>
+                                    <h2 className="text-xl font-semibold">{track.title}</h2>
+                                    <p className="text-gray-600">{track.sizeComp}</p>
+                                    <p className="text-gray-600">{track.development}</p>
+                                </div>
+                            ))}
+                        </Carousel>
+                        {/* prevous button */}
+                        <button onClick={()=>carouselRef.current?.prev} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                            Previous Week
+                        </button>
+                        {/* next button */}
+                        <button onClick={()=>carouselRef.current?.next} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                            Next Week
+                        </button>
+                    </div>
+                </div>
         </main>
 
     );

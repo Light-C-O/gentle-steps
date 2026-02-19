@@ -35,5 +35,13 @@
   - I have now managed to created a user document anytime a new user user is created and they automatically get a copy of the checklist. And changed the route to make it more seemless. Added comments for more clearity.
 - **Tuesday 17th Feb:**
   - Modified the chapters page for the section to respond based on the order field added.
-  - Started the tracking page. It was more of the same. import the data from the dtabase and display it. It shows up nicely. The basic functions are working, evetually I will adda carousel to show the week in a more presentable way.
-  - Attempting to add a carousel using boostrap, not sure if it is the right one to use.
+  - Started the tracking page. It was more of the same. import the data from the dtabase and display it. It shows up nicely. The basic functions are working, 
+  - evetually I will adda carousel to show the week in a more presentable way.
+  - Attempting to add a carousel using bootsrap, not sure if it is the right one to use.
+- **Thursday 19th Feb:**
+  - In order for the carousel to working using bootstrap, I need to install react-boostrap. However, I'm not using bootstrap. I'm using Tailwind, and since what want more control when it comes customisation, It seems like react-flowbite is more suitable for that.
+  - I installed flowbite, using this command [npm install flowbite-react] in the terminal. I throgh an report that dependencies has some vulnerbilities. I fixed that using npm audit fix --force in order to address all issues.
+  - I used useEffect to fecth the  data, mapped firestore doc to create an array of objects and I also sorted based on the week field fo it to be in order.
+  - I mapped the sorted to create each slide inside a carousel. Now, it displays the track detail mentioned.
+  - However I'm having issues making it look like a carousel, 
+  - I have added buttons and used useRef to get a reference to the carousel but still have problems. I'll leave this for now and move to next part which if faqs
