@@ -46,3 +46,4 @@
   - However I'm having issues making it look like a carousel.
   - I have added buttons and used useRef to get a reference to the carousel but still have problems. I'll leave this for now and move to next part which if faqs.
   - I made a faq page, it was relativlythe same, import the the collection, documents, and the detail and display them on screen. That went well with no issue. I make sure it works before I start with making it look good.
+  - I have now moved the resource page and have completed it. Almost the same with faq - display imprt the database, fecth the collection and docs, display the fields. An addition was that rescource had a url. I imported Link for that and added the url into the href, and inorder of the url to redirect to another tap, I used target="_blank". That way nstead for the link to replace the tab that currently in, it just opens a new tab.
