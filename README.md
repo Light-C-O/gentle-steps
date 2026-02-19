@@ -43,5 +43,6 @@
   - I installed flowbite, using this command [npm install flowbite-react] in the terminal. I throgh an report that dependencies has some vulnerbilities. I fixed that using npm audit fix --force in order to address all issues.
   - I used useEffect to fecth the  data, mapped firestore doc to create an array of objects and I also sorted based on the week field fo it to be in order.
   - I mapped the sorted to create each slide inside a carousel. Now, it displays the track detail mentioned.
-  - However I'm having issues making it look like a carousel, 
-  - I have added buttons and used useRef to get a reference to the carousel but still have problems. I'll leave this for now and move to next part which if faqs
+  - However I'm having issues making it look like a carousel.
+  - I have added buttons and used useRef to get a reference to the carousel but still have problems. I'll leave this for now and move to next part which if faqs.
+  - I made a faq page, it was relativlythe same, import the the collection, documents, and the detail and display them on screen. That went well with no issue. I make sure it works before I start with making it look good.
