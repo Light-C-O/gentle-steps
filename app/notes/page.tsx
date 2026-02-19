@@ -1,17 +1,7 @@
-// import { use } from "react"
-// import { db } from "@/data/firebase";
+'use client';
+import { db, auth } from "@/data/firebase";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
-// console.log("Firebase connected:", db);
-
-
-// export default function Page({ params }: { params: Promise<{ number: string }> }) {
-
-//     const { number } = use(params);
-
-
-//     return (
-//         <div>
-//             Babies {number}!
-//         </div>
-//     )
-// }
+//Firebase auth listener to detect logged-in user
+import {onAuthStateChanged} from "firebase/auth";
