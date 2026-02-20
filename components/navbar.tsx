@@ -11,6 +11,7 @@ export default function NavBar(){
                     <Link href="/checklists">Checklists</Link>
                     <Link href="/faqs">FAQ</Link>
                     <Link href="/resources">Resources</Link>
+                    <Link href="/tracking">Tracks</Link>
                 </div>
             </div>
         </nav>

@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import {useCallback, useEffect, useState} from "react";
 
 import  useEmblaCarousel from "embla-carousel-react";
+import NavBar from "@/components/navbar";
 
 //the track collection structure/blue print
 type Track = {
@@ -42,39 +43,42 @@ export default function TrackPage() {
 
 
     const goToPrev = useCallback(() => {
-        emblaApi?.goToPrev();
+        emblaApi?.scrollPrev();
     }, [emblaApi]);
     const goToNext = useCallback(() => {
-        emblaApi?.goToNext();
+        emblaApi?.scrollNext();
     }, [emblaApi]);
     
     return (
         <main className="p-8" >
+            <div><NavBar/></div>
             <h1 className="text-3xl font-bold mb-6">Tracking Week by Week</h1>
-                <div ref={emblaRef} className="relative w-full" data-carousel="static">
-                        <div  className="h-96">
-
+                <div ref={emblaRef} className="overflow-hidden">
+                        <div className="flex">
                             {/* for each doc, create a silde in side the carousel*/}
                             {tracks.map((track) => ( 
-                                <div key={track.id} className="flex flex-col justify-center items-center h-full p-6 border rounded-xl">
-                                    <p className="text-gray-600">{track.week}</p>
-                                    <h2 className="text-xl font-semibold">{track.title}</h2>
-                                    <p className="text-gray-600">{track.sizeComp}</p>
-                                    <p className="text-gray-600">{track.development}</p>
+                                <div key={track.id} className="min-w-full p-6">
+                                    <div className="p-6 border rounded-xl shadow-md">
+                                        <p className="text-gray-600">{track.week}</p>
+                                        <h2 className="text-xl font-semibold">{track.title}</h2>
+                                        <p className="text-gray-600">{track.sizeComp}</p>
+                                        <p className="text-gray-600">{track.development}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
-                        {/* prevous button */}
-                        <button onClick={goToPrev} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
-                            Previous Week
-                        </button>
-                        {/* next button */}
-                        <button onClick={goToNext} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
-                            Next Week
-                        </button>
+                        <div className="flex gap-4 mt-6">
+                            {/* prevous button */}
+                            <button onClick={goToPrev} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                                Previous Week
+                            </button>
+                            {/* next button */}
+                            <button onClick={goToNext} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                                Next Week
+                            </button>
+                        </div>
                 </div>
         </main>
-
     );
 }
 

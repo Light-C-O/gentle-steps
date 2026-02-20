@@ -55,3 +55,4 @@
   - Flowbite Carousel is not compatibale with tailwind 4v, that was confirmed in the postcss.config.js - it was the using the plugin.
   - I now have two choices: Downgrade to Tailwind v3 or stay Tailwind v4 and swtch to mordern carousel. I choose option two - I will be using Embla Carousel instead of Flowbite Carousel. It is fully compatible with with Tailwind v4, lightweight with smooth aniamtions, no issues with plugins.
   - I have installed embla using this command in the terminal: npm install embla-carousel-react.
+  - I attempted to call a method called goToNext, but it seems it doesn't have that. Instead it uses scrollNext(). The runtime error has disapeared, carousel works correctly and so does the navigation function.
