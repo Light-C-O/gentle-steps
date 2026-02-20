@@ -8,6 +8,7 @@ import {onAuthStateChanged} from "firebase/auth";
 
 import Link from "next/link";
 import CheckForm from "@/components/check-form";
+import NavBar from "@/components/navbar";
 
 export default function CheckPage() {
 
@@ -94,6 +95,9 @@ export default function CheckPage() {
 
     return(
         <main className="p-8">
+            <div>
+                <NavBar/>
+            </div>
             <div className="mb-4">
                 <h1 className="text-3xl font-bold mb-6">Checklists</h1>
 
@@ -134,7 +138,7 @@ export default function CheckPage() {
 
             </div>
             <div>
-                <Link href="/" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
+                <Link href="/chapters" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
                 Go Back 
                 </Link> 
             </div>

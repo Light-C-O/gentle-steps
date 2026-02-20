@@ -1,6 +1,8 @@
 import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
+import NavBar from "@/components/navbar";
+
 //this page shows all the info for FAQs
 export default async function FaqPage() {
     const querySnapshot = await getDocs(collection(db, "faqs"));
@@ -12,6 +14,7 @@ export default async function FaqPage() {
 
     return(
         <main>
+            <div><NavBar/></div>
             <h1 className="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
             {faqs.map((faq: any) => (
                 <div key={faq.id} className="mb-6 p-4 border rounded-xl">

@@ -1,5 +1,6 @@
 import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import NavBar from "@/components/navbar";
 
 import Link from "next/link";
 
@@ -16,6 +17,9 @@ export default async function ChapterPage() {
 
     return (
     <main className="p-8">
+        <div>
+            <NavBar/>
+        </div>
         <h1 className="text-3xl font-bold mb-6">Chapters</h1>
 
 

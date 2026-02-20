@@ -2,12 +2,16 @@ import Link from "next/link"
 
 export default function NavBar(){
     return (
-        <nav className="bg-gray-800">
-            <div className="mx-auto py-2">
-
-                <Link href="/">
-                </Link>
-
+        
+        <nav className="">
+            <header className="text-center">Table of contents</header>
+            <div className=" py-2  ">
+                <div className="mx-auto flex justify-evenly">
+                    <Link href="/chapters">Chapters</Link>
+                    <Link href="/checklists">Checklists</Link>
+                    <Link href="/faqs">FAQ</Link>
+                    <Link href="/resources">Resources</Link>
+                </div>
             </div>
         </nav>
     )

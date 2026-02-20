@@ -2,6 +2,7 @@ import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 import Link from "next/link";
+import NavBar from "@/components/navbar";
 
 
 //this page shows all the info for Resouces
@@ -15,6 +16,7 @@ export default async function ResourcePage() {
 
     return(
         <main>
+            <div><NavBar/></div>
             <h1 className="text-3xl font-bold mb-6">Resources</h1>
             {resources.map((resource:any) => (
 

@@ -1,6 +1,6 @@
-## SOFTWARE PROJECT
+## SOFTWARE PROJECT - IMPLEMENTATION
 
-### WEEK 4
+### WEEK 1
 - **Monday - 9th Feb:**
   - Setting things up for implementation
   - Installed and added a database called Firebase
@@ -25,7 +25,7 @@
   - Now the chackbox toogels both way; can tick and untick. However for it to actually update in FireStore, it needs permission. The inital rule was (allow read: if true; allo wwrite: if false;), not it has been updated to (allow read, write: if true). Now, the checkboxes can be toggled without any errors.
   - The checlists are dispalyed properly with item having a line-through when completed (ticked), and user can now tick/untick with the changes being updated remembers in Firestore. I have completed the checklists page
 
-### WEEK 5
+### WEEK 2
 - **Monday 16th Feb:**
   - In regard to checklists, I implemented that the user has a premade template. Howeer they can also add their own info as well.
   - I has to do almost the same thing like the checkbox. But not it is the information. I made an addItem function that allows the user to add an item and it updates in the databse. 
@@ -47,4 +47,6 @@
   - I have added buttons and used useRef to get a reference to the carousel but still have problems. I'll leave this for now and move to next part which if faqs.
   - I made a faq page, it was relativlythe same, import the the collection, documents, and the detail and display them on screen. That went well with no issue. I make sure it works before I start with making it look good.
   - I have now moved the resource page and have completed it. Almost the same with faq - display imprt the database, fecth the collection and docs, display the fields. An addition was that rescource had a url. I imported Link for that and added the url into the href, and inorder of the url to redirect to another tap, I used target="_blank". That way nstead for the link to replace the tab that currently in, it just opens a new tab.
-  - Starting with the notes page, it will be similar to the checklists
+  - Starting with the notes page, it will be similar to the checklists.
+- **Friday 20th Feb:**
+  - I have added a navbar to make the navigation better, this one of the funtions mentioned and it is vital for user-reading experience.
