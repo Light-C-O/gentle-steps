@@ -59,3 +59,4 @@
 - **Saturday 21st Feb:**
   - Started the notes/page.tsx. At, I wanted to be a component like check-form, but decided against it, there was need for that since it is not a template.
   - I went make a full crud functionality on it. That way, the user can create, read, update and delete their notes. And also added an orderBy to sort it by the newest based on createdAt field.
+  - I have now implemented the all the crud function, I'm now trying to display it on screen.
