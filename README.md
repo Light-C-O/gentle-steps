@@ -56,3 +56,6 @@
   - I now have two choices: Downgrade to Tailwind v3 or stay Tailwind v4 and swtch to mordern carousel. I choose option two - I will be using Embla Carousel instead of Flowbite Carousel. It is fully compatible with with Tailwind v4, lightweight with smooth aniamtions, no issues with plugins.
   - I have installed embla using this command in the terminal: npm install embla-carousel-react.
   - I attempted to call a method called goToNext, but it seems it doesn't have that. Instead it uses scrollNext(). The runtime error has disapeared, carousel works correctly and so does the navigation function.
+- **Saturday 21st Feb:**
+  - Started the notes/page.tsx. At, I wanted to be a component like check-form, but decided against it, there was need for that since it is not a template.
+  - I went make a full crud functionality on it. That way, the user can create, read, update and delete their notes. And also added an orderBy to sort it by the newest based on createdAt field.
