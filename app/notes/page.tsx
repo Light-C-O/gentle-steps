@@ -1,7 +1,7 @@
 'use client';
 import {useState, useEffect} from "react";
 import { db, auth } from "@/data/firebase";
-import { collection, doc, updateDoc, deleteDoc, addDoc, query, where, orderBy, onSnapshot, serverTimestamp} from "firebase/firestore";
+import { collection, doc, updateDoc, deleteDoc, addDoc, query, orderBy, onSnapshot, serverTimestamp} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 
 import NavBar from "@/components/navbar";
@@ -49,7 +49,8 @@ export default function NotePage(){
         //Create a firestore query
         const noteQuery = query(
             //only if notes belongs to a user id
-            collection(db, "notes"), where("userId", "==", userId), orderBy("createdAt", "desc")//sort by newest
+            collection(db, "users", userId, "notes"),
+            orderBy("createdAt", "desc")//sort by newest
         );
 
         // real-time changes
@@ -73,8 +74,7 @@ export default function NotePage(){
             if(!title || !content || !userId) return;
 
             //add the new note in firestore collection called notes
-            await addDoc(collection(db, "notes"), {
-                userId: userId, //link note to the user based on a id
+            await addDoc(collection(db, "users", userId, "notes"), {
                 title: title,
                 content: content,
                 createdAt: serverTimestamp(), //for sorting
@@ -95,10 +95,11 @@ export default function NotePage(){
 
         //update a note
         const updateNote = async (noteId:string) => {
+            if(!userId) return;
             
-            await updateDoc(doc(db, "notes", noteId),{
-                title:title,
-                content:content,
+            await updateDoc(doc(db, "users", userId, "notes", noteId),{
+                title,
+                content,
             });
 
             //set the edit id to null, in exit edit mode
@@ -109,7 +110,8 @@ export default function NotePage(){
 
         //delete a note
         const deleteNote = async (id:string) => {
-            await deleteDoc(doc(db, "notes", id));
+            if(!userId) return;
+            await deleteDoc(doc(db, "users", userId, "notes", id));
         };
     //
 

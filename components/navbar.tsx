@@ -12,6 +12,7 @@ export default function NavBar(){
                     <Link href="/faqs">FAQ</Link>
                     <Link href="/resources">Resources</Link>
                     <Link href="/tracking">Tracks</Link>
+                    <Link href="/notes">Notes</Link>
                 </div>
             </div>
         </nav>

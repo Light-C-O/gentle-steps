@@ -4,7 +4,8 @@ import {auth, db} from "@/data/firebase";
 import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-    updateProfile
+    updateProfile,
+    onAuthStateChanged
 } from "firebase/auth";
 import {doc, setDoc, collection, getDocs} from "firebase/firestore";
 import { useRouter } from "next/navigation";
@@ -13,6 +14,8 @@ export default function AuthPage(){
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [pending]
+
     const router = useRouter();
 
     const handleAuth = async (e: React.SyntheticEvent) => {e.preventDefault();
@@ -25,6 +28,13 @@ export default function AuthPage(){
         //Tr logging in
         console.log('Attempting signIn with:', email, password);
         await signInWithEmailAndPassword(auth, email, password);
+        const user = auth.currentUser;
+
+        //force a token refesh
+        if(user) {
+            await getIdToken(user, true);
+        }
+
         //success
         router.push("/home");
         } catch (error: any) {
@@ -45,11 +55,14 @@ export default function AuthPage(){
 
                 const user = userCredential.user;
 
+                //force a token refresh before writing
+                await getIdToken(user, true);
+
                 //then add the user 
-                await updateProfile(user, { displayName: username});
+                await updateProfile(user!, { displayName: username});
 
                 //save user info in firebase
-                await setDoc(doc(db, "users", user.uid), {
+                await setDoc(doc(db, "users", user!.uid), {
                     username, 
                     email, 
                     createdAt:new Date(), 
