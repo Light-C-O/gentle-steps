@@ -67,6 +67,8 @@ export default function NotePage(){
     //CRUD
         //create new note
         const createNote = async () => {
+            console.log('Creating note with userId:', userId);
+            console.log('Current auth user UID:', auth.currentUser?.uid);
             //no, title, content or a user, do nothing
             if(!title || !content || !userId) return;
 
@@ -152,7 +154,7 @@ export default function NotePage(){
                         <h2 className="font-semibold text-lg">{note.title}</h2>
                         <p className="text-gray-600">{note.content}</p>
 
-                        <div>
+                        <div className="flex gap-2">
                             <Button onClick={()=>editNote(note)}>Edit</Button>
                             <Button onClick={()=>deleteNote(note.id)}>Delete</Button>
                         </div>
