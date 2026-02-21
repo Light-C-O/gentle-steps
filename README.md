@@ -60,3 +60,5 @@
   - Started the notes/page.tsx. At, I wanted to be a component like check-form, but decided against it, there was need for that since it is not a template.
   - I went make a full crud functionality on it. That way, the user can create, read, update and delete their notes. And also added an orderBy to sort it by the newest based on createdAt field.
   - I have now implemented the all the crud function, I'm now trying to display it on screen.
+  - I had to update firestore rules to make sure that the users can only create notes if there logged in. Users can only see, edit and delete their own notes. I used [request.resource], whichrepesents incoming data and it exists for creating and updating while [resource] means the document that is currently stored in Firestore, used for read, update and delete.
+  - I have completed the crud for the note.

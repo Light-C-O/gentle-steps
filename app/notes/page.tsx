@@ -1,7 +1,7 @@
 'use client';
 import {useState, useEffect} from "react";
 import { db, auth } from "@/data/firebase";
-import { collection, getDocs, doc, updateDoc, deleteDoc, addDoc, query, where, orderBy, onSnapshot, serverTimestamp} from "firebase/firestore";
+import { collection, doc, updateDoc, deleteDoc, addDoc, query, where, orderBy, onSnapshot, serverTimestamp} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 
 import NavBar from "@/components/navbar";
@@ -18,7 +18,7 @@ export default function NotePage(){
     //stores the loggied user, it can be a string or null
     const [userId, setUserId] = useState<string | null>(null);
     //store the notes in firestore, defiend as array
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState<Note[]>([]);
 
     //store the inputs, initallised as an empty string
     const [title, setTitle] = useState("");
@@ -71,12 +71,12 @@ export default function NotePage(){
             if(!title || !content || !userId) return;
 
             //add the new note in firestore collection called notes
-            await addDoc(db, "notes"), {
+            await addDoc(collection(db, "notes"), {
                 userId: userId, //link note to the user based on a id
                 title: title,
                 content: content,
                 createdAt: serverTimestamp(), //for sorting
-            }
+            })
 
             //the default form
             setTitle("");
@@ -112,7 +112,7 @@ export default function NotePage(){
     //
 
     //display this if not logged in
-    if(!user) return <p>Please log in to use notes! 📋</p>
+    if(!userId) return <p>Please log in to use notes! 📋</p>
 
     return(
         <main className="p-8 max-w-3xl mx-auto">
@@ -139,17 +139,25 @@ export default function NotePage(){
 
                 {/* for edit and update */}
                 {editingId ? (
-                <div onClick={()=> updateNote(editingId)}>
-                    <Button>
-                        Update Note
-                    </Button>
-                </div>
+                    <Button onClick={()=> updateNote(editingId)}>Update Note</Button>
                 ) : (
-                    <div onClick={createNote}>
-                        <Button>Update Note</Button>
+                    <Button onClick={createNote}>Create Note</Button>
+                )}
+            </div>
+            
+            {/* the note lists */}
+            <div className="space-y-4">
+                {notes.map((note)=>(
+                    <div key={note.id} className="p-4 border rounded-xl">
+                        <h2 className="font-semibold text-lg">{note.title}</h2>
+                        <p className="text-gray-600">{note.content}</p>
+
+                        <div>
+                            <Button onClick={()=>editNote(note)}>Edit</Button>
+                            <Button onClick={()=>deleteNote(note.id)}>Delete</Button>
+                        </div>
                     </div>
-                )
-            }
+                ))}
             </div>
         </main>
     )
