@@ -67,3 +67,9 @@
   - I having issues with the sign up, I have updated the rules in firestore to allow certain things to only users but I keep getting persmission errors. Hopefully, I will figure it out.
 - **Sunday 22nd Feb:**
   - I fixed a errors, I'm using the console to see where things are happening, for some reason I have to click twice to sign successfully. It seems like it take a while for firestore add the new user.
+  - Finally fixed the issue. I kept having error like "Missing or insufficient permissions" when creating a user. The first ttempt usually gave me "auth/invalid-credential" before on the secound attempt it works. The rules were tight, but I lossened it but still, the errors continued.
+  - I added pendingSignup which is used to track newly created users before Firestore writes. It ensures that Firrestore writes after auth state is confirmed.
+  - I also used onAuthStateChanged, it the write after Firebase Auth confirms that the user is logged in.
+  - Had to add getIdToken to force a token refresh, without it Firestore will see the user a first as unauthorized.
+  - How I improved this, is by error handling. It needs to check "auth/user-not-found" or "auth/invalid-credential". This was what prevent first-login errors from blocking Firestore writes and gave a clear separation between login and signup error in the alters.
+  - Now, signing in work fine, the users both get their own personal checklist and a note template.

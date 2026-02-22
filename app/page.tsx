@@ -52,7 +52,7 @@ export default function AuthPage(){
 
                 } catch (err) {
                     console.error("Error completing the signup:", err);
-                    alert("Failed, Pls try again");
+                    alert("Failed, Please try again");
                 }
             }
         });
@@ -68,13 +68,13 @@ export default function AuthPage(){
         }
         try {
         //Try logging in
-        console.log('Attempting signIn with:', email);
+        console.log('Attempting signIn with:', email, password);
         await signInWithEmailAndPassword(auth, email, password);
         router.push("/home");
         } catch (loginError: any) {
             console.log("Login failed, attempt signup:", loginError);
 
-            if(loginError.code === "auth/user-not-found"){
+            if(loginError.code === "auth/user-not-found" || loginError.code === "auth/invalid-credential"){
                 //sign up flow
                 if (!username){
                     alert("Please enter a username");
