@@ -65,3 +65,5 @@
   - I fixed the buttons to act based on the onClick:{}.
   - Made upades on my Firestore that restrict user from spefic things. For example: collections faqs, resources, reviews and tracks are for read only. While: collections notes, bookmarks, checklists user specific, user can read, write and delete.
   - I having issues with the sign up, I have updated the rules in firestore to allow certain things to only users but I keep getting persmission errors. Hopefully, I will figure it out.
+- **Sunday 22nd Feb:**
+  - I fixed a errors, I'm using the console to see where things are happening, for some reason I have to click twice to sign successfully. It seems like it take a while for firestore add the new user.

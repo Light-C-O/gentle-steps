@@ -1,5 +1,5 @@
 'use client';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {auth, db} from "@/data/firebase";
 import {
     signInWithEmailAndPassword,
@@ -14,78 +14,89 @@ export default function AuthPage(){
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [pending]
+    const [pendingSignup, setPendingSignup] = useState<{username: string, email:string} | null>(null);
 
     const router = useRouter();
 
-    const handleAuth = async (e: React.SyntheticEvent) => {e.preventDefault();
+
+    useEffect(() =>{
+        const unsubscribe = onAuthStateChanged(auth, async(user) => {
+            if(user && pendingSignup) {
+                try {
+                    //force token to refresh so fire rules pass
+                    await user.getIdToken(true);
+
+                    //update display name
+                    await updateProfile(user, {displayName: pendingSignup.username});
+
+                    //create user document
+                    await setDoc(doc(db, "users", user.uid), {
+                        username: pendingSignup.username,
+                        email:pendingSignup.email,
+                        createdAt: new Date(),
+                    });
+
+                    //copy the template to new user
+                    const templateSnapshot = await getDocs(collection(db, "checklistTemplates"));
+                    for(const templateDoc of templateSnapshot.docs){
+                        await setDoc(
+                            doc(db, "users", user.uid, "checklists", templateDoc.id), templateDoc.data()
+                        );
+                    }
+
+                    //clear pending signup
+                    setPendingSignup(null);
+
+                    //success, go to hompage
+                    router.push("/home");
+
+                } catch (err) {
+                    console.error("Error completing the signup:", err);
+                    alert("Failed, Pls try again");
+                }
+            }
+        });
+        return()=> unsubscribe();
+    },[pendingSignup, router]);
+
+    const handleAuth = async (e: React.SyntheticEvent) => {
+        e.preventDefault();
 
         if (!email || !password){
             alert("Please enter and password");
             return;
         }
         try {
-        //Tr logging in
-        console.log('Attempting signIn with:', email, password);
+        //Try logging in
+        console.log('Attempting signIn with:', email);
         await signInWithEmailAndPassword(auth, email, password);
-        const user = auth.currentUser;
-
-        //force a token refesh
-        if(user) {
-            await getIdToken(user, true);
-        }
-
-        //success
         router.push("/home");
-        } catch (error: any) {
-            if (error.code !== "auth/invalid-credential"){
-                console.error("Unexpected sign-in errror:", error);
-            }
-            if (
-                error.code === "auth/invalid-credential"
-            ) {
+        } catch (loginError: any) {
+            console.log("Login failed, attempt signup:", loginError);
+
+            if(loginError.code === "auth/user-not-found"){
+                //sign up flow
                 if (!username){
                     alert("Please enter a username");
                     return;
                 }
 
-                //then create an account
-                const userCredential = 
-                await createUserWithEmailAndPassword (auth, email, password);
-
-                const user = userCredential.user;
-
-                //force a token refresh before writing
-                await getIdToken(user, true);
-
-                //then add the user 
-                await updateProfile(user!, { displayName: username});
-
-                //save user info in firebase
-                await setDoc(doc(db, "users", user!.uid), {
-                    username, 
-                    email, 
-                    createdAt:new Date(), 
-                });
-
-                //copy the template to new user
-                const templateSnapshot = await getDocs(collection(db, "checklistTemplates"));
-
-                //Use Promise.all to wait for all setDoc promises
-                await Promise.all(templateSnapshot.docs.map(async (templateDoc) => {
-                        await setDoc(
-                            doc(db, "users", user.uid, "checklists", templateDoc.id),
-                            templateDoc.data()
-                        );
-                    })
-                );
-
-                router.push("/");
-
-                } else{
+                try {
+                    //then create an account
+                    await createUserWithEmailAndPassword (auth, email, password);
+                    //set a pending signup to trigger firestore writes in auth listener
+                    setPendingSignup({ username, email});
+                } catch(signupError) {
+                console.error("Sign up error:", signupError);
+                alert("Failed to create account. Please try again.");
+                }
+            } else {
+                console.error("Login error:", loginError);
                 alert("Incorrect password or login error.");
-                console.error(error);
             }
+
+
+
         }
     };
 
@@ -121,9 +132,8 @@ export default function AuthPage(){
                 <button className="bg-indigo-600 text-gray-100 p-2 rounded-lg">
                     Continue
                 </button>
-
             </form>
         </main>
     );
-};
+}
 
