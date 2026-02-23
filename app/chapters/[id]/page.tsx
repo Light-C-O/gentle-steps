@@ -1,8 +1,12 @@
 'use client';
 import { db } from "@/data/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import BookmarkButton from "@/components/bookmark-button";
+import {getAuth} from "firebase/auth";
+import {onAuthStateChanged} from "firebase/auth";
+import BookmarkPage from "@/app/bookmarks/page";
 
 // This is the page that shows the details of a chapter
 type Chapter = {
@@ -23,8 +27,54 @@ export default function ChapterDetails() {
     // Get the chapter id from the params and set its type as string
     const chapterId= params.id as string;
 
-    // the Chapter object is optional, null or not
+    // the Chapter object is optional, null or not, defualt value null
     const [chapterData, setChapterData] = useState <Chapter | null>(null);
+
+
+    //related to the bookmark, by default it is false
+    const [enabled, setEnabled] = useState(false);
+
+    //check the user
+    const auth = getAuth();
+
+    //what will happen when clicks the bookmark button
+    const handleBookmarkButtonClick = async (
+        sectionId:string,
+        sectionTitle: string,
+        content: string[] | string
+    ) => {
+        //get the user id 
+        const userId = auth.currentUser;
+        //if not the user id do nothing
+        if (!userId) return;
+
+        try{
+            //get the reference
+            const bookmarksRef = collection(db, "users", userId.uid, "bookmarks");
+
+            //create a new bookmark document in the subcollection called bookmarks
+            await addDoc(bookmarksRef, {
+                chapterId,
+                chapterTitle: chapterData?.title,
+                sectionId,
+                sectionTitle,
+                content,
+                createdAt: serverTimestamp(),
+            });
+
+            // if(enabled) {
+            //     setEnabled(false);
+            // } else {
+            //     setEnabled(true)
+            // }
+
+            //same thing^
+            setEnabled(!enabled);
+        } catch(error) {
+            //throw an error
+            console.error("Error saving bookmark:", error)
+        }
+    };
 
     // Only run this function if the chapter id changes
     useEffect(() => {
@@ -61,7 +111,6 @@ export default function ChapterDetails() {
 
     if(!chapterData) return;
 
-
     return (
         <div>
             <h1 className="text-3xl font-bold mb-6">{chapterData.title}</h1>
@@ -74,8 +123,14 @@ export default function ChapterDetails() {
                 chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order)
                 .map(([key, sectionMap]) => (
                     <div key={key} className="mb-4">
-                        <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
-
+                        <div className="flex justify-between">
+                            <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
+                            <BookmarkButton enabled={enabled} onClick={()=> handleBookmarkButtonClick(
+                                key,
+                                sectionMap.title,
+                                sectionMap.content
+                            )}/>
+                        </div>
                         {(() => {
                             const content = sectionMap.content;
 
@@ -93,6 +148,4 @@ export default function ChapterDetails() {
             }
         </div>
     );
-
-
 }

@@ -154,7 +154,6 @@ export default function NotePage(){
                 {notes.map((note)=>(
                     <div key={note.id} className="p-4 border rounded-xl">
                         <h2 className="font-semibold text-lg">{note.title}</h2>
-                        <p className="text-gray-600">{note.content}</p>
 
                         <div className="flex gap-2">
                             <Button onClick={()=>editNote(note)}>Edit</Button>

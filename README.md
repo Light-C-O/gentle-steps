@@ -73,3 +73,8 @@
   - Had to add getIdToken to force a token refresh, without it Firestore will see the user a first as unauthorized.
   - How I improved this, is by error handling. It needs to check "auth/user-not-found" or "auth/invalid-credential". This was what prevent first-login errors from blocking Firestore writes and gave a clear separation between login and signup error in the alters.
   - Now, signing in work fine, the users both get their own personal checklist and a note template.
+
+### WEEK 3
+- **Monday 23rd Feb:**
+  - I have added a bookmark button compoment, it is in the form of a boolean. I added svgs icon for fill and outline based on if it is on or off.
+  - I made a handler that does something based on the the click of the bookmark icon. It will look for a userid and if the user exists it will creat a bookmark doc them with at the necessary information. That is in the chapters/[id]/page.tsx. It's bookmarked by sections. I will move the the bookmarks.page.tsx in order to display any sections that has been bookmarked.
