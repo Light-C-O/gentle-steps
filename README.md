@@ -78,3 +78,5 @@
 - **Monday 23rd Feb:**
   - I have added a bookmark button compoment, it is in the form of a boolean. I added svgs icon for fill and outline based on if it is on or off.
   - I made a handler that does something based on the the click of the bookmark icon. It will look for a userid and if the user exists it will creat a bookmark doc them with at the necessary information. That is in the chapters/[id]/page.tsx. It's bookmarked by sections. I will move the the bookmarks.page.tsx in order to display any sections that has been bookmarked.
+  - I have now implemnted the the bookmarks/page.tsx. Everythign seems to be working well, I have granted access in the firestore rules in order to show true result. I also changed a few navigations. 
+  - There's a few issues that can be tackled later.

@@ -6,7 +6,7 @@ export default function HomePage() {
 
   //on click of the button go to another page
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <main className="flex p-8 max-w-3xl mx-auto min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <h1 className="text-4xl font-bold mb-6">
         Welcome to Gentle Steps
       </h1>

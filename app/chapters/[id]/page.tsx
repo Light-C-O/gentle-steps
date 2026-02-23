@@ -2,11 +2,10 @@
 import { db } from "@/data/firebase";
 import { doc, getDoc, deleteDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import BookmarkButton from "@/components/bookmark-button";
 import {getAuth} from "firebase/auth";
-import {onAuthStateChanged} from "firebase/auth";
-import BookmarkPage from "@/app/bookmarks/page";
+import Button from "@/components/button";
 
 // This is the page that shows the details of a chapter
 type Chapter = {
@@ -23,6 +22,7 @@ type Chapter = {
 
 
 export default function ChapterDetails() {
+    const router = useRouter()
     const params = useParams();
     // Get the chapter id from the params and set its type as string
     const chapterId= params.id as string;
@@ -44,13 +44,13 @@ export default function ChapterDetails() {
         content: string[] | string
     ) => {
         //get the user id 
-        const userId = auth.currentUser;
+        const user = auth.currentUser;
         //if not the user id do nothing
-        if (!userId) return;
+        if (!user) return;
 
         try{
             //get the reference
-            const bookmarksRef = collection(db, "users", userId.uid, "bookmarks");
+            const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
 
             //create a new bookmark document in the subcollection called bookmarks
             await addDoc(bookmarksRef, {
@@ -112,40 +112,41 @@ export default function ChapterDetails() {
     if(!chapterData) return;
 
     return (
-        <div>
+        <div className="p-8 max-w-3xl mx-auto">
             <h1 className="text-3xl font-bold mb-6">{chapterData.title}</h1>
             <p className="text-base font-light">{chapterData.summary}</p>
         
-            {/*loop throught the maped fields*/}
-            
-            {
-                //take all the section sort them based on order field
-                chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order)
-                .map(([key, sectionMap]) => (
-                    <div key={key} className="mb-4">
-                        <div className="flex justify-between">
-                            <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
-                            <BookmarkButton enabled={enabled} onClick={()=> handleBookmarkButtonClick(
-                                key,
-                                sectionMap.title,
-                                sectionMap.content
-                            )}/>
+                {/*loop throught the maped fields*/}
+                
+                {
+                    //take all the section sort them based on order field
+                    chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order)
+                    .map(([key, sectionMap]) => (
+                        <div key={key} className="mb-4">
+                            <div className="flex justify-between">
+                                <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
+                                <BookmarkButton enabled={enabled} onClick={()=> handleBookmarkButtonClick(
+                                    key,
+                                    sectionMap.title,
+                                    sectionMap.content
+                                )}/>
+                            </div>
+                            {(() => {
+                                const content = sectionMap.content;
+
+                                if(Array.isArray(content)){
+                                    return content.map((line, i) => <p key={i} className="mb-2">{line}</p>);
+                                } else if(typeof content === "string") { 
+                                    return <p>{content}</p>;
+                                } else {
+                                    return <p></p>;
+                                }
+                            })()}
                         </div>
-                        {(() => {
-                            const content = sectionMap.content;
+                    ))
+                }
 
-                            if(Array.isArray(content)){
-                                return content.map((line, i) => <p key={i} className="mb-2">{line}</p>);
-                            } else if(typeof content === "string") { 
-                                return <p>{content}</p>;
-                            } else {
-                                return <p></p>;
-                            }
-                        })()}
-
-                    </div>
-                ))
-            }
+            <Button onClick={() => router.push("/chapters")}>Back</Button>
         </div>
     );
 }

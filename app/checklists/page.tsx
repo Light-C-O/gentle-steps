@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 //Firebase auth listener to detect logged-in user
 import {onAuthStateChanged} from "firebase/auth";
 
-import Link from "next/link";
 import CheckForm from "@/components/check-form";
 import NavBar from "@/components/navbar";
 
+
 export default function CheckPage() {
+
 
     //local state to store all checklists for the logged in user
     const [checklists, setChecklists] = useState<any[]>([]);
@@ -94,7 +95,7 @@ export default function CheckPage() {
     
 
     return(
-        <main className="p-8">
+        <main className="p-8 max-w-3xl mx-auto">
             <div>
                 <NavBar/>
             </div>
@@ -136,11 +137,6 @@ export default function CheckPage() {
                     </div>
                 ))}
 
-            </div>
-            <div>
-                <Link href="/chapters" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
-                Go Back 
-                </Link> 
             </div>
         </main>
     )

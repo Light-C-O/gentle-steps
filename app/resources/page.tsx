@@ -15,7 +15,7 @@ export default async function ResourcePage() {
     }));
 
     return(
-        <main>
+        <main className="p-8 max-w-3xl mx-auto">
             <div><NavBar/></div>
             <h1 className="text-3xl font-bold mb-6">Resources</h1>
             {resources.map((resource:any) => (

@@ -16,7 +16,7 @@ export default async function ChapterPage() {
 }));
 
     return (
-    <main className="p-8">
+    <main className="p-8 max-w-3xl mx-auto">
         <div>
             <NavBar/>
         </div>
@@ -31,9 +31,6 @@ export default async function ChapterPage() {
             </div>
         </Link>
         ))}
-        <Link href="/" className="bg-amber-400 hover:bg-indigo-600 text-2xl text-gray-900 px-4 py-4 rounded-2xl">
-        Go Back 
-        </Link> 
     </main>
     );
 }

@@ -101,12 +101,12 @@ export default function AuthPage(){
     };
 
     return (
-        <main className="p-8">
+        <main className="p-8 max-w-3xl mx-auto">
             <h1 className="text-2xl mb-4">Login or Sign Up</h1>
 
             <form 
             onSubmit={handleAuth}
-            className="gap-4 max-w-md"
+            className="flex flex-col gap-4 max-w-md"
             >
                 <input 
                 type="text"

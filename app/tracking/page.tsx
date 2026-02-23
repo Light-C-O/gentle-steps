@@ -50,7 +50,7 @@ export default function TrackPage() {
     }, [emblaApi]);
     
     return (
-        <main className="p-8" >
+        <main className="p-8 max-w-3xl mx-auto">
             <div><NavBar/></div>
             <h1 className="text-3xl font-bold mb-6">Tracking Week by Week</h1>
                 <div ref={emblaRef} className="overflow-hidden">
