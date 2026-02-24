@@ -43,7 +43,7 @@ export default function BookmarksPage() {
             <h1 className="text-3xl font-bold mb-6">My Bookmarks</h1>
                 {/* a for each loop of the bookmarks docs */}
                 {bookmarks.map((bookmark) =>(
-                    <Link href={`/chapters/${bookmark.chapterId}#${bookmark.sectionId}`}key={bookmark.id}>
+                    <Link key={bookmark.id} href={`/chapters/${bookmark.chapterId}#${bookmark.sectionId}`}>
                         <div key={bookmark.id} className="mb-6 border p-4 rounded">
                             <h2>{bookmark.chapterTitle}</h2>
                             <h3>{bookmark.sectionTitle}</h3>

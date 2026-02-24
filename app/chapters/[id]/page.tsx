@@ -160,7 +160,7 @@ export default function ChapterDetails() {
         fetchChapter();
     }, [chapterId] )
 
-    //
+    //for bookmark
     useEffect(()=>{
         //get all the bookmarks sections fo a chapter
         const fetchBookmarkSections = async ()=>{
@@ -189,13 +189,32 @@ export default function ChapterDetails() {
         fetchBookmarkSections();
     },[chapterId] )
 
+    //to navigate the specific section
     useEffect(()=>{
-        
-    })
+        //if no data, do nothing
+        if(!chapterData)return;
+
+        //get the hash from the url (#section1)
+        const htag= window.location.hash;
+        if(!htag) return;
+
+        //if it exits
+        if(htag){
+            //remove it, and replace it so we get the section id
+            //and find the element with that id
+            const element = document.getElementById(htag.replace("#",""));
+            //if the element exists
+            if(element){
+                //scroll to it smoothly
+                element.scrollIntoView({behavior:"smooth"});
+            }
+        }
+    },[chapterData])
 
 
     if(!chapterData) return;
 
+    
     return (
         <div className="p-8 max-w-3xl mx-auto">
             <div className="flex justify-between">
@@ -208,14 +227,13 @@ export default function ChapterDetails() {
                 
                 {
                     //take all the section sort them based on order field
-                    chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (
+                    chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => {
+                        console.log("SECTION KEY:", key);
+                        return(
                         <div key={key} id={key} className="mb-4 scroll-smooth">
                             <div className="flex justify-between">
                                 <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
-                                <BookmarkButton enabled={bookmarkedSections.includes(key)} onClick={()=> handleBookmarkButtonClick(
-                                    key,
-                                    sectionMap.title,
-                                    sectionMap.content
+                                <BookmarkButton enabled={bookmarkedSections.includes(key)} onClick={()=> handleBookmarkButtonClick(key, sectionMap.title, sectionMap.content
                                 )}/>
                             </div>
                             {(() => {
@@ -230,7 +248,8 @@ export default function ChapterDetails() {
                                 }
                             })()}
                         </div>
-                    ))
+                        )
+                    })
                 }
 
             <Button onClick={() => router.push("/chapters")}>Back</Button>

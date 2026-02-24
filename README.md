@@ -4,16 +4,20 @@
 - **Monday - 9th Feb:**
   - Setting things up for implementation
   - Installed and added a database called Firebase
+
 - **Wednesday - 11th Feb:**
   - Installed PWA
+
 - **Thursday - 12th Feb:**
   - Imported the database to the repo, tested it and it works
   - Managed redirect between pages using Link tag with href of the route. The link tag is for navigation.
+
 - **Friday - 13th Feb:**
   - Created page.tsx files to display the information fron the databy pulling from the firebase using import { collection } data/firebase. The import{db} data/firebase is to connect to the database.
   - In order of the contents in the collections and documents, using querySnapshot is essential, you are telling Firebase to give you all the documents from collection.
   - I used map() for the Sections collection as it is an array. I could use a normal For loop, however map() returns me a new array list. And is what I want.
   - I now understand the concept of pulling information from the firebase sand displaying the info
+
 - **Saturday - 14th Feb:**
   - Changes naviations through removing the subcollection Selections and instead made it a maped field. This made things easier when it comes to accessing the data without making complex function. Instead, using loops and if statements, I was able to show display the informtion while still having control on what part should be displayed. I have completed the overall behaviour of the chapter page.
   - Added a new page in a folder called checklists, that will be route.
@@ -87,9 +91,12 @@
   - There's a few issues that can be tackled later.
 
 - **Tuesday 24th Feb:**
-  - Now, I was able toggle each section, before if the click on the bookmark icon all of them reacted, however in the firestore, what was clicked was what was stored. So, it is working in the backend of things.
-  - So, I racked it based on section id instead of a boolean. Made aquery that checks if the bookmarked exits or not, if it does - remove it, if it doesn't - add it. An it updates accordingly, this prevents any dupliactes.
+  - Now, I was able toggle each section, before if I click on the bookmark icon all of them reacted, however in the firestore, what was clicked was what was stored. So, it is working in the backend of things.
+  - So, I tracked it based on section id instead of a boolean. Made a query that checks if the bookmarked exits or not, if it does - remove it, if it doesn't - add it. An it updates accordingly, this prevents any dupliactes.
   - In the bookmark button component, instead of a general boolean, it is a boolean based on the section id, uses it as a key.
-  - I was also using the wrong sytanx, so that led to error as well.
-  - The summary of that is the problem is that it was a shared state (click on the bookmark of a section - all it filled instead of remain unfilled). Solved by stracking the section id instead.
-  - I implemented that a user can see all their bookmarks, when they click on a bookmark it takes them to the chapter. However, i want to make it more specific, I want it to scroll to actual the section in the chapter.
+  - I was also using the wrong syntax, so that led to error as well.
+  - The summary of is, the problem is that, it was a shared state (click on the bookmark of a section - all it filled instead of remain unfilled). Solved by stracking the section id instead.
+  - I implemented that a user can see all their bookmarks, when they click on a bookmark it takes them to the chapter. However, I want to make it more specific, I want it to scroll to actual the section in the chapter.
+  - I searched to find something but as it turns out, there's no exact definate way of doing it. Next.js App doesn't have something like that directly. However there was a commonality, and there was hash (#) symbol, it seems like it used to scoll to a specific id. For example if you have <div id="section">, the href it will be <Link `/somthing/somewhere#${section}`> and in the url it be /somthing/somewhere#section. In other words, it finds the element with this id and scroll to it. 
+  - The scroll wasn't working properly as first. The url was showing the right thing but no movement. As it turns out, in the useEffect, I was aiting for chapterId toad instead for chapterData. I made sure the hash in the URL and an if statement to get the element with that match id. I scroll smoothly behavoiur for to look seemless. Which leads toa better user experience.
+  - Now, clicking on a bookmark takes you to the chapter, and it scrolls to the section now.  
