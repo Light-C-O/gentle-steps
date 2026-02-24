@@ -1,11 +1,12 @@
 'use client';
 import { db } from "@/data/firebase";
-import { doc, getDoc, deleteDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, getDocs, query, where, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import BookmarkButton from "@/components/bookmark-button";
 import {getAuth} from "firebase/auth";
 import Button from "@/components/button";
+import Link from "next/link";
 
 // This is the page that shows the details of a chapter
 type Chapter = {
@@ -31,8 +32,8 @@ export default function ChapterDetails() {
     const [chapterData, setChapterData] = useState <Chapter | null>(null);
 
 
-    //related to the bookmark, by default it is false
-    const [enabled, setEnabled] = useState(false);
+    //related to the bookmark per section, by default it is an array, 
+    const [bookmarkedSections, setbookmarkedSections] = useState<string[]>([]);
 
     //check the user
     const auth = getAuth();
@@ -42,39 +43,89 @@ export default function ChapterDetails() {
         sectionId:string,
         sectionTitle: string,
         content: string[] | string
-    ) => {
-        //get the user id 
+    )=>{
+         //get the user id 
         const user = auth.currentUser;
         //if not the user id do nothing
-        if (!user) return;
+        if (!user || !chapterData) return;
 
-        try{
-            //get the reference
-            const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
+
+        //get the reference
+        const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
+
+        //first check if it has already been bookmarked or not
+        const q = query(bookmarksRef, 
+            where("chapterId", "==",chapterId), 
+            where("sectionId", "==", sectionId)
+            );
+
+        const snapshot = await getDocs(q);
+
+        //if not empty(has been bookmarked)
+        if(!snapshot.empty){
+            //delete it
+            const bookmarkId = snapshot.docs[0].id;
+            await deleteDoc(doc(db, "users", user.uid, "bookmarks", bookmarkId));
+
+            setbookmarkedSections(prev=>prev.filter(id => id !== sectionId));
+        }else{
+            //if empty (not bookmarked) - add it
 
             //create a new bookmark document in the subcollection called bookmarks
             await addDoc(bookmarksRef, {
                 chapterId,
-                chapterTitle: chapterData?.title,
+                chapterTitle: chapterData.title,
                 sectionId,
                 sectionTitle,
                 content,
                 createdAt: serverTimestamp(),
             });
 
-            // if(enabled) {
-            //     setEnabled(false);
-            // } else {
-            //     setEnabled(true)
-            // }
-
-            //same thing^
-            setEnabled(!enabled);
-        } catch(error) {
-            //throw an error
-            console.error("Error saving bookmark:", error)
+            setbookmarkedSections(prev=>[...prev,sectionId]);
         }
-    };
+    }
+
+    // const handleBookmarkButtonClick = async (
+    //     sectionId:string,
+    //     sectionTitle: string,
+    //     content: string[] | string
+    // ) => {
+    //     //get the user id 
+    //     const user = auth.currentUser;
+    //     //if not the user id do nothing
+    //     if (!user) return;
+
+    //     try{
+    //         //get the reference
+    //         const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
+
+    //         //create a new bookmark document in the subcollection called bookmarks
+    //         await addDoc(bookmarksRef, {
+    //             chapterId,
+    //             chapterTitle: chapterData?.title,
+    //             sectionId,
+    //             sectionTitle,
+    //             content,
+    //             createdAt: serverTimestamp(),
+    //         });
+
+    //         // if(enabled) {
+    //         //     setEnabled(false);
+    //         // } else {
+    //         //     setEnabled(true)
+    //         // }
+
+    //         //same thing^
+    //         setbookmarkedSections(!bookmarkedSections);
+    //     } catch(error) {
+    //         //throw an error
+    //         console.error("Error saving bookmark:", error)
+    //     }
+    // };
+
+
+
+
 
     // Only run this function if the chapter id changes
     useEffect(() => {
@@ -109,23 +160,59 @@ export default function ChapterDetails() {
         fetchChapter();
     }, [chapterId] )
 
+    //
+    useEffect(()=>{
+        //get all the bookmarks sections fo a chapter
+        const fetchBookmarkSections = async ()=>{
+            //get user
+            const user = auth.currentUser;
+
+            //if no user or a chapter id, do nothing
+            if(!user || !chapterId) return;
+
+            //reference of the docs for a user
+            const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
+
+            //ask for bookmark docs where this chapter id is the same in the docs
+            const q = query(bookmarksRef, where ("chapterId" ,"==", chapterId));
+
+            //get it
+            const snapshot = await getDocs(q);
+
+            //get ony the sectionId of the bookmark docs
+            const sectionIds = snapshot.docs.map(doc=>doc.data().sectionId);
+            
+            //save
+            setbookmarkedSections(sectionIds);
+        };
+
+        fetchBookmarkSections();
+    },[chapterId] )
+
+    useEffect(()=>{
+        
+    })
+
+
     if(!chapterData) return;
 
     return (
         <div className="p-8 max-w-3xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6">{chapterData.title}</h1>
+            <div className="flex justify-between">
+                <h1 className="text-3xl font-bold mb-6">{chapterData.title}</h1>
+                <Link href="/bookmarks" className="hover:underline underline-offset-2">View All Bookmarks</Link>
+            </div>
             <p className="text-base font-light">{chapterData.summary}</p>
         
                 {/*loop throught the maped fields*/}
                 
                 {
                     //take all the section sort them based on order field
-                    chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order)
-                    .map(([key, sectionMap]) => (
-                        <div key={key} className="mb-4">
+                    chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (
+                        <div key={key} id={key} className="mb-4 scroll-smooth">
                             <div className="flex justify-between">
                                 <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
-                                <BookmarkButton enabled={enabled} onClick={()=> handleBookmarkButtonClick(
+                                <BookmarkButton enabled={bookmarkedSections.includes(key)} onClick={()=> handleBookmarkButtonClick(
                                     key,
                                     sectionMap.title,
                                     sectionMap.content

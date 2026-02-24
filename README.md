@@ -33,11 +33,13 @@
   - I ran into commplettion, I wanted that user gets a temple an then ad thirs on top, however it is multi user yet. Meaning if someone changes it veryone had the same update. So, I must made auth/page.tsx.
   - I have now added a one page that has both login and sighn up.
   - I have now managed to created a user document anytime a new user user is created and they automatically get a copy of the checklist. And changed the route to make it more seemless. Added comments for more clearity.
+
 - **Tuesday 17th Feb:**
   - Modified the chapters page for the section to respond based on the order field added.
   - Started the tracking page. It was more of the same. import the data from the dtabase and display it. It shows up nicely. The basic functions are working, 
   - evetually I will adda carousel to show the week in a more presentable way.
   - Attempting to add a carousel using bootsrap, not sure if it is the right one to use.
+
 - **Thursday 19th Feb:**
   - In order for the carousel to working using bootstrap, I need to install react-boostrap. However, I'm not using bootstrap. I'm using Tailwind, and since what want more control when it comes customisation, It seems like react-flowbite is more suitable for that.
   - I installed flowbite, using this command [npm install flowbite-react] in the terminal. I throgh an report that dependencies has some vulnerbilities. I fixed that using npm audit fix --force in order to address all issues.
@@ -48,6 +50,7 @@
   - I made a faq page, it was relativlythe same, import the the collection, documents, and the detail and display them on screen. That went well with no issue. I make sure it works before I start with making it look good.
   - I have now moved the resource page and have completed it. Almost the same with faq - display, import the database, fecth the collection and docs, get the fields. An addition was that rescource had a url. I imported Link for that and added the url into the href, and inorder of the url to redirect to another tap, I used target="_blank". That way nstead for the link to replace the tab that currently in, it just opens a new tab.
   - Starting with the notes page, it will be similar to the checklists.
+
 - **Friday 20th Feb:**
   - I have added a navbar to make the navigation better, this one of the funtions mentioned and it is vital for user-reading experience.
   - Contiunated having issues with flowbite when it comes to the carousel in the tracking/page.tsx. THe problem is that all the slides werer displaying at once. And the buttons prev/next method were not working.
@@ -56,6 +59,7 @@
   - I now have two choices: Downgrade to Tailwind v3 or stay Tailwind v4 and swtch to mordern carousel. I choose option two - I will be using Embla Carousel instead of Flowbite Carousel. It is fully compatible with with Tailwind v4, lightweight with smooth aniamtions, no issues with plugins.
   - I have installed embla using this command in the terminal: npm install embla-carousel-react.
   - I attempted to call a method called goToNext, but it seems it doesn't have that. Instead it uses scrollNext(). The runtime error has disapeared, carousel works correctly and so does the navigation function.
+  
 - **Saturday 21st Feb:**
   - Started the notes/page.tsx. At, I wanted to be a component like check-form, but decided against it, there was need for that since it is not a template.
   - I went make a full crud functionality on it. That way, the user can create, read, update and delete their notes. And also added an orderBy to sort it by the newest based on createdAt field.
@@ -65,6 +69,7 @@
   - I fixed the buttons to act based on the onClick:{}.
   - Made upades on my Firestore that restrict user from spefic things. For example: collections faqs, resources, reviews and tracks are for read only. While: collections notes, bookmarks, checklists user specific, user can read, write and delete.
   - I having issues with the sign up, I have updated the rules in firestore to allow certain things to only users but I keep getting persmission errors. Hopefully, I will figure it out.
+
 - **Sunday 22nd Feb:**
   - I fixed a errors, I'm using the console to see where things are happening, for some reason I have to click twice to sign successfully. It seems like it take a while for firestore add the new user.
   - Finally fixed the issue. I kept having error like "Missing or insufficient permissions" when creating a user. The first ttempt usually gave me "auth/invalid-credential" before on the secound attempt it works. The rules were tight, but I lossened it but still, the errors continued.
@@ -80,3 +85,11 @@
   - I made a handler that does something based on the the click of the bookmark icon. It will look for a userid and if the user exists it will creat a bookmark doc them with at the necessary information. That is in the chapters/[id]/page.tsx. It's bookmarked by sections. I will move the the bookmarks.page.tsx in order to display any sections that has been bookmarked.
   - I have now implemnted the the bookmarks/page.tsx. Everythign seems to be working well, I have granted access in the firestore rules in order to show true result. I also changed a few navigations. 
   - There's a few issues that can be tackled later.
+
+- **Tuesday 24th Feb:**
+  - Now, I was able toggle each section, before if the click on the bookmark icon all of them reacted, however in the firestore, what was clicked was what was stored. So, it is working in the backend of things.
+  - So, I racked it based on section id instead of a boolean. Made aquery that checks if the bookmarked exits or not, if it does - remove it, if it doesn't - add it. An it updates accordingly, this prevents any dupliactes.
+  - In the bookmark button component, instead of a general boolean, it is a boolean based on the section id, uses it as a key.
+  - I was also using the wrong sytanx, so that led to error as well.
+  - The summary of that is the problem is that it was a shared state (click on the bookmark of a section - all it filled instead of remain unfilled). Solved by stracking the section id instead.
+  - I implemented that a user can see all their bookmarks, when they click on a bookmark it takes them to the chapter. However, i want to make it more specific, I want it to scroll to actual the section in the chapter.
