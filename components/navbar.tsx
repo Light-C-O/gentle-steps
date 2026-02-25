@@ -12,6 +12,7 @@ export default function NavBar(){
                     <Link href="/tracking">Tracking</Link>
                     <Link href="/checklists">Checklists</Link>
                     <Link href="/faqs">FAQ</Link>
+                    <Link href="/reviews">Review</Link>
                 </div>
             </div>
         </nav>

@@ -99,4 +99,7 @@
   - I implemented that a user can see all their bookmarks, when they click on a bookmark it takes them to the chapter. However, I want to make it more specific, I want it to scroll to actual the section in the chapter.
   - I searched to find something but as it turns out, there's no exact definate way of doing it. Next.js App doesn't have something like that directly. However there was a commonality, and there was hash (#) symbol, it seems like it used to scoll to a specific id. For example if you have <div id="section">, the href it will be <Link `/somthing/somewhere#${section}`> and in the url it be /somthing/somewhere#section. In other words, it finds the element with this id and scroll to it. 
   - The scroll wasn't working properly as first. The url was showing the right thing but no movement. As it turns out, in the useEffect, I was aiting for chapterId toad instead for chapterData. I made sure the hash in the URL and an if statement to get the element with that match id. I scroll smoothly behavoiur for to look seemless. Which leads toa better user experience.
-  - Now, clicking on a bookmark takes you to the chapter, and it scrolls to the section now.  
+  - Now, clicking on a bookmark takes you to the chapter, and it scrolls to the section now. 
+
+- **Wednesday 25th Feb:** 
+  - I have now implemented the Review collection. It was similar to the FAQ,it was a copy and paste, and changing the words. Updated the navbar component.
