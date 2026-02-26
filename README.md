@@ -113,3 +113,5 @@
   - Now, for the scoll, the carousel is confused, it already scrolling horizontally and now inside it, something scrolls vertically. So, we have to delay the scroll untill the chapterIds(an array of chapter ids) is loaded. Embla has to initialised before scrollToView begins.
   - Another thing I came across is, the bookmark but undos itself when you refresh. As it turns out, it also looks at auth.currentUser which is null. I make sure to use onAuthChange to track the userId. It didn't wor as first and that's because it doesn't know it no longer null, so I had to say that the userId is a string du to the fact I previously said that userId is null or string.
   - I have now changed the chapters into a carousel. Hopefully, it will make the progress possible.
+  - I'll start by making a component called progress-bar.
+  - I have started implementing.

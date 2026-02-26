@@ -1,6 +1,6 @@
 'use client';
 import { db } from "@/data/firebase";
-import { doc, getDoc, deleteDoc, getDocs, query, where, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, deleteDoc, getDocs, query, where, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import BookmarkButton from "@/components/bookmark-button";
@@ -103,40 +103,6 @@ export default function ChapterDetails() {
     ////same thing^
     //  setbookmarkedSection(!bookmarkedSections);
 
-
-    // Only run this function if the chapter id changes
-    // useEffect(() => {
-    //     const fetchChapter = async () => { 
-    //         if(!chapterId) return;
-
-    //         try{
-    //             // Fetch chapter
-    //             const docRef = doc(db, 'chapters', chapterId)
-    //             const querySnapshot = await getDoc(docRef);
-
-    //             // if it exists, set the data. This is to debug
-    //             if(querySnapshot.exists()) {
-    //                 const data = querySnapshot.data();
-    //                 //shows the document
-    //                 console.log("FULL DOCUMENT:");
-    //                 console.log(data);
-    //                 //shows the sections
-    //                 console.log("SECTIONS FIELD:");
-    //                 console.log(data.sections);
-    //                 setChapterData(data as Chapter)
-
-    //             } else {
-    //                 console.log('Chapter not found :(')
-    //             }
-
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-
-    //     fetchChapter();
-    // }, [chapterId] )
-
     //for authentication
     useEffect (()=>{
         const unsubscribe = onAuthStateChanged (auth, (user)=>{
@@ -178,39 +144,6 @@ export default function ChapterDetails() {
 
         fetchBookmarkSections();
     },[userId, chapterId] )
-
-    //to navigate the specific section
-    // useEffect(()=>{
-    //     // if (!emblaApi || chapterIds.length ===0) return;
-    //     const scrollToHash = () => {
-    //         //get the hash from the url (#section1)
-    //         const htag= window.location.hash;
-    //         if(!htag) return;
-
-    //         //and find the element with that id
-    //         const element = document.getElementById(htag.replace("#",""));
-            
-    //         //if the element exists
-    //         if(element){
-    //             //scroll to it smoothly
-    //             element.scrollIntoView({behavior:"smooth"});
-    //         }   
-    //     };
-
-    //     setTimeout(scrollToHash, 100);
-    //     //index is chapter id
-    //     const index = chapterIds.findIndex(c=>c.id === chapterId);
-
-    //     if(index !== -1){
-    //         emblaApi.scrollTo(index, true);
-    //         setTimeout(scrollToHash, 200);
-    //     }
-
-    //     //listen to hash changes when a user changes it in the url
-    //     window.addEventListener("hashchange", scrollToHash);
-
-    //     return ()=>window.removeEventListener("hashchange", scrollToHash);
-    // }, [chapterId])
 
     //create a carousel for each chapter
     useEffect (() => {
@@ -273,7 +206,6 @@ export default function ChapterDetails() {
         emblaApi?.scrollNext();
     }, [emblaApi]);
 
-    
     return (
         <div className="p-8 max-w-3xl mx-auto">
             <div className="flex justify-between">
