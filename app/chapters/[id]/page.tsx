@@ -8,6 +8,7 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 import Button from "@/components/button";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
+import ProgressBar from "@/components/progress-bar";
 
 // This is the page that shows the details of a chapter
 type Chapter = {
@@ -124,7 +125,7 @@ export default function ChapterDetails() {
             const user = auth.currentUser;
 
             //if no user or a chapter id, do nothing
-            if(!user || !chapterId) return;
+            if(!userId || !chapterId) return;
 
             //reference of the docs for a user
             const bookmarksRef = collection(db, "users", userId as string, "bookmarks");
@@ -184,12 +185,15 @@ export default function ChapterDetails() {
             }   
         };
 
+        //make sure the page has been rendered aka, turn the compoment in an actiual DOM element to see on browser
         setTimeout(scrollToHash, 100);
-        //index is chapter id
+        //find index of the chapter, if it matches chapter id
         const index = chapterIds.findIndex(c=>c.id === chapterId);
 
         if(index !== -1){
+            //scroll the Embla carousel to the correct chapter slide
             emblaApi.scrollTo(index, true);
+            // wait a bit for the carousel reposition and the section inside it is visible
             setTimeout(scrollToHash, 200);
         }
 
@@ -212,6 +216,7 @@ export default function ChapterDetails() {
                 <Link href="/chapters" className="hover:underline underline-offset-2">View All Chapters</Link>
                 <Link href="/bookmarks" className="hover:underline underline-offset-2">View All Bookmarks</Link>
             </div>
+            <div className="mt-6"><ProgressBar emblaApi={emblaApi} total={chapterIds.length}/></div>
             <div className="overflow-hidden mt-6" ref={emblaRef}>
                 <div className="flex">
                     {chapterIds.map((chapter)=>(
@@ -240,6 +245,7 @@ export default function ChapterDetails() {
                     ))}
                 </div>
             </div>
+            <div className="mt-6"><ProgressBar emblaApi={emblaApi} total={chapterIds.length}/></div>
             <div className="flex justify-between mt-6">
                 {/* prevous button */}
                 <Button onClick={goToPrev} >

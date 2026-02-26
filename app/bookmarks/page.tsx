@@ -23,7 +23,9 @@ export default function BookmarksPage() {
         //display anything that has been bookmarked (stored in the database)
         const fetchBookmark = async () => {
             const user = auth.currentUser;
-            if(!user) return;
+
+            //check user exists
+            if(!user?.uid) return;
 
             const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
             const snapshot = await getDocs(bookmarksRef);
@@ -47,16 +49,11 @@ export default function BookmarksPage() {
                         <div key={bookmark.id} className="mb-6 border p-4 rounded">
                             <h2>{bookmark.chapterTitle}</h2>
                             <h3>{bookmark.sectionTitle}</h3>
-
-                            {/* {Array.isArray(bookmark.content) ? 
-                            bookmark.content.map((line, i)=>(
-                                <p key={i}>{line}</p>
-                            )) :
-                                <p>{bookmark.content}</p>
-                            } */}
                         </div>
                     </Link>
                 ))}
+
+                <Link href={bookmarks.length > 0 ? `/chapters/${bookmarks[0].chapterId}` : '/'} className="text-blue-500">Back</Link>
         </div>
     )
 }
