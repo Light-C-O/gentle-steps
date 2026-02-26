@@ -1,12 +1,13 @@
 'use client';
 import { db } from "@/data/firebase";
 import { doc, getDoc, deleteDoc, getDocs, query, where, collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import { useParams } from "next/navigation";
 import BookmarkButton from "@/components/bookmark-button";
-import {getAuth} from "firebase/auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 import Button from "@/components/button";
 import Link from "next/link";
+import useEmblaCarousel from "embla-carousel-react";
 
 // This is the page that shows the details of a chapter
 type Chapter = {
@@ -23,13 +24,22 @@ type Chapter = {
 
 
 export default function ChapterDetails() {
-    const router = useRouter()
     const params = useParams();
+    //stores the loggied user, it can be a string or null
+    const [userId, setUserId] = useState<string | null>(null);
+
     // Get the chapter id from the params and set its type as string
     const chapterId= params.id as string;
 
     // the Chapter object is optional, null or not, defualt value null
-    const [chapterData, setChapterData] = useState <Chapter | null>(null);
+    // const [chapterData, setChapterData] = useState <Chapter | null>(null);
+
+
+    //for the carousel for each chapter
+    const[emblaRef, emblaApi] = useEmblaCarousel({loop:false});
+
+    //store it as array
+    const[chapterIds, setChapterIds] = useState<(Chapter &{id:string})[]>([]);
 
 
     //related to the bookmark per section, by default it is an array, 
@@ -39,15 +49,11 @@ export default function ChapterDetails() {
     const auth = getAuth();
 
     //what will happen when clicks the bookmark button
-    const handleBookmarkButtonClick = async (
-        sectionId:string,
-        sectionTitle: string,
-        content: string[] | string
-    )=>{
+    const handleBookmarkButtonClick = async (chapter:Chapter &{id:string}, sectionId:string, sectionTitle: string, content: string[] | string) => {
          //get the user id 
         const user = auth.currentUser;
         //if not the user id do nothing
-        if (!user || !chapterData) return;
+        if (!user) return;
 
 
         //get the reference
@@ -55,7 +61,7 @@ export default function ChapterDetails() {
 
         //first check if it has already been bookmarked or not
         const q = query(bookmarksRef, 
-            where("chapterId", "==",chapterId), 
+            where("chapterId", "==", chapter. id), 
             where("sectionId", "==", sectionId)
             );
 
@@ -67,98 +73,82 @@ export default function ChapterDetails() {
             const bookmarkId = snapshot.docs[0].id;
             await deleteDoc(doc(db, "users", user.uid, "bookmarks", bookmarkId));
 
-            setbookmarkedSections(prev=>prev.filter(id => id !== sectionId));
+            // update correctly using composite id
+            setbookmarkedSections(prev=>prev.filter(id => id !== `${chapter.id}-${sectionId}`));
         }else{
             //if empty (not bookmarked) - add it
 
             //create a new bookmark document in the subcollection called bookmarks
             await addDoc(bookmarksRef, {
-                chapterId,
-                chapterTitle: chapterData.title,
+                chapterId: chapter.id,
+                chapterTitle: chapter.title,
                 sectionId,
                 sectionTitle,
                 content,
                 createdAt: serverTimestamp(),
             });
 
-            setbookmarkedSections(prev=>[...prev,sectionId]);
+            //update using composite id
+            setbookmarkedSections(prev=>[...prev, `${chapter.id}-${sectionId}`],);
         }
     }
 
-    // const handleBookmarkButtonClick = async (
-    //     sectionId:string,
-    //     sectionTitle: string,
-    //     content: string[] | string
-    // ) => {
-    //     //get the user id 
-    //     const user = auth.currentUser;
-    //     //if not the user id do nothing
-    //     if (!user) return;
 
-    //     try{
-    //         //get the reference
-    //         const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
+    //if(enabled) {
+    //  setEnabled(false);
+    //} else {
+    //  setEnabled(true)
+    //          }
 
-    //         //create a new bookmark document in the subcollection called bookmarks
-    //         await addDoc(bookmarksRef, {
-    //             chapterId,
-    //             chapterTitle: chapterData?.title,
-    //             sectionId,
-    //             sectionTitle,
-    //             content,
-    //             createdAt: serverTimestamp(),
-    //         });
-
-    //         // if(enabled) {
-    //         //     setEnabled(false);
-    //         // } else {
-    //         //     setEnabled(true)
-    //         // }
-
-    //         //same thing^
-    //         setbookmarkedSections(!bookmarkedSections);
-    //     } catch(error) {
-    //         //throw an error
-    //         console.error("Error saving bookmark:", error)
-    //     }
-    // };
-
-
-
+    ////same thing^
+    //  setbookmarkedSection(!bookmarkedSections);
 
 
     // Only run this function if the chapter id changes
-    useEffect(() => {
-        const fetchChapter = async () => { 
-            if(!chapterId) return;
+    // useEffect(() => {
+    //     const fetchChapter = async () => { 
+    //         if(!chapterId) return;
 
-            try{
-                // Fetch chapter
-                const docRef = doc(db, 'chapters', chapterId)
-                const querySnapshot = await getDoc(docRef);
+    //         try{
+    //             // Fetch chapter
+    //             const docRef = doc(db, 'chapters', chapterId)
+    //             const querySnapshot = await getDoc(docRef);
 
-                // if it exists, set the data. This is to debug
-                if(querySnapshot.exists()) {
-                    const data = querySnapshot.data();
-                    //shows the document
-                    console.log("FULL DOCUMENT:");
-                    console.log(data);
-                    //shows the sections
-                    console.log("SECTIONS FIELD:");
-                    console.log(data.sections);
-                    setChapterData(data as Chapter)
+    //             // if it exists, set the data. This is to debug
+    //             if(querySnapshot.exists()) {
+    //                 const data = querySnapshot.data();
+    //                 //shows the document
+    //                 console.log("FULL DOCUMENT:");
+    //                 console.log(data);
+    //                 //shows the sections
+    //                 console.log("SECTIONS FIELD:");
+    //                 console.log(data.sections);
+    //                 setChapterData(data as Chapter)
 
-                } else {
-                    console.log('Chapter not found :(')
-                }
+    //             } else {
+    //                 console.log('Chapter not found :(')
+    //             }
 
-            } catch (error) {
-                console.error(error);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
+
+    //     fetchChapter();
+    // }, [chapterId] )
+
+    //for authentication
+    useEffect (()=>{
+        const unsubscribe = onAuthStateChanged (auth, (user)=>{
+            //checks the user
+            if(user) {
+                setUserId(user.uid);//if logged in save the user id
+            } else{
+                setUserId(null);//otherwise, clear it
             }
-        };
-
-        fetchChapter();
-    }, [chapterId] )
+        });
+        return ()=> unsubscribe();
+    },[auth])
 
     //for bookmark
     useEffect(()=>{
@@ -171,7 +161,7 @@ export default function ChapterDetails() {
             if(!user || !chapterId) return;
 
             //reference of the docs for a user
-            const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
+            const bookmarksRef = collection(db, "users", userId as string, "bookmarks");
 
             //ask for bookmark docs where this chapter id is the same in the docs
             const q = query(bookmarksRef, where ("chapterId" ,"==", chapterId));
@@ -180,79 +170,154 @@ export default function ChapterDetails() {
             const snapshot = await getDocs(q);
 
             //get ony the sectionId of the bookmark docs
-            const sectionIds = snapshot.docs.map(doc=>doc.data().sectionId);
+            const sectionIds = snapshot.docs.map(doc=>`${doc.data().chapterId}-${doc.data().sectionId}`);
             
             //save
             setbookmarkedSections(sectionIds);
         };
 
         fetchBookmarkSections();
-    },[chapterId] )
+    },[userId, chapterId] )
 
     //to navigate the specific section
+    // useEffect(()=>{
+    //     // if (!emblaApi || chapterIds.length ===0) return;
+    //     const scrollToHash = () => {
+    //         //get the hash from the url (#section1)
+    //         const htag= window.location.hash;
+    //         if(!htag) return;
+
+    //         //and find the element with that id
+    //         const element = document.getElementById(htag.replace("#",""));
+            
+    //         //if the element exists
+    //         if(element){
+    //             //scroll to it smoothly
+    //             element.scrollIntoView({behavior:"smooth"});
+    //         }   
+    //     };
+
+    //     setTimeout(scrollToHash, 100);
+    //     //index is chapter id
+    //     const index = chapterIds.findIndex(c=>c.id === chapterId);
+
+    //     if(index !== -1){
+    //         emblaApi.scrollTo(index, true);
+    //         setTimeout(scrollToHash, 200);
+    //     }
+
+    //     //listen to hash changes when a user changes it in the url
+    //     window.addEventListener("hashchange", scrollToHash);
+
+    //     return ()=>window.removeEventListener("hashchange", scrollToHash);
+    // }, [chapterId])
+
+    //create a carousel for each chapter
+    useEffect (() => {
+        //get the data from the collection called tracks
+        const fetchChapters = async () => {
+            const querySnapshot = await getDocs(collection(db, "chapters"));
+            //then converts them into objects
+            const data = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            })) as (Chapter & {id:string})[];
+
+            //sort the chapter sildes based on the order field from small to big
+            data.sort((a,b)=> a.order - b.order);
+            
+            setChapterIds(data);
+        };
+        fetchChapters();
+    }, []);
+
+    //handle chapter clicked, loads the scren with chapter chosen centered
+    //to navigate the specific section that is bookmarked
     useEffect(()=>{
-        //if no data, do nothing
-        if(!chapterData)return;
+        if (!emblaApi || chapterIds.length ===0) return;
 
-        //get the hash from the url (#section1)
-        const htag= window.location.hash;
-        if(!htag) return;
+        const scrollToHash = () => {
+            //get the hash from the url (#section1)
+            const htag= window.location.hash;
+            if(!htag) return;
 
-        //if it exits
-        if(htag){
-            //remove it, and replace it so we get the section id
             //and find the element with that id
             const element = document.getElementById(htag.replace("#",""));
+            
             //if the element exists
             if(element){
                 //scroll to it smoothly
                 element.scrollIntoView({behavior:"smooth"});
-            }
+            }   
+        };
+
+        setTimeout(scrollToHash, 100);
+        //index is chapter id
+        const index = chapterIds.findIndex(c=>c.id === chapterId);
+
+        if(index !== -1){
+            emblaApi.scrollTo(index, true);
+            setTimeout(scrollToHash, 200);
         }
-    },[chapterData])
 
+        //listen to hash changes when a user changes it in the url
+        window.addEventListener("hashchange", scrollToHash);
 
-    if(!chapterData) return;
+        return ()=>window.removeEventListener("hashchange", scrollToHash);
+    }, [emblaApi, chapterIds, chapterId])
+
+    const goToPrev = useCallback(() => {
+            emblaApi?.scrollPrev();
+    }, [emblaApi]);
+    const goToNext = useCallback(() => {
+        emblaApi?.scrollNext();
+    }, [emblaApi]);
 
     
     return (
         <div className="p-8 max-w-3xl mx-auto">
             <div className="flex justify-between">
-                <h1 className="text-3xl font-bold mb-6">{chapterData.title}</h1>
+                <Link href="/chapters" className="hover:underline underline-offset-2">View All Chapters</Link>
                 <Link href="/bookmarks" className="hover:underline underline-offset-2">View All Bookmarks</Link>
             </div>
-            <p className="text-base font-light">{chapterData.summary}</p>
-        
-                {/*loop throught the maped fields*/}
-                
-                {
-                    //take all the section sort them based on order field
-                    chapterData.sections && Object.entries(chapterData.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => {
-                        console.log("SECTION KEY:", key);
-                        return(
-                        <div key={key} id={key} className="mb-4 scroll-smooth">
-                            <div className="flex justify-between">
-                                <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
-                                <BookmarkButton enabled={bookmarkedSections.includes(key)} onClick={()=> handleBookmarkButtonClick(key, sectionMap.title, sectionMap.content
-                                )}/>
-                            </div>
-                            {(() => {
-                                const content = sectionMap.content;
+            <div className="overflow-hidden mt-6" ref={emblaRef}>
+                <div className="flex">
+                    {chapterIds.map((chapter)=>(
+                        <div key={chapter.id} className="min-w-full max-w-3xl mx-auto px-4">
+                            <h1 className="text-3xl font-bold mb-5">{chapter.title}</h1>
+                            <p className="mt-5 text-base font-light">{chapter.summary}</p>
+                        
+                            {/* loop throught the maped fields */}
+                               {/* //take all the section sort them based on order field */}
+                            {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-4 scroll-smooth">
+                                    <div className="flex justify-between">
+                                        <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
+                                        <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as Chapter & {id:string}, key, sectionMap.title, sectionMap.content
+                                        )}/>
+                                    </div>
 
-                                if(Array.isArray(content)){
-                                    return content.map((line, i) => <p key={i} className="mb-2">{line}</p>);
-                                } else if(typeof content === "string") { 
-                                    return <p>{content}</p>;
-                                } else {
-                                    return <p></p>;
-                                }
-                            })()}
+                                    {Array.isArray(sectionMap.content) 
+                                        ? sectionMap.content.map((line, i) => (
+                                            <p key={i} className="mb-2">{line}</p>
+                                        ))
+                                        : <p>{sectionMap.content}</p>
+                                    } 
+                                </div>
+                            ))}
                         </div>
-                        )
-                    })
-                }
-
-            <Button onClick={() => router.push("/chapters")}>Back</Button>
+                    ))}
+                </div>
+            </div>
+            <div className="flex justify-between mt-6">
+                {/* prevous button */}
+                <Button onClick={goToPrev} >
+                    Previous Chapter
+                </Button>
+                {/* next button */}
+                <Button onClick={goToNext} >
+                    Next Chapter
+                </Button>
+            </div>
         </div>
     );
 }
