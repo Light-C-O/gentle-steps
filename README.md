@@ -124,4 +124,4 @@
   - I'm changing the auth page to make more functional. I want username to be required only when creating a new account, not when logging in. That is working now. I removed a few bits that are not mandetory for example the excess error handling from before.
   - I have added a logout as well, to in sure better UX.
   - I will be added the auth page and home page together. I believe there is no need to make it seperate, espaecially for what I'll be doing. I have transfered everthing from the HomePage to the AuthPage. For now, I'll not delete in the HomePage yet. I want to make sure everything works before doing so permanently.
-  - I'm working on the visual asspect of things, I want it to look and feel like abook 
+  - I'm working on the visual aspect of things, I want it to look and feel like a book. I have centered the content. Added drop shadows to make it pop.
