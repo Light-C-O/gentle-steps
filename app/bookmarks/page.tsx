@@ -53,7 +53,7 @@ export default function BookmarksPage() {
                     </Link>
                 ))}
 
-                <Link href={bookmarks.length > 0 ? `/chapters/${bookmarks[0].chapterId}` : '/'} className="text-blue-500">Back</Link>
+                <Link href={"/chapters"} className="text-blue-500">View All Chapters</Link>
         </div>
     )
 }

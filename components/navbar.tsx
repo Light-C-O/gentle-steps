@@ -1,6 +1,22 @@
+'use client';
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { signOut } from "firebase/auth"
+import { auth } from "@/data/firebase"
 
 export default function NavBar(){
+    const router = useRouter();
+
+    //what happend when a use wants to log out
+    const handleLogout = async ()=> {
+        try{
+            await signOut(auth)
+            //go back to auth page - logs out
+            router.replace("/")     
+        } catch(error){
+            console.error("Logout issue:", error)
+        }
+    }
     return (
         
         <nav className="">
@@ -11,9 +27,10 @@ export default function NavBar(){
                     <Link href="/notes">My Notes</Link>
                     <Link href="/tracking">Tracking</Link>
                     <Link href="/checklists">Checklists</Link>
-                    <Link href="/faqs">FAQ</Link>
-                    <Link href="/reviews">Review</Link>
+                    <Link href="/faqs">FAQs</Link>
+                    <Link href="/reviews">Reviews</Link>
                 </div>
+                <button onClick={handleLogout} className="hover: underline underline-offset-2">Log Out</button>
             </div>
         </nav>
     )

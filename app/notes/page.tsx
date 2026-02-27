@@ -166,17 +166,14 @@ export default function NotePage(){
                 
                     {/* the note lists */}
                     <div className="space-y-4 flex-1">
-                        
                         {notes.map((note)=>(
                                 <div key={note.id} className="p-4 border rounded-xl">
-                                    <Link href={`/notes/${note.id}`} className="block">
-                                            <div className="flex justify-between">
-                                                <h2 className="font-semibold text-2xl">{note.title}</h2>
-                                                <p className="text-gray-500">
-                                                    {/* made it a date */}
-                                                    {note.createdAt?.toDate().toLocaleDateString()}</p>
-                                            </div>
-                                    </Link>
+                                    <div className="flex justify-between">
+                                        <h2 className="font-semibold text-2xl">{note.title}</h2>
+                                        <p className="text-gray-500">
+                                            {/* made it a date */}
+                                            {note.createdAt?.toDate().toLocaleDateString()}</p>
+                                    </div>
                                     
                                     <div className="flex gap-2">
                                         <Button onClick={()=>editNote(note)}>Edit</Button>
@@ -185,7 +182,6 @@ export default function NotePage(){
                                 </div>
                             
                         ))}
-                        
                     </div>
                 </div>
         </main>
