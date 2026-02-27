@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import {doc, setDoc, collection, getDocs} from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import notebg from "@/images/notebg.svg"
 
 export default function AuthPage(){
     const [username, setUsername] = useState("");
@@ -84,42 +85,45 @@ export default function AuthPage(){
     };
 
     return (
-        <main className="p-8 max-w-3xl mx-auto min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-            <h1 className="text-4xl font-bold mb-6">
-        Welcome to Gentle Steps</h1>
-            <h1 className="text-2xl mb-4">Login or Sign Up</h1>
+        <main className="relative flex flex-col justify-center max-w-3xl mt-10 mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
+            <img src="/book.svg" style={{position: "absolute", inset: 0, zIndex: 0, width: "95%", height: "79%", objectFit: "contain",}}  alt="Book background" />
+            <div style={{position: "relative", zIndex: 1, }} className="flex flex-col">
+                <h1 className="text-4xl font-bold mb-6">
+            Welcome to Gentle Steps</h1>
+                <h1 className="text-2xl mb-4">Login or Sign Up</h1>
 
-            <div className="max-w-2xl">
-                <form 
-                onSubmit={handleAuth}
-                className="flex flex-col gap-4"
-                >
-                    <input 
-                    type="text"
-                    placeholder="Username (for new users)"
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="border p-2"
-                    />
+                <div className="max-w-2xl">
+                    <form 
+                    onSubmit={handleAuth}
+                    className="flex flex-col gap-4"
+                    >
+                        <input 
+                        type="text"
+                        placeholder="Username (for new users)"
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="border p-2"
+                        />
 
-                    <input 
-                    type="email"
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border p-2"
-                    />
+                        <input 
+                        type="email"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="border p-2"
+                        />
 
-                    <input 
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="border p-2"
-                    />
+                        <input 
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="border p-2"
+                        />
 
-                    <button disabled={loading} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
-                        {/* if loading, button says prosesscing otherwise say continue */}
-                        {loading? "Processing...": "Open Book"}
-                    </button>
-                </form>
+                        <button disabled={loading} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
+                            {/* if loading, button says prosesscing otherwise say continue */}
+                            {loading? "Processing...": "Open Book"}
+                        </button>
+                    </form>
+                </div>
             </div>
         
         </main>
