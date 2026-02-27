@@ -125,3 +125,4 @@
   - I have added a logout as well, to in sure better UX.
   - I will be added the auth page and home page together. I believe there is no need to make it seperate, espaecially for what I'll be doing. I have transfered everthing from the HomePage to the AuthPage. For now, I'll not delete in the HomePage yet. I want to make sure everything works before doing so permanently.
   - I'm working on the visual aspect of things, I want it to look and feel like a book. I have centered the content. Added drop shadows to make it pop.
+  - I have fixed the majority of the login page. I have implemented a background on all the screens.

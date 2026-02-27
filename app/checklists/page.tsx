@@ -95,48 +95,51 @@ export default function CheckPage() {
     
 
     return(
-        <main className="p-8 max-w-3xl mx-auto">
-            <div>
-                <NavBar/>
-            </div>
-            <div className="mb-4">
-                <h1 className="text-3xl font-bold mb-6">Checklists</h1>
+        <main className="flex justify-center mx-auto font-sans min-h-screen drop-shadow-xl/50">
+            <div className="relative w-[90vw] max-w-3xl">
+                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                    <div><NavBar/></div>
+                    <div className="">
+                        <h1 className="text-3xl font-bold mb-6">Checklists</h1>
 
-                {checklists.map((checklist) => (
-                
-                    // loop through each checklist document
-                    <div key={checklist.id} className="mb-6 p-4 border rounded-xl">
-                        <h2 className="text-xl font-semibold">{checklist.title}</h2>
-                        <ul className="mt-3 space-y-2 mb-4">
-                            {
-                                checklist.items?.map((item: any, index: number) => (
-                                    <li 
-                                    key ={index} 
-                                    className="flex items-center gap-2">
-                                        <input 
-                                        type="checkbox" 
-                                        checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
-                                        <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info}</span>
-                                    </li>
-                                ))
-                            }
-
-                            <div>
-                                <h2 className="text-xl font-semibold">My List:</h2>
-                                <ul>
-                                    <CheckForm
-                                    checklistId={checklist.id}
-                                    onAdd= {(info)=> addItem(
-                                        checklist.id, info
-                                    )}
-                                    />
-                                </ul>
-                            </div>
-                        </ul>
+                        {checklists.map((checklist) => (
                         
-                    </div>
-                ))}
+                            // loop through each checklist document
+                            <div key={checklist.id} className="mb-6 p-4 border rounded-xl">
+                                <h2 className="text-xl font-semibold">{checklist.title}</h2>
+                                <ul className="mt-3 space-y-2 mb-4">
+                                    {
+                                        checklist.items?.map((item: any, index: number) => (
+                                            <li 
+                                            key ={index} 
+                                            className="flex items-center gap-2">
+                                                <input 
+                                                type="checkbox" 
+                                                checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
+                                                <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info}</span>
+                                            </li>
+                                        ))
+                                    }
 
+                                    <div>
+                                        <h2 className="text-xl font-semibold">My List:</h2>
+                                        <ul>
+                                            <CheckForm
+                                            checklistId={checklist.id}
+                                            onAdd= {(info)=> addItem(
+                                                checklist.id, info
+                                            )}
+                                            />
+                                        </ul>
+                                    </div>
+                                </ul>
+                                
+                            </div>
+                        ))}
+
+                    </div>
+                </div>
             </div>
         </main>
     )

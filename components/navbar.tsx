@@ -20,8 +20,11 @@ export default function NavBar(){
     return (
         
         <nav className="">
-            <header className="text-center">Table of contents</header>
-            <div className=" py-2  ">
+            <div className="flex justify-evenly my-10 text-center">
+                <div className="">Table of contents</div>
+                <button onClick={handleLogout} className="hover: underline underline-offset-2">Log Out</button>
+            </div>
+            <div className="py-2">
                 <div className="mx-auto flex justify-between">
                     <Link href="/chapters">Chapters</Link>
                     <Link href="/notes">My Notes</Link>
@@ -30,7 +33,7 @@ export default function NavBar(){
                     <Link href="/faqs">FAQs</Link>
                     <Link href="/reviews">Reviews</Link>
                 </div>
-                <button onClick={handleLogout} className="hover: underline underline-offset-2">Log Out</button>
+                
             </div>
         </nav>
     )

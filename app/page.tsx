@@ -85,47 +85,48 @@ export default function AuthPage(){
     };
 
     return (
-        <main className="relative flex flex-col items-center justify-center max-w-3xl mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
-            <img src="/book.svg" style={{position: "absolute", width: "95%", height: "79%", objectFit: "contain",}}  alt="Book background" />
-            <div style={{position: "relative" }} className="flex flex-col mx-auto">
-                <h1 className="text-4xl font-bold mb-6 text-center">
-            Welcome to Gentle Steps</h1>
-                <h1 className="text-2xl mb-4 text-center">Login or Sign Up</h1>
+        <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
+            <div className="relative w-[90vw] max-w-3xl aspect-3/4">
+                <img src="/book.svg" className="absolute inset-0 w-full h-full object-contain" alt="Book background" />
+                <div className="relative z-10 flex flex-col items-center justify-center h-full px-[8%]">
+                    <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center">
+                Welcome to Gentle Steps</h1>
+                    <h1 className="text-[clamp(16px,2.5vw,24px)] mb-4 text-center">Login or Sign Up</h1>
 
-                <div className="align-center">
-                    <form 
-                    onSubmit={handleAuth}
-                    className="flex flex-col gap-4"
-                    >
-                        <input 
-                        type="text"
-                        placeholder="Username (for new users)"
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="border p-2 w-full"
-                        />
+                    <div className="align-center">
+                        <form 
+                        onSubmit={handleAuth}
+                        className="flex flex-col gap-4 w-full"
+                        >
+                            <input 
+                            type="text"
+                            placeholder="Username (for new users)"
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="border rounded-lg p-2 w-full"
+                            />
 
-                        <input 
-                        type="email"
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="border p-2 w-full"
-                        />
+                            <input 
+                            type="email"
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="border rounded-lg p-2 w-full"
+                            />
 
-                        <input 
-                        type="password"
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="border p-2 w-full"
-                        />
+                            <input 
+                            type="password"
+                            placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="border rounded-lg p-2 w-full"
+                            />
 
-                        <button disabled={loading} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
-                            {/* if loading, button says prosesscing otherwise say continue */}
-                            {loading? "Processing...": "Open Book"}
-                        </button>
-                    </form>
+                            <button disabled={loading} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
+                                {/* if loading, button says prosessing otherwise say open book */}
+                                {loading? "Processing...": "Open Book"}
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        
         </main>
     );
 }

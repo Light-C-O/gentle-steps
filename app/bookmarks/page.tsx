@@ -41,19 +41,24 @@ export default function BookmarksPage() {
     },[]);
 
     return(
-        <div className="p-8 max-w-3xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6">My Bookmarks</h1>
-                {/* a for each loop of the bookmarks docs */}
-                {bookmarks.map((bookmark) =>(
-                    <Link key={bookmark.id} href={`/chapters/${bookmark.chapterId}#${bookmark.sectionId}`}>
-                        <div key={bookmark.id} className="mb-6 border p-4 rounded">
-                            <h2>{bookmark.chapterTitle}</h2>
-                            <h3>{bookmark.sectionTitle}</h3>
-                        </div>
-                    </Link>
-                ))}
+        <div className="flex justify-center mx-auto min-h-screen font-sans drop-shadow-xl/50">
+            <div className="relative w-[90vw] max-w-3xl">
+                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%] mt-2">
+                    <h1 className="text-3xl text-center font-bold mb-6">My Bookmarks</h1>
+                        {/* a for each loop of the bookmarks docs */}
+                        {bookmarks.map((bookmark) =>(
+                            <Link key={bookmark.id} href={`/chapters/${bookmark.chapterId}#${bookmark.sectionId}`}>
+                                <div key={bookmark.id} className="mb-6 border p-4 rounded">
+                                    <h2>{bookmark.chapterTitle}</h2>
+                                    <h3>{bookmark.sectionTitle}</h3>
+                                </div>
+                            </Link>
+                        ))}
 
-                <Link href={"/chapters"} className="text-blue-500">View All Chapters</Link>
+                        <Link href={"/chapters"} className="text-blue-500">View All Chapters</Link>
+                </div>
+            </div>
         </div>
     )
 }

@@ -16,21 +16,24 @@ export default async function ChapterPage() {
 }));
 
     return (
-    <main className="p-8 max-w-3xl mx-auto">
-        <div>
-            <NavBar/>
-        </div>
-        <h1 className="text-3xl font-bold mb-6">Chapters</h1>
+    <main className="flex justify-center mx-auto min-h-screen font-sans drop-shadow-xl/50">
+        <div className="relative w-[90vw] max-w-3xl">
+            <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+            <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                <div><NavBar/></div>
+                <h1 className="text-3xl font-bold mb-6">Chapters</h1>
 
 
-        {chapters.map((chapter: any) => (
-        <Link href={`/chapters/${chapter.id}`} key={chapter.id}>
-            <div key={chapter.id} className="mb-6 p-4 border rounded-xl">
-                <h2 className="text-xl font-semibold">{chapter.title}</h2>
-                <p className="text-gray-600">{chapter.summary}</p>
+                {chapters.map((chapter: any) => (
+                <Link href={`/chapters/${chapter.id}`} key={chapter.id}>
+                    <div key={chapter.id} className="mb-6 p-4 border rounded-xl">
+                        <h2 className="text-xl font-semibold">{chapter.title}</h2>
+                        <p className="text-gray-600">{chapter.summary}</p>
+                    </div>
+                </Link>
+                ))}
             </div>
-        </Link>
-        ))}
+        </div>
     </main>
     );
 }

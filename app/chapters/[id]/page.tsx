@@ -211,51 +211,56 @@ export default function ChapterDetails() {
     }, [emblaApi]);
 
     return (
-        <div className="p-8 max-w-3xl mx-auto">
-            <div className="flex justify-between">
-                <Link href="/chapters" className="hover:underline underline-offset-2">View All Chapters</Link>
-                <Link href="/bookmarks" className="hover:underline underline-offset-2">View All Bookmarks</Link>
-            </div>
-            <div className="mt-6"><ProgressBar emblaApi={emblaApi} total={chapterIds.length}/></div>
-            <div className="overflow-hidden mt-6" ref={emblaRef}>
-                <div className="flex">
-                    {chapterIds.map((chapter)=>(
-                        <div key={chapter.id} className="min-w-full max-w-3xl mx-auto px-4">
-                            <h1 className="text-3xl font-bold mb-5">{chapter.title}</h1>
-                            <p className="mt-5 text-base font-light">{chapter.summary}</p>
-                        
-                            {/* loop throught the maped fields */}
-                               {/* //take all the section sort them based on order field */}
-                            {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-4 scroll-smooth">
-                                    <div className="flex justify-between">
-                                        <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
-                                        <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as Chapter & {id:string}, key, sectionMap.title, sectionMap.content
-                                        )}/>
-                                    </div>
+        <main className="flex justify-center mx-auto font-sans min-h-screen drop-shadow-xl/50">
+            <div className="relative w-[90vw] max-w-3xl">
+                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                    <div className="flex justify-between mt-5">
+                        <Link href="/chapters" className="hover:underline underline-offset-2">View All Chapters</Link>
+                        <Link href="/bookmarks" className="hover:underline underline-offset-2">View All Bookmarks</Link>
+                    </div>
+                    <div className="mt-6"><ProgressBar emblaApi={emblaApi} total={chapterIds.length}/></div>
+                    <div className="overflow-hidden mt-6" ref={emblaRef}>
+                        <div className="flex">
+                            {chapterIds.map((chapter)=>(
+                                <div key={chapter.id} className="min-w-full max-w-3xl mx-auto px-4">
+                                    <h1 className="text-3xl font-bold mb-5">{chapter.title}</h1>
+                                    <p className="mt-5 text-base font-light">{chapter.summary}</p>
+                                
+                                    {/* loop throught the maped fields */}
+                                    {/* //take all the section sort them based on order field */}
+                                    {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-4 scroll-smooth">
+                                            <div className="flex justify-between">
+                                                <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
+                                                <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as Chapter & {id:string}, key, sectionMap.title, sectionMap.content
+                                                )}/>
+                                            </div>
 
-                                    {Array.isArray(sectionMap.content) 
-                                        ? sectionMap.content.map((line, i) => (
-                                            <p key={i} className="mb-2">{line}</p>
-                                        ))
-                                        : <p>{sectionMap.content}</p>
-                                    } 
+                                            {Array.isArray(sectionMap.content) 
+                                                ? sectionMap.content.map((line, i) => (
+                                                    <p key={i} className="mb-2">{line}</p>
+                                                ))
+                                                : <p>{sectionMap.content}</p>
+                                            } 
+                                        </div>
+                                    ))}
                                 </div>
                             ))}
                         </div>
-                    ))}
+                    </div>
+                    <div className="mt-6"><ProgressBar emblaApi={emblaApi} total={chapterIds.length}/></div>
+                    <div className="flex justify-between my-6">
+                        {/* prevous button */}
+                        <Button onClick={goToPrev} >
+                            Previous Chapter
+                        </Button>
+                        {/* next button */}
+                        <Button onClick={goToNext} >
+                            Next Chapter
+                        </Button>
+                    </div>
                 </div>
             </div>
-            <div className="mt-6"><ProgressBar emblaApi={emblaApi} total={chapterIds.length}/></div>
-            <div className="flex justify-between mt-6">
-                {/* prevous button */}
-                <Button onClick={goToPrev} >
-                    Previous Chapter
-                </Button>
-                {/* next button */}
-                <Button onClick={goToNext} >
-                    Next Chapter
-                </Button>
-            </div>
-        </div>
+        </main>
     );
 }

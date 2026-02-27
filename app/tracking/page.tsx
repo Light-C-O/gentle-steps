@@ -50,34 +50,39 @@ export default function TrackPage() {
     }, [emblaApi]);
     
     return (
-        <main className="p-8 max-w-3xl mx-auto">
-            <div><NavBar/></div>
-            <h1 className="text-3xl font-bold mb-6">Tracking Week by Week</h1>
-                <div ref={emblaRef} className="overflow-hidden">
-                        <div className="flex">
-                            {/* for each doc, create a silde in side the carousel*/}
-                            {tracks.map((track) => ( 
-                                <div key={track.id} className="min-w-full p-6">
-                                    <div className="p-6 border rounded-xl shadow-md">
-                                        <p className="text-gray-600">{track.week}</p>
-                                        <h2 className="text-xl font-semibold">{track.title}</h2>
-                                        <p className="text-gray-600">{track.sizeComp}</p>
-                                        <p className="text-gray-600">{track.development}</p>
-                                    </div>
+        <main className="flex justify-center mx-auto font-sans min-h-screen drop-shadow-xl/50">
+            <div className="relative w-[90vw] max-w-3xl aspect-3/4">
+                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+                    <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                        <div><NavBar/></div>
+                        <h1 className="text-3xl font-bold mb-6">Tracking Week by Week</h1>
+                        <div ref={emblaRef} className="overflow-hidden">
+                                <div className="flex">
+                                    {/* for each doc, create a silde in side the carousel*/}
+                                    {tracks.map((track) => ( 
+                                        <div key={track.id} className="min-w-full p-6">
+                                            <div className="p-6 border rounded-xl shadow-md">
+                                                <p className="text-gray-600">{track.week}</p>
+                                                <h2 className="text-xl font-semibold">{track.title}</h2>
+                                                <p className="text-gray-600">{track.sizeComp}</p>
+                                                <p className="text-gray-600">{track.development}</p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                                <div className="flex gap-4 mt-6">
+                                    {/* prevous button */}
+                                    <button onClick={goToPrev} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                                        Previous Week
+                                    </button>
+                                    {/* next button */}
+                                    <button onClick={goToNext} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                                        Next Week
+                                    </button>
+                                </div>
                         </div>
-                        <div className="flex gap-4 mt-6">
-                            {/* prevous button */}
-                            <button onClick={goToPrev} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
-                                Previous Week
-                            </button>
-                            {/* next button */}
-                            <button onClick={goToNext} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
-                                Next Week
-                            </button>
-                        </div>
-                </div>
+                    </div>
+            </div>
         </main>
     );
 }

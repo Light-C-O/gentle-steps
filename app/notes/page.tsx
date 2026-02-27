@@ -127,63 +127,69 @@ export default function NotePage(){
     if(!userId) return <p>Please log in to use notes! 📋</p>
 
     return(
-        <main className="p-8 max-w-3xl mx-auto">
-            <div><NavBar/></div>
-            <h1 className="text-3xl font-bold mb-6">My Notes</h1>
-                <div className="flex gap-5">
-                    {/* note form */}
-                    <div className="flex-1 flex flex-col gap-3 mb-8 border p-4 rounded-xl">
-                        {/* title */}
-                        <input 
-                        type="text"
-                        placeholder="Add Title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="border p-2 rounded"
-                        />
+        <main className="flex justify-center mx-auto min-h-screen font-sans drop-shadow-xl/50">
+            <div className="relative w-[90vw] max-w-4xl aspect-3/4">
+                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                    <div><NavBar/></div>
+                    <h1 className="text-3xl font-bold mb-6">My Notes</h1>
+                    <div className="flex flex-col md:flex-row gap-5 ">
+                        {/* note form */}
+                        <form className="flex-1 flex flex-col gap-3 mb-8 border p-4 rounded-xl">
+                            {/* title */}
+                            <input 
+                            type="text"
+                            placeholder="Add Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="border p-2 rounded"
+                            />
 
-                        {/* content */}
-                        <textarea 
-                        placeholder="What is on your mind..." 
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        className="border p-2" 
-                        cols={50}
-                        rows={40}
-                        ></textarea>
+                            {/* content */}
+                            <textarea 
+                            placeholder="What is on your mind..." 
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            className="border p-2 overflow-auto" 
+                            cols={40}
+                            rows={30}
+                            ></textarea>
 
-                        {/* for edit, cancel and update */}
-                        {editingId ? (
-                            <div className="flex place-content-between">
-                            <Button onClick={()=> updateNote(editingId)}>Update Note</Button>
-                            <Button onClick={resetNote}>Cancel</Button>
-                            </div>
-
-                        ) : (
-                            <Button onClick={createNote}>Create Note</Button>
-                        )}
-                    </div>
-                
-                    {/* the note lists */}
-                    <div className="space-y-4 flex-1">
-                        {notes.map((note)=>(
-                                <div key={note.id} className="p-4 border rounded-xl">
-                                    <div className="flex justify-between">
-                                        <h2 className="font-semibold text-2xl">{note.title}</h2>
-                                        <p className="text-gray-500">
-                                            {/* made it a date */}
-                                            {note.createdAt?.toDate().toLocaleDateString()}</p>
-                                    </div>
-                                    
-                                    <div className="flex gap-2">
-                                        <Button onClick={()=>editNote(note)}>Edit</Button>
-                                        <Button onClick={()=>deleteNote(note.id)}>Delete</Button>
-                                    </div>
+                            {/* for edit, cancel and update */}
+                            {editingId ? (
+                                <div className="flex place-content-between">
+                                <Button onClick={()=> updateNote(editingId)}>Update Note</Button>
+                                <Button onClick={resetNote}>Cancel</Button>
                                 </div>
-                            
-                        ))}
+
+                            ) : (
+                                <Button onClick={createNote}>Create Note</Button>
+                            )}
+                        </form>
+                    
+                        {/* the note lists */}
+                        <div className="space-y-4 flex-1">
+                            {notes.map((note)=>(
+                                    <div key={note.id} className="p-4 border rounded-xl">
+                                        <div className="flex justify-between">
+                                            <h2 className="font-semibold text-2xl">{note.title}</h2>
+                                            <p className="text-gray-500">
+                                                {/* made it a date */}
+                                                {note.createdAt?.toDate().toLocaleDateString()}</p>
+                                        </div>
+                                        
+                                        <div className="flex gap-2">
+                                            <Button onClick={()=>editNote(note)}>Edit</Button>
+                                            <Button onClick={()=>deleteNote(note.id)}>Delete</Button>
+                                        </div>
+                                    </div>
+                                
+                            ))}
+                        </div>
                     </div>
                 </div>
+
+            </div>
         </main>
     )
 }
