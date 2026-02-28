@@ -41,9 +41,9 @@ export default function BookmarksPage() {
     },[]);
 
     return(
-        <div className="flex justify-center mx-auto min-h-screen font-sans drop-shadow-xl/50">
-            <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+        <div className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
+            <div className="relative w-[90vw] max-w-3xl aspect-3/4">
+                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] mt-2">
                     <h1 className="text-3xl text-center font-bold mb-6">My Bookmarks</h1>
                         {/* a for each loop of the bookmarks docs */}

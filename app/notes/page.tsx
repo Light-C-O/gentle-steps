@@ -127,9 +127,9 @@ export default function NotePage(){
     if(!userId) return <p>Please log in to use notes! 📋</p>
 
     return(
-        <main className="flex justify-center mx-auto min-h-screen font-sans drop-shadow-xl/50">
-            <div className="relative w-[90vw] max-w-4xl aspect-3/4">
-                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+        <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
+            <div className="relative w-[90vw] max-w-4xl">
+                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%]">
                     <div><NavBar/></div>
                     <h1 className="text-3xl font-bold mb-6">My Notes</h1>

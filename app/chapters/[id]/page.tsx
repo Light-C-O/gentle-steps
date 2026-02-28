@@ -211,9 +211,9 @@ export default function ChapterDetails() {
     }, [emblaApi]);
 
     return (
-        <main className="flex justify-center mx-auto font-sans min-h-screen drop-shadow-xl/50">
+        <main className="flex justify-center mx-auto font-sans min-h-auto drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
+                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover"/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%]">
                     <div className="flex justify-between mt-5">
                         <Link href="/chapters" className="hover:underline underline-offset-2">View All Chapters</Link>

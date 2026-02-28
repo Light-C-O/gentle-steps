@@ -87,7 +87,7 @@ export default function AuthPage(){
     return (
         <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
             <div className="relative w-[90vw] max-w-3xl aspect-3/4">
-                <img src="/book.svg" className="absolute inset-0 w-full h-full object-contain" alt="Book background" />
+                <img src="/book2.svg" className="absolute inset-0 w-full h-full object-contain" alt="Book background" />
                 <div className="relative z-10 flex flex-col items-center justify-center h-full px-[8%]">
                     <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center">
                 Welcome to Gentle Steps</h1>
