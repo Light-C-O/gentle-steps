@@ -123,7 +123,7 @@ export default function NotePage(){
     };
 
     //display this if not logged in
-    if(!userId) return <p>Please log in to use notes! 📋</p>
+    if(!userId) return <p className="text-bold text-2xl text-center">Please log in to use notes! 📋</p>
 
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
@@ -132,7 +132,7 @@ export default function NotePage(){
                 <div className="relative z-10 items-center justify-center h-full px-[8%]">
                     <div><NavBar/></div>
                     <h1 className="text-3xl font-bold mb-6">My Notes</h1>
-                    <div className="flex flex-col md:flex-row gap-5 ">
+                    <div className="flex flex-col sm:flex-col md:flex-row   gap-5 ">
                         {/* note form */}
                         <form className="flex-1 flex flex-col gap-3 mb-8 border p-4 rounded-xl">
                             {/* title */}

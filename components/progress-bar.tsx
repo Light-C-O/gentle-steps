@@ -37,8 +37,8 @@ export default function ProgressBar({emblaApi, total} : ProgressProps) {
         
     },[emblaApi, total])
     return (
-        <div className="w-full h-2 bg-gray-200 rounded">
-            <div className="h-full bg-blue-500 transition-all duration-300"
+        <div className="w-full h-3 shadow-[inset_-12px_-8px_40px_#46464620] rounded-lg">
+            <div className="h-full bg-yellow-700/50 transition-all duration-300 rounded-lg"
             //the width is controlled by progress state 
             style={{width:`${progress}%`}}></div>
         </div>

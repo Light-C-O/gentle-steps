@@ -6,7 +6,7 @@ type BookmarkButtonProps ={
 export default function BookmarkButton({enabled, onClick} : BookmarkButtonProps) {
 
 
-    return <button onClick={onClick}>
+    return <button className="hover:shadow-[inset_-12px_-8px_40px_#46464620] rounded-2xl" onClick={onClick}>
         {/* if enabled, show the filled icon otherwhise show unfilled */}
         {enabled ? <EnabledBookmarkIcon/> : <DisabledBookmarkIcon/>}
     </button>

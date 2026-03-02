@@ -139,3 +139,4 @@
   - Created models called Checklist and ChecklistItem, simliar in notes.page.tsx and previous others. This mad thigns easier and I could remove all `any` types to eniusre type safety.
   - For some reason `...doc.data()` was deemed unsafe, so I had to plainly map the Firestore docmuent data instead of using the the spread operator.
   - Now, there is a CRUD operation system for checklist.
+  - Making visual changes on the layouts
