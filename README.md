@@ -129,3 +129,13 @@
   
 - **Saturday 28th Feb:**
   - Added a few visual aspects. Margin, svg, etc.
+
+### WEEK 4
+- **Monday 2nd Mar:**
+  - I'm modifying the checklists/page.tsx. I want the user to be able to also edit and delete an item, currently that are only able to add an item. So, a full CRUD functionality. All changes should update immediatly
+  - I used deleteDoc which led to the deletetion of a checklist document. The solution is to use upadteDoc becuase I'm updating the doc when an item is deleted, so it would make modifcation on the item array instead.
+  - I also used the wrong state when it comes to editing. Initially, it wasn't tracking the checklist item that was being edited. So I added new states for editing an item using editingChecklistId, editingIndex, editingValue.
+  - I added a fallback using (`checklist.items?? []`) in case some may not have an items array.
+  - Created models called Checklist and ChecklistItem, simliar in notes.page.tsx and previous others. This mad thigns easier and I could remove all `any` types to eniusre type safety.
+  - For some reason `...doc.data()` was deemed unsafe, so I had to plainly map the Firestore docmuent data instead of using the the spread operator.
+  - Now, there is a CRUD operation system for checklist.

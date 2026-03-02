@@ -6,7 +6,6 @@ import {onAuthStateChanged} from "firebase/auth";
 
 import NavBar from "@/components/navbar";
 import Button from "@/components/button";
-import Link from "next/link";
 
 type Note = {
     id: string;
@@ -161,7 +160,6 @@ export default function NotePage(){
                                 <Button onClick={()=> updateNote(editingId)}>Update Note</Button>
                                 <Button onClick={resetNote}>Cancel</Button>
                                 </div>
-
                             ) : (
                                 <Button onClick={createNote}>Create Note</Button>
                             )}
@@ -170,25 +168,23 @@ export default function NotePage(){
                         {/* the note lists */}
                         <div className="space-y-4 flex-1">
                             {notes.map((note)=>(
-                                    <div key={note.id} className="p-4 border rounded-xl">
-                                        <div className="flex justify-between">
-                                            <h2 className="font-semibold text-2xl">{note.title}</h2>
-                                            <p className="text-gray-500">
-                                                {/* made it a date */}
-                                                {note.createdAt?.toDate().toLocaleDateString()}</p>
-                                        </div>
-                                        
-                                        <div className="flex gap-2">
-                                            <Button onClick={()=>editNote(note)}>Edit</Button>
-                                            <Button onClick={()=>deleteNote(note.id)}>Delete</Button>
-                                        </div>
+                                <div key={note.id} className="p-4 border rounded-xl">
+                                    <div className="flex justify-between">
+                                        <h2 className="font-semibold text-2xl">{note.title}</h2>
+                                        <p className="text-gray-500">
+                                            {/* made it a date */}
+                                            {note.createdAt?.toDate().toLocaleDateString()}</p>
                                     </div>
-                                
+                                    
+                                    <div className="flex gap-2">
+                                        <Button onClick={()=>editNote(note)}>Edit</Button>
+                                        <Button onClick={()=>deleteNote(note.id)}>Delete</Button>
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     )

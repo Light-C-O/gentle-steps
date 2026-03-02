@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import {doc, setDoc, collection, getDocs} from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import notebg from "@/images/notebg.svg"
 
 export default function AuthPage(){
     const [username, setUsername] = useState("");
