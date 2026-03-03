@@ -87,8 +87,13 @@
             }catch(error:any){
                 if(error.code === "auth/requires-recent-login"){
                     alert("Please log out and log back in before changing email your email");
+                } else if(error.code === "auth/invalid-email"){
+                    alert("The email entered is invalid")
+                } else if(error.code === "auth/email-already-in-use"){
+                    alert("The email is already in use")
                 } else{
-                    alert("Something went wrong")
+                    console.error(error)
+                alert("Something went wrong")
                 }
             }
         };

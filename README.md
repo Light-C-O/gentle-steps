@@ -147,3 +147,4 @@
   - Back to profile, I want the user to manage the profile, and for it to update in firestore. I had collection instead of doc for a single document. The snapshot data structure was incorrect. The User type didn't realy make sense. 
   - I had fix that as well as added error handling using try/catch, especially for email, password and deleting account, those information are sensitive and ahould be handled with care.
   - Now, username and description updates properly
+  - I tried updating the email, however, I get the error auth/operation-not-allowed. That is because Firebase doesn't allow this to happen for the current user. I even added more error handling in attempt to cover as much base as possible, but that still didn't fix. The email/password had already been enabled. And I checked the password and it updated well, only the email is failing so far. 
