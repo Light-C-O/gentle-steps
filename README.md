@@ -140,3 +140,6 @@
   - For some reason `...doc.data()` was deemed unsafe, so I had to plainly map the Firestore docmuent data instead of using the the spread operator.
   - Now, there is a CRUD operation system for checklist.
   - Making visual changes on the layouts
+
+- **Tuesday 3rd Mar:**
+  -I'll be attempting a profile section, It is important for the user to have the option to be able to change their username, email and even password. They can also write a small description about themselves, and if they want to delete their account all together, they should have that option. Their privacy is their right.

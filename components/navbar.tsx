@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signOut } from "firebase/auth"
 import { auth } from "@/data/firebase"
-import button from "@/components/button"
+import Button from "@/components/button"
 
 export default function NavBar(){
     const router = useRouter();
@@ -21,9 +21,11 @@ export default function NavBar(){
     return (
         
         <nav className="">
-            <div className="flex justify-evenly my-10 text-center items-center">
-                <div className="">Table of contents</div>
-                <button onClick={handleLogout} className="hover: underline underline-offset-2">Log Out</button>
+            <div className="flex justify-between my-10 text-center items-center">
+                <Link className="hover:underline underline-offset-2" href="/profile">View Profile</Link>
+                <div className="font-bold uppercase">Table of contents</div>
+                <Button onClick={handleLogout}>Log Out</Button>
+
             </div>
             <div className="py-2">
                 <div className="mx-auto flex justify-between">

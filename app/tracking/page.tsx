@@ -1,9 +1,12 @@
 'use client';
 import { db } from "@/data/firebase";
+
 import { collection, getDocs } from "firebase/firestore";
+
 import {useCallback, useEffect, useState} from "react";
 
 import  useEmblaCarousel from "embla-carousel-react";
+
 import NavBar from "@/components/navbar";
 
 //the track collection structure/blue print
