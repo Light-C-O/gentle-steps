@@ -22,8 +22,7 @@ export default function AuthPage(){
 
     const handleLogin = async ()=>{
         if (!email || !password){
-            alert("Please enter email and password");
-            setLoading(false);
+            alert("Please enter email or password");
             return;
         }
 
@@ -46,8 +45,8 @@ export default function AuthPage(){
             return;
         }
 
-        if (!email || password){
-            alert("Please enter a email and paswwor");
+        if (!email || !password){
+            alert("Please enter a email and pasword");
             return;
         }
 
@@ -94,9 +93,7 @@ export default function AuthPage(){
                     <h1 className="text-[clamp(16px,2.5vw,24px)] mb-4 text-center">Login or Sign Up</h1>
 
                     <div className="align-center">
-                        <form 
-                        onSubmit={handleLogin || handleSignup}
-                        className="flex flex-col gap-4 w-full"
+                        <form className="flex flex-col gap-4 w-full"
                         >
                             <input 
                             type="text"
@@ -120,14 +117,14 @@ export default function AuthPage(){
                             />
 
                             <div className="flex items-center justify-between">
-                                <button disabled={loading} onClick={handleSignup}  className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
+                                <button type="button" disabled={loading} onClick={handleSignup}  className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
                                     {/* if loading, button says prosessing otherwise say open book */}
                                     {loading? "Processing...": "Welcome"}
                                 </button>
-
-                                <button disabled={loading} onClick={handleLogin} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
+                                <div>OR</div>
+                                <button type="button" disabled={loading} onClick={handleLogin} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
                                     {/* if loading, button says prosessing otherwise say open book */}
-                                    {loading? "Processing...": "Welcome Back"}
+                                    {loading? "Opening...": "Welcome Back"}
                                 </button>
                             </div>
                         </form>

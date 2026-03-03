@@ -143,4 +143,7 @@
 
 - **Tuesday 3rd Mar:**
   - I'll be attempting a profile section, It is important for the user to have the option to be able to change their username, email and even password. They can also write a small description about themselves, and if they want to delete their account all together, they should have that option. Their privacy is their right.
-  - I noticed something strange with my login/sign up page. When a user forgets a their email, it ends up creatig a new account for them instead. I think it make sense to create two handelers; one for login and one for sign in
+  - I noticed something strange with my login/sign up page. When a user forgets a their email, it ends up creatig a new account for them instead. I think it make sense to create two handelers; one for login and one for sign in. Had to separate the logic.
+  - Back to profile, I want the user to manage the profile, and for it to update in firestore. I had collection instead of doc for a single document. The snapshot data structure was incorrect. The User type didn't realy make sense. 
+  - I had fix that as well as added error handling using try/catch, especially for email, password and deleting account, those information are sensitive and ahould be handled with care.
+  - Now, username and description updates properly
