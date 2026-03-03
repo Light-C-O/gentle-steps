@@ -142,4 +142,5 @@
   - Making visual changes on the layouts
 
 - **Tuesday 3rd Mar:**
-  -I'll be attempting a profile section, It is important for the user to have the option to be able to change their username, email and even password. They can also write a small description about themselves, and if they want to delete their account all together, they should have that option. Their privacy is their right.
+  - I'll be attempting a profile section, It is important for the user to have the option to be able to change their username, email and even password. They can also write a small description about themselves, and if they want to delete their account all together, they should have that option. Their privacy is their right.
+  - I noticed something strange with my login/sign up page. When a user forgets a their email, it ends up creatig a new account for them instead. I think it make sense to create two handelers; one for login and one for sign in

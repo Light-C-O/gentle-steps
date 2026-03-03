@@ -21,13 +21,13 @@ export default function NavBar(){
     return (
         
         <nav className="">
-            <div className="flex justify-between my-10 text-center items-center">
+            <div className="flex justify-between mt-10 mb-2 text-center items-center pb-5 border-b-2 border-amber-300">
                 <Link className="hover:underline underline-offset-2" href="/profile">View Profile</Link>
                 <div className="font-bold uppercase">Table of contents</div>
-                <Button onClick={handleLogout}>Log Out</Button>
+                <button className="hover:underline underline-offset-2" onClick={handleLogout}>Log Out</button>
 
             </div>
-            <div className="py-2">
+            <div className="mb-10 border-t-2 border-amber-300 pt-5">
                 <div className="mx-auto flex justify-between">
                     <Link href="/chapters">Chapters</Link>
                     <Link href="/notes">My Notes</Link>
@@ -36,7 +36,6 @@ export default function NavBar(){
                     <Link href="/faqs">FAQs</Link>
                     <Link href="/reviews">Reviews</Link>
                 </div>
-                
             </div>
         </nav>
     )

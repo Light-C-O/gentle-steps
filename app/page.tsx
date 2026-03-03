@@ -20,11 +20,7 @@ export default function AuthPage(){
 
     const router = useRouter();
 
-    const handleAuth = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        setLoading(true);
-            
-
+    const handleLogin = async ()=>{
         if (!email || !password){
             alert("Please enter email and password");
             setLoading(false);
@@ -32,56 +28,61 @@ export default function AuthPage(){
         }
 
         try {
-        //Try logging in
-        console.log('Attempting signIn with:', email, password);
-        await signInWithEmailAndPassword(auth, email, password);
-        router.push("/chapters");
+            setLoading(true)
+            //Try logging in
+            await signInWithEmailAndPassword(auth, email, password);
+            router.push("/chapters");
         } catch (loginError: any) {
-            console.log("Login failed, attempt signup:", loginError);
-
-            //create only if a user doesn't exist
-            if (loginError.code === "auth/user-not-found"){
-                //avoid any white space
-                if (!username.trim()){
-                    alert("Please enter a username");
-                    setLoading(false);
-                    return;
-                }
-
-                try{
-                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                    const user = userCredential.user;
-
-                    //display name
-                    await updateProfile(user, { displayName: username });
-
-                    //create a user
-                    await setDoc(doc(db, "users", user.uid), {
-                    username: username.trim(),
-                    email: email.trim(),
-                    createdAt: new Date(),
-                    });
-
-                    //copy the template to new user 
-                    const templateSnapshot = await getDocs(collection(db, "checklistTemplates")); 
-                    for(const templateDoc of templateSnapshot.docs){
-                        await setDoc( doc(db, "users", user.uid, "checklists", templateDoc.id), templateDoc.data() );
-                    }
-                    //success
-                    router.push("/chapters");
-
-                } catch (error) {
-                    console.error("Sign up error:", error);
-                    alert("Failed to create account. Please try again.");
-                    setLoading(false);
-                }
-
-            } else {
-                alert("Incorrect password");
-                setLoading(false);
-            }
-        }   
+            console.log("Login failed, attempt login:", loginError);
+        } finally{
+            setLoading(false)
+        }
     };
+
+    const handleSignup = async () => {
+        //avoid any white space
+        if (!username.trim()){
+            alert("Please enter a username");
+            return;
+        }
+
+        if (!email || password){
+            alert("Please enter a email and paswwor");
+            return;
+        }
+
+        try{
+            setLoading(true);
+
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            //display name
+            await updateProfile(user, { displayName: username });
+
+            //create a user
+            await setDoc(doc(db, "users", user.uid), {
+            username: username.trim(),
+            description: "",
+            email: email.trim(),
+            createdAt: new Date(),
+            });
+
+            //copy the template to new user 
+            const templateSnapshot = await getDocs(collection(db, "checklistTemplates")); 
+            for(const templateDoc of templateSnapshot.docs){
+                await setDoc( doc(db, "users", user.uid, "checklists", templateDoc.id), templateDoc.data() );
+            }
+            //success
+            router.push("/chapters");
+        } catch (error: any) {
+            console.error(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
+
 
     return (
         <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
@@ -94,7 +95,7 @@ export default function AuthPage(){
 
                     <div className="align-center">
                         <form 
-                        onSubmit={handleAuth}
+                        onSubmit={handleLogin || handleSignup}
                         className="flex flex-col gap-4 w-full"
                         >
                             <input 
@@ -118,10 +119,17 @@ export default function AuthPage(){
                             className="border rounded-lg p-2 w-full"
                             />
 
-                            <button disabled={loading} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
-                                {/* if loading, button says prosessing otherwise say open book */}
-                                {loading? "Processing...": "Open Book"}
-                            </button>
+                            <div className="flex items-center justify-between">
+                                <button disabled={loading} onClick={handleSignup}  className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
+                                    {/* if loading, button says prosessing otherwise say open book */}
+                                    {loading? "Processing...": "Welcome"}
+                                </button>
+
+                                <button disabled={loading} onClick={handleLogin} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
+                                    {/* if loading, button says prosessing otherwise say open book */}
+                                    {loading? "Processing...": "Welcome Back"}
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
