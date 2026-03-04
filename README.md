@@ -148,3 +148,5 @@
   - I had fix that as well as added error handling using try/catch, especially for email, password and deleting account, those information are sensitive and ahould be handled with care.
   - Now, username and description updates properly
   - I tried updating the email, however, I get the error auth/operation-not-allowed. That is because Firebase doesn't allow this to happen for the current user. I even added more error handling in attempt to cover as much base as possible, but that still didn't fix. The email/password had already been enabled. And I checked the password and it updated well, only the email is failing so far. 
+  - I figured out issue now related to email update. Firebase requred that user to first verify the new email before they can update it. This is all about security reasons. Firebase expects me to send a verfication email to the new email to relpace the old one.
+  -So, I created another handler to handle email verifications, it was alomst the same to the update email handler, the biggest difference is that first sends a verfication email and wait for the user to verfiy before any changes can be made.
