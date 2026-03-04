@@ -2,7 +2,7 @@
     import { db, auth} from "@/data/firebase";
 
     import {doc, updateDoc, onSnapshot, deleteDoc} from "firebase/firestore";
-    import {onAuthStateChanged, updateEmail, updatePassword, deleteUser, verifyBeforeUpdateEmail} from "firebase/auth";
+    import {onAuthStateChanged, updatePassword, deleteUser, verifyBeforeUpdateEmail, sendEmailVerification, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
 
     import {useEffect, useState} from "react";
 
@@ -72,14 +72,17 @@
 
         //related to the email once a user logs back in
         useEffect(()=>{
-            if(!auth.currentUser || !userId) return;
+            if(!auth.currentUser || !userId || !userInfo) return;
 
-            if(auth.currentUser.email !==email){
-                updateDoc(doc(db, "users", userId),{
-                    email: auth.currentUser.email
-                });
+            const currentAuthEmail = auth.currentUser.email;
+            const firestoreEmail = userInfo.email;
+
+            if(currentAuthEmail && currentAuthEmail !== firestoreEmail){
+                updateDoc(doc(db, "users", userId),{email: currentAuthEmail})
+                .then (()=> setEmail(currentAuthEmail))//update local
+                .catch((error)=>console.error("Failed to update email in firestore:", error))
             }
-        })
+        }, [userId, userInfo?.email])
 
 
         const handleUpdateProfile = async ()=>{
@@ -93,51 +96,44 @@
             if (!auth.currentUser || !userId) return;
 
             try{
+                //prompt for password
+                const password = prompt("Please enter your current password to confirm:")
+                if(!password) return;
+
+                //check if password matches
+                const credential = EmailAuthProvider.credential(
+                    auth.currentUser.email!, password
+                );
+
+                await reauthenticateWithCredential(auth.currentUser, credential);
+
+                //check to see 
+                console.log("Current email:", auth.currentUser?.email);
+                console.log("Is verified:", auth.currentUser?.emailVerified);
                 //send a verification email to the new email
                 await verifyBeforeUpdateEmail(auth.currentUser, email);
-
+                
                 //inform the user
-                alert("A verification email has been sent. Please verify your new email");
+                alert("A verification email has been sent to new email. Please click the link to verify your new email.\n Your record will be updated once you log in again with the new email");
+
+                //update after user click the verification link. 
             }catch(error:any){
+                console.error("full error:", error)
+                console.error("reauthentication failed:", error)
                 if(error.code === "auth/requires-recent-login"){
                     alert("Please log out and log back in before changing email your email");
                 } else if(error.code === "auth/invalid-email"){
                     alert("The email entered is invalid")
                 } else if(error.code === "auth/email-already-in-use"){
                     alert("The email is already in use")
-                } else{
+                } else if(error.code === "auth/wrong-password"){
+                    alert("Wrong password")
+                }else{
                     console.error(error)
                 alert("Something went wrong")
                 }
             }
         };
-
-        // const handleConfirmEmail = async ()=>{
-        //     if (!auth.currentUser || !userId) return;
-
-        //     try{
-        //         if(auth.currentUser.emailVerified){
-        //             await updateEmail(auth.currentUser, email);
-
-        //             //update the email in firebase
-        //             await updateDoc (doc(db, "users", userId),{email});
-        //             alert("Email updated!");
-        //         } else {
-        //             alert("Please verify your new email before upadating");
-        //         }
-        //     }catch(error:any){
-        //         if(error.code === "auth/requires-recent-login"){
-        //             alert("Please log out and log back in before changing your email");
-        //         } else if(error.code === "auth/invalid-email"){
-        //             alert("The email entered is invalid")
-        //         } else if(error.code === "auth/email-already-in-use"){
-        //             alert("The email is already in use")
-        //         } else{
-        //             console.error(error)
-        //         alert("Something went wrong")
-        //         }
-        //     }
-        // };
 
         const handleUpdatePassword = async ()=>{
             if (!auth.currentUser || password.length <6) {
@@ -213,7 +209,7 @@
                                 <div>
                                     <div className="grid">
                                         <label>Email</label>
-                                        <small className="text-red-500 font-mono">A verification will be sent to the new email to update</small>
+                                        <small className="text-red-500 font-mono">A verification will be sent to the current email to update</small>
                                     </div>
                                     <input 
                                     type="email"
@@ -222,6 +218,7 @@
                                     className="border p-2 w-full"/>
                                 </div>
                                 <Button onClick={handleUpdateEmail}>Update Email</Button>
+                                
 
                                 {/* Password */}
                                 <div>
