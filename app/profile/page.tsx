@@ -2,7 +2,7 @@
     import { db, auth} from "@/data/firebase";
 
     import {doc, updateDoc, onSnapshot, deleteDoc} from "firebase/firestore";
-    import {onAuthStateChanged, updateEmail, updatePassword, deleteUser, sendEmailVerification} from "firebase/auth";
+    import {onAuthStateChanged, updateEmail, updatePassword, deleteUser, verifyBeforeUpdateEmail} from "firebase/auth";
 
     import {useEffect, useState} from "react";
 
@@ -44,6 +44,7 @@
             return ()=> unsubscribe();
         },[])
 
+        //get the user
         useEffect(()=>{
             if(!userId) return;
 
@@ -69,6 +70,18 @@
             return()=> unsubscribe();
         }, [userId]);
 
+        //related to the email once a user logs back in
+        useEffect(()=>{
+            if(!auth.currentUser || !userId) return;
+
+            if(auth.currentUser.email !==email){
+                updateDoc(doc(db, "users", userId),{
+                    email: auth.currentUser.email
+                });
+            }
+        })
+
+
         const handleUpdateProfile = async ()=>{
             if (!userId) return;
 
@@ -81,7 +94,7 @@
 
             try{
                 //send a verification email to the new email
-                await sendEmailVerification(auth.currentUser);
+                await verifyBeforeUpdateEmail(auth.currentUser, email);
 
                 //inform the user
                 alert("A verification email has been sent. Please verify your new email");
@@ -99,32 +112,32 @@
             }
         };
 
-        const handleConfirmEmail = async ()=>{
-            if (!auth.currentUser || !userId) return;
+        // const handleConfirmEmail = async ()=>{
+        //     if (!auth.currentUser || !userId) return;
 
-            try{
-                if(auth.currentUser.emailVerified){
-                    await updateEmail(auth.currentUser, email);
+        //     try{
+        //         if(auth.currentUser.emailVerified){
+        //             await updateEmail(auth.currentUser, email);
 
-                    //update the email in firebase
-                    await updateDoc (doc(db, "users", userId),{email});
-                    alert("Email updated!");
-                } else {
-                    alert("Please verify your new email before upadating");
-                }
-            }catch(error:any){
-                if(error.code === "auth/requires-recent-login"){
-                    alert("Please log out and log back in before changing your email");
-                } else if(error.code === "auth/invalid-email"){
-                    alert("The email entered is invalid")
-                } else if(error.code === "auth/email-already-in-use"){
-                    alert("The email is already in use")
-                } else{
-                    console.error(error)
-                alert("Something went wrong")
-                }
-            }
-        };
+        //             //update the email in firebase
+        //             await updateDoc (doc(db, "users", userId),{email});
+        //             alert("Email updated!");
+        //         } else {
+        //             alert("Please verify your new email before upadating");
+        //         }
+        //     }catch(error:any){
+        //         if(error.code === "auth/requires-recent-login"){
+        //             alert("Please log out and log back in before changing your email");
+        //         } else if(error.code === "auth/invalid-email"){
+        //             alert("The email entered is invalid")
+        //         } else if(error.code === "auth/email-already-in-use"){
+        //             alert("The email is already in use")
+        //         } else{
+        //             console.error(error)
+        //         alert("Something went wrong")
+        //         }
+        //     }
+        // };
 
         const handleUpdatePassword = async ()=>{
             if (!auth.currentUser || password.length <6) {
@@ -159,8 +172,6 @@
                 alert("Something went wrong");
             }
         };
-
-
 
         return(
             <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
@@ -210,11 +221,7 @@
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="border p-2 w-full"/>
                                 </div>
-                                <div className="flex justify-evenly">
-                                    <Button onClick={handleUpdateEmail}>Send Verification</Button>
-                                    <Button onClick={handleConfirmEmail}>Confirm Email Update</Button>
-                                </div>
-                                
+                                <Button onClick={handleUpdateEmail}>Update Email</Button>
 
                                 {/* Password */}
                                 <div>
