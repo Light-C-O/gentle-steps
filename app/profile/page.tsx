@@ -1,8 +1,8 @@
     'use client';
     import { db, auth} from "@/data/firebase";
 
-    import {doc, updateDoc, onSnapshot, deleteDoc} from "firebase/firestore";
-    import {onAuthStateChanged, updatePassword, deleteUser, verifyBeforeUpdateEmail, sendEmailVerification, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
+    import {collection, doc, getDocs, updateDoc, onSnapshot, deleteDoc} from "firebase/firestore";
+    import {onAuthStateChanged, updatePassword, deleteUser, verifyBeforeUpdateEmail, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
 
     import {useEffect, useState} from "react";
 
@@ -85,6 +85,7 @@
         }, [userId, userInfo?.email])
 
 
+        //fir username and description
         const handleUpdateProfile = async ()=>{
             if (!userId) return;
 
@@ -92,6 +93,7 @@
             alert("Username or Description updated!");
         };
 
+        //update an email
         const handleUpdateEmail = async ()=>{
             if (!auth.currentUser || !userId) return;
 
@@ -135,6 +137,7 @@
             }
         };
 
+        //changing password
         const handleUpdatePassword = async ()=>{
             if (!auth.currentUser || password.length <6) {
                 alert("Password must be 6 characters long");
@@ -157,15 +160,48 @@
             if(!confirmDelete) return;
 
             try {
+                //delete first the subcollections
+                    //notes
+                    const notesRef = collection(db, "users", userId, "notes");
+                    const notesSnap = await getDocs(notesRef);
+
+                    for (const docSnap of notesSnap.docs) {
+                        await deleteDoc(docSnap.ref);
+                    }
+
+                    //bookmarks
+                    const bookmarksRef = collection(db, "users", userId, "bookmarks");
+                    const bookmarksSnap = await getDocs(bookmarksRef);
+
+                    for (const docSnap of bookmarksSnap.docs) {
+                        await deleteDoc(docSnap.ref);
+                    }
+
+                    //checklists
+                    const checklistsRef = collection(db, "users", userId, "checklists");
+                    const checklistsSnap = await getDocs(checklistsRef);
+
+                    for (const docSnap of checklistsSnap.docs) {
+                        await deleteDoc(docSnap.ref);
+                    }
+
+                //then delete the fields related to the user 
+                await deleteDoc(doc(db, "users", userId));
+
+                // and then delete the user - the order of deletion matters
                 await deleteUser(auth.currentUser);
 
-                //delete the doc
-                await deleteDoc(doc(db, "users", userId));
+                
 
                 router.push("/");
                 alert("Account deleted!");
-            }catch(error:any){
-                alert("Something went wrong");
+            }catch(error:any){//if any error, catch it
+                if(error.code === "auth/requires-recent-login"){
+                    alert("Session ended. Please log out and log back in before deleting the account");
+                } else{
+                    console.log(error)
+                    alert("Something went wrong");
+                }
             }
         };
 
