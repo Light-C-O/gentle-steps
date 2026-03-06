@@ -163,3 +163,4 @@
   - When I attempted to delete account, it didn't work. Despite the rule changes, as it turns out the order in which this are being deleted was incorrect, I was deleteUser() before the deleteDoc() associated with the user. So, ends up happing is that if the user gets deleted, the docs cannot due to the fact that the user is no longer there, so when deletedoc() comes in, it is denied. Delete the doc [first] before the user.
   - I created a user account and have successfully deleted it. However, when looking closely the subcollections in the database are still there.  It seems like it olny deleted the *fields* of the user not the subcollections. So, it has to delete the subcollection first, then the fields of the user, and lastly the actual user. The order in which things are being deleted is important.
   - I have now succesfully deleted anything related to the user's id.
+  - Focusing now on the layout and style of the web app.
