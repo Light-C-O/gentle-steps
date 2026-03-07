@@ -164,3 +164,6 @@
   - I created a user account and have successfully deleted it. However, when looking closely the subcollections in the database are still there.  It seems like it olny deleted the *fields* of the user not the subcollections. So, it has to delete the subcollection first, then the fields of the user, and lastly the actual user. The order in which things are being deleted is important.
   - I have now succesfully deleted anything related to the user's id.
   - Focusing now on the layout and style of the web app.
+
+- **Saturday 7th Mar:**
+  - I updated the app/layout.tsx, now the web app is installable using pwa. It works for Google Chrome, Microsoft Edge, iPhone(Safari) & Android. However, with Firefox it is limited. Currently, it only work when sharing the ssame Wi-Fi network.

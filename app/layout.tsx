@@ -16,8 +16,11 @@ export const metadata: Metadata = {
   title: "Gentle Steps",
   description: "Digital interactive guide for motherhood",
   manifest: "/manifest.json",
+  themeColor: "#ffffff",
   appleWebApp:{
     capable: true,
+    title: "Gentle Steps",
+    statusBarStyle: "default",
   },
 };
 
