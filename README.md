@@ -166,4 +166,5 @@
   - Focusing now on the layout and style of the web app.
 
 - **Saturday 7th Mar:**
-  - I updated the app/layout.tsx, now the web app is installable using pwa. It works for Google Chrome, Microsoft Edge, iPhone(Safari) & Android. However, with Firefox it is limited. Currently, it only work when sharing the ssame Wi-Fi network.
+  - I updated the app/layout.tsx, now the web app is installable using pwa. It works for Google Chrome, Microsoft Edge, iPhone(Safari) & Android. However, with Firefox it is limited. Currently, it only work when sharing the same Wi-Fi network.
+  - For it to be used outside the local and same wi-fi network, it needs to deployed. Vercel works perfectly with Next since creators of Next made it. I have succesfully deployed my software project to Vercel with GitHub.
