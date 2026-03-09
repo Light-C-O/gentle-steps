@@ -136,9 +136,10 @@ export default function NotePage(){
                     <h1 className="text-3xl font-bold mb-6">My Notes</h1>
                     <div className="flex flex-col sm:flex-col md:flex-row   gap-5 ">
                         {/* note form */}
-                        <form className="flex-1 flex flex-col gap-3 mb-8 border p-4 rounded-xl">
+                        <form onSubmit={(e) => {e.preventDefault(); editingId ? updateNote(editingId) : createNote();}} className="flex-1 flex flex-col gap-3 mb-8 border p-4 rounded-xl">
                             {/* title */}
                             <input 
+                            name="title"
                             type="text"
                             placeholder="Add Title"
                             value={title}
@@ -148,6 +149,7 @@ export default function NotePage(){
 
                             {/* content */}
                             <textarea 
+                            name="content"
                             placeholder="What is on your mind..." 
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
@@ -157,13 +159,12 @@ export default function NotePage(){
                             ></textarea>
 
                             {/* for edit, cancel and update */}
-                            {editingId ? (
-                                <div className="flex place-content-between">
-                                <Button onClick={()=> updateNote(editingId)}>Update Note</Button>
-                                <Button onClick={resetNote}>Cancel</Button>
-                                </div>
-                            ) : (
-                                <Button onClick={createNote}>Create Note</Button>
+                            <div className="flex place-content-between">
+                                <Button type="submit">{editingId? "Update Note" : "Create Note"}</Button>
+                            </div>
+
+                            {editingId && (
+                                <Button type="button" onClick={resetNote}>Cancel</Button>
                             )}
                         </form>
                     
