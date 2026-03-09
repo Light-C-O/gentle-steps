@@ -9,6 +9,7 @@ import { collection, getDocs, doc, updateDoc} from "firebase/firestore";
 
 import CheckForm from "@/components/check-form";
 import NavBar from "@/components/navbar";
+import Checkbox from "@/components/checkbox";
 
 //the layout
 type Checklist = {
@@ -169,6 +170,13 @@ export default function CheckPage() {
 
         setChecklists(prev => prev.map(c => c.id === checklistId ? { ...c, items: updatedItems} : c));
     };
+
+    //to reset when on edit mode
+    const resetItem = () =>{
+        setEditingChecklistId(null);
+        setEditingIndex(null);
+        setEditingValue("");
+    };
     
 
     return(
@@ -179,37 +187,37 @@ export default function CheckPage() {
                     <div><NavBar/></div>
                     <div className="">
                         <h1 className="text-3xl font-bold mb-6">Checklists</h1>
-
                         {checklists.map((checklist) => (
-                        
                             // loop through each checklist document
-                            <div key={checklist.id} className="mb-6 p-4 border rounded-xl">
-                                <h2 className="text-xl font-semibold">{checklist.title}</h2>
-                                <ul className="mt-3 space-y-2 mb-4">
+                            <div key={checklist.id} className="mb-6 p-4 rounded-xl">
+                                <h2 className="text-xl font-semibold text-center mb-5">{checklist.title}</h2>
+                                <ul className="mt-2 space-y-2">
                                     {
                                         checklist.items?.map((item, index: number) => (
                                             <li key ={index} className="flex items-center gap-2">
-                                                <input 
-                                                type="checkbox" 
+                                                <Checkbox 
                                                 checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
+                                                
 
                                                 {editingChecklistId === checklist.id && editingIndex === index ? (
                                                     <div className="flex justify-between items-center w-full">
                                                         <input 
                                                         value={editingValue}
                                                         onChange={(e) => setEditingValue(e.target.value)}
-                                                        className="border px-2"/>
+                                                        className="px-2 outline-none"/>
+                                                        
 
-                                                        <button className="self-end" onClick={updateItem}>save</button>
+                                                        <button className="text-amber-500 whitespace-nowrap border rounded-lg px-2 hover:bg-amber-200 active:bg-amber-500 active:text-amber-50" onClick={updateItem}>update</button>
+                                                        <button className="text-gray-500 whitespace-nowrap border rounded-lg px-2 active:bg-gray-200 " onClick={resetItem}>cancel</button>
                                                     </div>
                                                 ) :(
                                                     <div className="flex justify-between items-center w-full">
-                                                        <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info}</span>
+                                                        <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info?.length > 40 ?`${item.info.substring(0, 40)}...`: item.info }</span>
 
                                                         <div className="flex gap-4">
-                                                            <button onClick={()=>editItem(checklist.id, index, item.info)}>edit</button>
+                                                            <button className="text-blue-500 whitespace-nowrap border rounded-lg px-2 hover:bg-blue-200 active:bg-blue-500 active:text-amber-50" onClick={()=>editItem(checklist.id, index, item.info)}>edit</button>
 
-                                                            <button onClick={()=> deleteItem(checklist.id, index)}>delete</button>
+                                                            <button className="text-red-500 whitespace-nowrap border rounded-lg px-2 hover:bg-red-200 active:bg-red-500 active:text-amber-50" onClick={()=> deleteItem(checklist.id, index)}>delete</button>
                                                         </div>
                                                     </div>
                                                 )}
@@ -228,10 +236,8 @@ export default function CheckPage() {
                                         </ul>
                                     </div>
                                 </ul>
-                                
                             </div>
                         ))}
-
                     </div>
                 </div>
             </div>

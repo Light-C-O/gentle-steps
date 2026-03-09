@@ -32,9 +32,9 @@ export default function CheckForm ({checklistId, onAdd}: FormProps) {
         placeholder="Add a new item"
         value={info}
         onChange={(e) => setInfo(e.target.value)}
-        className="border px-3 py-2 w-full"
+        className="px-3 py-2 w-full outline-none"
         />
-        <button type="submit" className="bg-indigo-600 text-gray-100 px-4 py-2 rounded-lg">New Item</button>
+        <button type="submit" className="text-cyan-500 whitespace-nowrap border rounded-lg px-2 hover:bg-cyan-200 active:bg-cyan-500 active:text-cyan-50">New Item</button>
     </form>
     );
 }
