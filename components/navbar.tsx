@@ -16,7 +16,7 @@ export default function NavBar(){
         try{
             await signOut(auth)
             // go back to auth page - logs out
-            router.replace("/")     
+            router.replace("/reviews")     
         } catch(error){
             console.error("Logout issue:", error)
         }

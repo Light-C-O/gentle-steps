@@ -177,3 +177,4 @@
   - Trying to implemenat automated testing, I'm using jest - a mature, large ecosystem and snapshot/mocking support. It works with TypeScript and React. Handles functions, utilities, and components. I installed it using `npm install --save-dev jest ts-jest @types/jest @testing-library/react @testing-library/jest-dom @testing-library/user-event jest-environment-jsdom identity-obj-proxy` into the terminal. Added a test folder to try things. I'm setting the up the environment for automated testing.
   - Fixed the layout of the tracking/page.tsx.
   - Add more details in the layout of checklists/page.tsx.
+  - Moving to reviews/page.tsx.
