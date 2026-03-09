@@ -133,27 +133,29 @@ export default function NotePage(){
                 <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover rounded-2xl"/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%]">
                     <div><NavBar/></div>
-                    <h1 className="text-3xl font-bold mb-6">My Notes</h1>
-                    <div className="flex flex-col sm:flex-col md:flex-row   gap-5 ">
+                    <h1 className="text-3xl font-bold mb-2">My Notes</h1>
+                    <div className="flex flex-col sm:flex-col lg:flex-row gap-5 mb-4">
                         {/* note form */}
-                        <form onSubmit={(e) => {e.preventDefault(); editingId ? updateNote(editingId) : createNote();}} className="flex-1 flex flex-col gap-3 mb-8 border p-4 rounded-xl">
+                        <form onSubmit={(e) => {e.preventDefault(); editingId ? updateNote(editingId) : createNote();}} className="flex-1 flex flex-col gap-3 mb-8 p-4 rounded-xl border">
                             {/* title */}
+                            {/* <h5>Title</h5> */}
                             <input 
                             name="title"
                             type="text"
                             placeholder="Add Title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="border p-2 rounded"
+                            className="p-2 rounded outline-none font-bold"
                             />
 
                             {/* content */}
+                            {/* <h5>Content</h5> */}
                             <textarea 
                             name="content"
                             placeholder="What is on your mind..." 
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="border p-2 overflow-auto" 
+                            className="p-2 overflow-auto outline-none" 
                             cols={40}
                             rows={20}
                             ></textarea>
@@ -161,17 +163,14 @@ export default function NotePage(){
                             {/* for edit, cancel and update */}
                             <div className="flex place-content-between">
                                 <Button type="submit">{editingId? "Update Note" : "Create Note"}</Button>
-                            </div>
-
-                            {editingId && (
                                 <Button type="button" onClick={resetNote}>Cancel</Button>
-                            )}
+                            </div>
                         </form>
                     
                         {/* the note lists */}
                         <div className="space-y-4 flex-1">
                             {notes.map((note)=>(
-                                <div key={note.id} className="p-4 border rounded-xl">
+                                <div key={note.id} className="p-4 border border-amber-500 rounded-xl">
                                     <div className="flex justify-between">
                                         <h2 className="font-semibold text-2xl">{note.title}</h2>
                                         <p className="text-gray-500">

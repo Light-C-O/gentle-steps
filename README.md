@@ -172,3 +172,5 @@
 ### WEEK 5
 - **Monday 9th Mar:**
   - An issue occured with the notes/page.tsx. When I Attempt to write a note, it doesn't appear or get stored in the database.
+  - As it turns out the submission logic was in correct, I had not mentioned that the form was a submit. I had to the functions in onSumit in the form. I have updated the button compoment to take ``type`` since in the form it only take ``<button type="button">`` of `<button type="submit">`. I made the component to also accept them ass well. Now, it work, it apears in the databased as well. The note Crud is functional.
+  - Focusing on the layout of the web app. Fixed major issues with the navbar, added a hamburger menu.
