@@ -16,6 +16,7 @@ type Track = {
     sizeComp: string;
     development: string;
     week: number;
+    visualUrl: string;
 }
 
 
@@ -64,22 +65,22 @@ export default function TrackPage() {
                                     {/* for each doc, create a silde in side the carousel*/}
                                     {tracks.map((track) => ( 
                                         <div key={track.id} className="min-w-full p-6">
-                                            <div className="p-6 border rounded-xl shadow-md">
-                                                <p className="text-gray-600">{track.week}</p>
-                                                <h2 className="text-xl font-semibold">{track.title}</h2>
-                                                <p className="text-gray-600">{track.sizeComp}</p>
-                                                <p className="text-gray-600">{track.development}</p>
+                                            <div className="p-6 border rounded-xl shadow-md lex flex-col justify-between h-full">
+                                                <h2 className="text-xl font-semibold text-center">{track.title}</h2>
+                                                <img src={`/${track.visualUrl}`} alt={track.sizeComp} className="mx-auto object-contain"/>
+                                                <p className="text-gray-600 text-center">{track.sizeComp}</p>
+                                                <p className="text-gray-600 text-center">{track.development}</p>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                                <div className="flex gap-4 justify-between">
+                                <div className="flex justify-between">
                                     {/* prevous button */}
-                                    <button onClick={goToPrev} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                                    <button onClick={goToPrev} className="p-4 rounded-4xl bg-blue-500 active:bg-amber-500 absolute top-1/2 left-5">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg>
                                     </button>
                                     {/* next button */}
-                                    <button onClick={goToNext} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500">
+                                    <button onClick={goToNext} className="p-4 rounded-4xl bg-red-500 active:bg-amber-500 absolute top-1/2 right-5">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14.143 15.962a.5.5 0 0 1-.244.68l-9.402 4.193c-1.495.667-3.047-.814-2.306-2.202l3.152-5.904c.245-.459.245-1 0-1.458L2.191 5.367c-.74-1.388.81-2.87 2.306-2.202l3.525 1.572a2 2 0 0 1 .974.932z"/><path fill="currentColor" d="M15.533 15.39a.5.5 0 0 0 .651.233l4.823-2.15c1.323-.59 1.323-2.355 0-2.945L12.109 6.56a.5.5 0 0 0-.651.68z" opacity="0.5"/></svg>
                                     </button>
                                 </div>
