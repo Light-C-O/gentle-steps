@@ -174,7 +174,11 @@
   - An issue occured with the notes/page.tsx. When I Attempt to write a note, it doesn't appear or get stored in the database.
   - As it turns out the submission logic was in correct, I had not mentioned that the form was a submit. I had to the functions in onSumit in the form. I have updated the button compoment to take ``type`` since in the form it only take ``<button type="button">`` of `<button type="submit">`. I made the component to also accept them. Now, it work, it apears in the database as well. The note Crud is functional.
   - Focusing on the layout of the web app. Fixed major issues with the navbar, added a hamburger menu.
-  - Trying to implemenat automated testing, I'm using jest - a mature, large ecosystem and snapshot/mocking support. It works with TypeScript and React. Handles functions, utilities, and components. I installed it using `npm install --save-dev jest ts-jest @types/jest @testing-library/react @testing-library/jest-dom @testing-library/user-event jest-environment-jsdom identity-obj-proxy` into the terminal. Added a test folder to try things. I'm setting the up the environment for automated testing.
+  - Trying to implement automated testing, I'm using jest - a mature, large ecosystem and snapshot/mocking support. It works with TypeScript and React. Handles functions, utilities, and components. I installed it using `npm install --save-dev jest ts-jest @types/jest @testing-library/react @testing-library/jest-dom @testing-library/user-event jest-environment-jsdom identity-obj-proxy` into the terminal. Added a test folder to try things. I'm setting the up the environment for automated testing.
   - Fixed the layout of the tracking/page.tsx.
   - Add more details in the layout of checklists/page.tsx.
   - Moving to reviews/page.tsx.
+  
+- **Tuesday 10th Mar:**
+  - Stopped with the reviews for now.
+  - Modifying the faqs section.

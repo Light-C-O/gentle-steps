@@ -119,12 +119,12 @@ export default function AuthPage(){
                             <div className="flex items-center justify-between">
                                 <button type="button" disabled={loading} onClick={handleSignup}  className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
                                     {/* if loading, button says prosessing otherwise say open book */}
-                                    {loading? "Processing...": "Welcome"}
+                                    {loading? "Processing...": "Sign in"}
                                 </button>
                                 <div>OR</div>
                                 <button type="button" disabled={loading} onClick={handleLogin} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
                                     {/* if loading, button says prosessing otherwise say open book */}
-                                    {loading? "Opening...": "Welcome Back"}
+                                    {loading? "Welcome Back...": "Login"}
                                 </button>
                             </div>
                         </form>
