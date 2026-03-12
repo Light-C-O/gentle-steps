@@ -186,3 +186,6 @@
 - **Wednesday 11th Mar:**
   - Finished most of the resources area.
   - Going back to the reviews section layout. Added a new called `rating.tsx` its role it to convert the a number into into an icon specifically a star. Created an array for with the length of the ``maxStars`` being the max. In this case it is number 5, and in index position it 4. ``{i < rating ? "text-yellow-400" : "text-gray-300"}`` this says, if ``i`` is less than ``rating``, fill the stars and leave the rest on filled. ``i`` tracks the index position and ``rating`` is the number. I was able to convert number into star icons.
+
+- **Thursday 12th Mar:**
+  - When it comes to the layout of profile section I decided to separate the logic. One to display and another to edit. Created another route `/profile/page.tsx/security/page.tsx` this where all the edit and as well as the deleting the user account. This is to enhance user experience. I'm thinking of adding a upload image for the profile of a user.
