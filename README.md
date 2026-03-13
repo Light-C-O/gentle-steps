@@ -205,3 +205,4 @@
   - Created a Cloudinary account, obtained the  cloud and preset name. Set the upload prset to "unsigned" to allow frontend uploads.
   - I replaced the Firbase Storage import with a ``fetch`` call to Cloudinary's API. I used `FormData` to package both the file and uplaod preset before sending to Cloudinary. Retrived `data.secure_url` from the Cloudinary response as the image URL. I then saved in the Firestore and updated it.
   - Cloudinary was free and support unsigned uploads which means thatre's no need for a secret key, anyone can upload. The upside is that user can upload an image straight from the browser. The downside is that because anyone can uplaod, they can also find my cloud name and upload inappropriate content to my Cloudinary account. The best thing to hinder that is to do unsigned which is the server side of things. For my project it is completlety fine to leave it unsigned.
+  - More styling in checklists section and navbar.

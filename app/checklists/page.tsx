@@ -194,27 +194,29 @@ export default function CheckPage() {
                                 <ul className="mt-2 space-y-2">
                                     {
                                         checklist.items?.map((item, index: number) => (
-                                            <li key ={index} className="flex items-center gap-2">
-                                                <Checkbox 
-                                                checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
-                                                
-
+                                            <li key ={index} className="mb-5">
                                                 {editingChecklistId === checklist.id && editingIndex === index ? (
-                                                    <div className="flex justify-between items-center w-full">
-                                                        <input 
-                                                        value={editingValue}
-                                                        onChange={(e) => setEditingValue(e.target.value)}
-                                                        className="px-2 outline-none"/>
-                                                        
-
-                                                        <button className="text-amber-500 whitespace-nowrap border rounded-lg px-2 hover:bg-amber-200 active:bg-amber-500 active:text-amber-50" onClick={updateItem}>update</button>
-                                                        <button className="text-gray-500 whitespace-nowrap border rounded-lg px-2 active:bg-gray-200 " onClick={resetItem}>cancel</button>
+                                                    <div className="grid gap-2 w-full sm:flex">
+                                                        <div className="flex gap-2 w-full">
+                                                            <Checkbox checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
+                                                            <input 
+                                                            value={editingValue}
+                                                            onChange={(e) => setEditingValue(e.target.value)}
+                                                            className="outline-none"/>
+                                                        </div>
+                                                        <div className="flex justify-end gap-4">
+                                                            <button className="text-amber-500 whitespace-nowrap border rounded-lg px-2 hover:bg-amber-200 active:bg-amber-500 active:text-amber-50" onClick={updateItem}>update</button>
+                                                            <button className="text-gray-500 whitespace-nowrap border rounded-lg px-2 active:bg-gray-200 " onClick={resetItem}>cancel</button>
+                                                        </div>
                                                     </div>
                                                 ) :(
-                                                    <div className="flex justify-between items-center w-full">
-                                                        <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info?.length > 40 ?`${item.info.substring(0, 40)}...`: item.info }</span>
-
-                                                        <div className="flex gap-4">
+                                                    <div className="grid gap-2 w-full sm:flex">
+                                                        <div className="flex gap-2 w-full">
+                                                            <Checkbox checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
+                                                        
+                                                            <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info?.length > 40 ?`${item.info.substring(0, 40)}...`: item.info }</span>
+                                                        </div>
+                                                        <div className="flex justify-end gap-4">
                                                             <button className="text-blue-500 whitespace-nowrap border rounded-lg px-2 hover:bg-blue-200 active:bg-blue-500 active:text-amber-50" onClick={()=>editItem(checklist.id, index, item.info)}>edit</button>
 
                                                             <button className="text-red-500 whitespace-nowrap border rounded-lg px-2 hover:bg-red-200 active:bg-red-500 active:text-amber-50" onClick={()=> deleteItem(checklist.id, index)}>delete</button>
