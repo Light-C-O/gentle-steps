@@ -23,7 +23,6 @@ export default async function ChapterPage() {
             <img src="/paper2.svg" alt="background paper" className="absolute w-full h-full object-cover rounded-2xl"/>
             <div className="relative items-center justify-center h-full px-[8%]">
                 <div><NavBar/></div>
-                <h1 className="text-3xl font-bold mb-6">Chapters</h1>
                 <SearchChapter chapters={chapters} />
                 
             </div>

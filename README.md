@@ -198,3 +198,4 @@
   - I also added the format of the chapters in the `SearchChapter` instead of `ChapterPage` since I'm using `.map()` in there, there is not need to repeat it.
   - I decided to make a new file for the `Chapter` type as it is needed it two other files. Instead of duplicating, I can just import it those files instead.
   - I'll make new searchbar for faq.
+  - It has been made, it is always inportant to make sure that first one works correctly before trying the next. One step at a time.

@@ -5,20 +5,21 @@ import {useEffect, useState} from "react"
 
 import NavBar from "@/components/navbar";
 import Link from "next/link";
+import { FAQ } from "@/types/faq";
+import SearchFAQ from "@/components/searchfaq";
 
-type FAQ = {
-    id: string;
-    category: string;
-    question: string;
-    answer: string;
-}
+// type FAQ = {
+//     id: string;
+//     category: string;
+//     question: string;
+//     answer: string;
+// }
 
 //this page shows all the info for FAQs
 export default function FaqPage() {
     const [faqs, setFaqs] = useState<FAQ []>([])
 
-    //for a dropdewn for the anser of each faq question
-    const [answerOpen, setAnswerOpen] = useState<string | null>(null);
+    
 
     useEffect (()=>{
 
@@ -47,23 +48,9 @@ export default function FaqPage() {
                         <h1 className="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
                         <Link href={"/resources"}className="hover: underline underline-offset-2">For More</Link>
                     </div>
-                    <div className="md:grid grid-cols-2 gap-4 mb-4">
-                        {faqs.map((faq: any) => (
-                            <div key={faq.id} className={`mb-6 p-4 border rounded-xl ${answerOpen === faq.id ? 'self-start' : ''}`}>
-                                <h2 className="text-xl font-semibold">{faq.category}</h2>
-                                <div className="">
-                                    <button onClick={()=>setAnswerOpen(answerOpen === faq.id ? null : faq.id)} className="rounded-lg px-2 py-2 border border-amber-300 hover:bg-amber-100 active:bg-amber-200 focus:bg-amber-200 w-full">
-                                        <div className="text-x text-left font-semibold">{faq.question}</div>
-                                    </button>
-                                    {answerOpen === faq.id && (
-                                        <div className="mt-3 gap-3 shadow-md rounded-md p-4">
-                                            <p className="text-gray-600">{faq.answer}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    
+                        <SearchFAQ faqs={faqs}/>
+                    
                 </div>
             </div>
         </main>
