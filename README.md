@@ -200,3 +200,4 @@
   - I'll make new searchbar for faq.
   - It has been made, it is always inportant to make sure that first one works correctly before trying the next. One step at a time.
   - Attempting image uploader in profile section.
+  - I fot the refrecne to Firestorage, created a ref(path) for that slected user's image, uplaoed it to that the path, got back the public url to then save that url to firestore and update the doc. Ialso stlyed it to make look my presenatable. I added a cursor pointer style to make it obvious that the prfile circle is clickable. The image file picker is working

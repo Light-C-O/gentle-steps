@@ -3,13 +3,11 @@ import { db, auth} from "@/data/firebase";
 
 import { doc, onSnapshot, updateDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
+import { getStorage, uploadBytes, getDownloadURL , ref} from "firebase/storage";
 
 import {useEffect, useState} from "react";
 
 import { useRouter } from "next/navigation";
-
-import NavBar from "@/components/navbar";
-import Button from "@/components/button";
 import Link from "next/link";
 
 type User = {
@@ -72,14 +70,32 @@ export default function ProfilePage(){
             setUsername(data.username);
             setEmail(data.email);
             setDescription(data.description);
+            setProfileImageUrl(data.profileImageUrl || "");
         });
         return()=> unsubscribe();
     }, [userId]);
 
-    const handleImageChange = async ()=>{
-        if (!userId) return;
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>)=>{
+        //ann array of seleted files
+        const file = e.target.files?.[0];
+        if (!file || !userId) return;
         
-        await updateDoc (doc(db, "users", userId),{profileImageUrl: profileImageUrl || ""});
+        //get a reference to the database
+        const storage = getStorage();
+        //create a ref or path for that user's image
+        const storageRef = ref(storage, `profileImages/${userId}`);
+
+        //upload the file to that path
+        await uploadBytes(storageRef, file);
+
+        //get a public download url back from that upload file
+        const downloadURL = await getDownloadURL(storageRef);
+
+        setProfileImageUrl(downloadURL);
+        console.log(setProfileImageUrl)
+
+        //then update the firebase with the new url
+        await updateDoc (doc(db, "users", userId),{profileImageUrl: downloadURL || ""});
         alert("Image has been updated!");
     }
 
@@ -101,12 +117,13 @@ export default function ProfilePage(){
                         <div className="space-y-4 mb-10">
                             {/* profile */}
                             <div className="text-center">
-                                <div className="border-2 rounded-full h-100 w-100 mx-auto mb-5 text-center">
-                                <input
-                                    type="file"
-                                    name="profileImageUrl"
-                                    onChange={handleImageChange} className="" />{profileImageUrl}
+                                <div className="relative border-2 rounded-full h-100 w-100 mx-auto mb-5 text-center cursor-pointer">
+                                    <input type="file" name="profileImageUrl" onChange={handleImageChange} className="absolute inset-0 h-full w-full z-10 opacity-0 cursor-pointer" />
+                                    
+                                    {/* for the image, if it there display, if not say upload image */}
+                                    {profileImageUrl ? <img src={profileImageUrl} alt="Profile Image" className=" rounded-full h-full w-full object-cover"/> : <img src="/image-placeholder.png" alt="Profile Image" className=" rounded-full h-full w-full object-cover"/>}
                                 </div>
+
                                 <div className="mb-5">
                                     <p>{username}</p>
                                     <p>{email}</p>
