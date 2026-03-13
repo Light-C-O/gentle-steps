@@ -199,3 +199,4 @@
   - I decided to make a new file for the `Chapter` type as it is needed it two other files. Instead of duplicating, I can just import it those files instead.
   - I'll make new searchbar for faq.
   - It has been made, it is always inportant to make sure that first one works correctly before trying the next. One step at a time.
+  - Attempting image uploader in profile section.

@@ -1,7 +1,7 @@
 'use client';
 import { db, auth} from "@/data/firebase";
 
-import { doc, onSnapshot} from "firebase/firestore";
+import { doc, onSnapshot, updateDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 
 import {useEffect, useState} from "react";
@@ -17,6 +17,7 @@ type User = {
     username: string;
     email: string;
     description: string;
+    profileImageUrl?: string;
     createdAt: any;
 }
 
@@ -30,6 +31,9 @@ export default function ProfilePage(){
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [description, setDescription] = useState("");
+
+    //image 
+    const [profileImageUrl, setProfileImageUrl] = useState("")
 
     
 
@@ -72,6 +76,13 @@ export default function ProfilePage(){
         return()=> unsubscribe();
     }, [userId]);
 
+    const handleImageChange = async ()=>{
+        if (!userId) return;
+        
+        await updateDoc (doc(db, "users", userId),{profileImageUrl: profileImageUrl || ""});
+        alert("Image has been updated!");
+    }
+
 
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
@@ -90,7 +101,12 @@ export default function ProfilePage(){
                         <div className="space-y-4 mb-10">
                             {/* profile */}
                             <div className="text-center">
-                                <div className="border-2 rounded-full h-100 w-100 mx-auto mb-5">Upload Image</div>
+                                <div className="border-2 rounded-full h-100 w-100 mx-auto mb-5 text-center">
+                                <input
+                                    type="file"
+                                    name="profileImageUrl"
+                                    onChange={handleImageChange} className="" />{profileImageUrl}
+                                </div>
                                 <div className="mb-5">
                                     <p>{username}</p>
                                     <p>{email}</p>
