@@ -189,3 +189,12 @@
 
 - **Thursday 12th Mar:**
   - When it comes to the layout of profile section I decided to separate the logic. One to display and another to edit. Created another route `/profile/page.tsx/security/page.tsx` this where all the edit and as well as the deleting the user account. This is to enhance user experience. I'm thinking of adding a upload image for the profile of a user.
+
+- **Friday 13th Mar:**
+  - I'm trying to implement a searchbar to search and filter the chapters. The chapters has already been fecthed from the database.
+  - I made a new component called `SearchChapter`, it needed to be a client based component since `ChapterPage` is a server component and it passing down info.
+  - I made a filterchapter as an object, at a first it wasn't triggering rendering. I was later solved by  `useState`. I added a `return` with `||` so that it can accept different fields. 
+  - When I added `chapter.overview` as optional TypeScript gave out and I had to use `&&` to make sure it takes both string and undifined.
+  - I also added the format of the chapters in the `SearchChapter` instead of `ChapterPage` since I'm using `.map()` in there, there is not need to repeat it.
+  - I decided to make a new file for the `Chapter` type as it is needed it two other files. Instead of duplicating, I can just import it those files instead.
+  - I'll make new searchbar for faq.

@@ -37,7 +37,6 @@ export default function NavBar(){
                     <Link href="/tracking">Tracking</Link>
                     <Link href="/checklists">Checklists</Link>
                     <Link href="/faqs">FAQs</Link>
-                    <Link href="/reviews">Reviews</Link>
                 </div>
 
                 {/* for mobile - dropdown */}
@@ -56,7 +55,6 @@ export default function NavBar(){
                                     <Link href="/tracking" onClick={()=>setMenuOpen(false)}>Tracking</Link>
                                     <Link href="/checklists" onClick={()=>setMenuOpen(false)}>Checklists</Link>
                                     <Link href="/faqs" onClick={()=>setMenuOpen(false)}>FAQs</Link>
-                                    <Link href="/reviews" onClick={()=>setMenuOpen(false)}>Reviews</Link>
                                 </div>
                             )}
                         </div>

@@ -11,7 +11,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import ProgressBar from "@/components/progress-bar";
 
 // This is the page that shows the details of a chapter
-type Chapter = {
+type ChapterInfo = {
     title: string;
     summary: string;
     order: number;
@@ -32,15 +32,15 @@ export default function ChapterDetails() {
     // Get the chapter id from the params and set its type as string
     const chapterId= params.id as string;
 
-    // the Chapter object is optional, null or not, defualt value null
-    // const [chapterData, setChapterData] = useState <Chapter | null>(null);
+    // the ChapterInfo object is optional, null or not, defualt value null
+    // const [chapterData, setChapterData] = useState <ChapterInfo | null>(null);
 
 
     //for the carousel for each chapter
     const[emblaRef, emblaApi] = useEmblaCarousel({loop:false});
 
     //store it as array
-    const[chapterIds, setChapterIds] = useState<(Chapter &{id:string})[]>([]);
+    const[chapterIds, setChapterIds] = useState<(ChapterInfo &{id:string})[]>([]);
 
 
     //related to the bookmark per section, by default it is an array, 
@@ -50,7 +50,7 @@ export default function ChapterDetails() {
     const auth = getAuth();
 
     //what will happen when clicks the bookmark button
-    const handleBookmarkButtonClick = async (chapter:Chapter &{id:string}, sectionId:string, sectionTitle: string, content: string[] | string) => {
+    const handleBookmarkButtonClick = async (chapter:ChapterInfo &{id:string}, sectionId:string, sectionTitle: string, content: string[] | string) => {
          //get the user id 
         const user = auth.currentUser;
         //if not the user id do nothing
@@ -155,7 +155,7 @@ export default function ChapterDetails() {
             const data = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
-            })) as (Chapter & {id:string})[];
+            })) as (ChapterInfo & {id:string})[];
 
             //sort the chapter sildes based on the order field from small to big
             data.sort((a,b)=> a.order - b.order);
@@ -231,7 +231,7 @@ export default function ChapterDetails() {
                                         {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-4 scroll-smooth">
                                                 <div className="flex justify-between">
                                                     <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
-                                                    <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as Chapter & {id:string}, key, sectionMap.title, sectionMap.content
+                                                    <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as ChapterInfo & {id:string}, key, sectionMap.title, sectionMap.content
                                                     )}/>
                                                 </div>
 
