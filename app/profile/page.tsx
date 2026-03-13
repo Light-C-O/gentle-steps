@@ -3,7 +3,6 @@ import { db, auth} from "@/data/firebase";
 
 import { doc, onSnapshot, updateDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
-import { getStorage, uploadBytes, getDownloadURL , ref} from "firebase/storage";
 
 import {useEffect, useState} from "react";
 
@@ -75,24 +74,28 @@ export default function ProfilePage(){
         return()=> unsubscribe();
     }, [userId]);
 
+    //image upload for profile
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>)=>{
-        //ann array of seleted files
+        //the first item in the array
         const file = e.target.files?.[0];
         if (!file || !userId) return;
+
+        const formData = new FormData();
+        //package the file and the permission key - bundle up in one request
+        formData.append("file", file);
+        formData.append("upload_preset", "ek2f4ivp");
+
+        //call to cloudinary to upload
+        const res = await fetch(`https://api.cloudinary.com/v1_1/dyfzs7muf/image/upload`, {method: "post", body: formData});
+
+
+        const data = await res.json();
         
-        //get a reference to the database
-        const storage = getStorage();
-        //create a ref or path for that user's image
-        const storageRef = ref(storage, `profileImages/${userId}`);
-
-        //upload the file to that path
-        await uploadBytes(storageRef, file);
-
-        //get a public download url back from that upload file
-        const downloadURL = await getDownloadURL(storageRef);
-
+        //get the url
+        const downloadURL = data.secure_url;
+        
+        //save it in Firestore and update the state
         setProfileImageUrl(downloadURL);
-        console.log(setProfileImageUrl)
 
         //then update the firebase with the new url
         await updateDoc (doc(db, "users", userId),{profileImageUrl: downloadURL || ""});
