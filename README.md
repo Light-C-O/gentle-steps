@@ -219,3 +219,5 @@
   - More style of the dark mode button.
   - I ended up using `HomePage`. Separating the ``AuthPage`` for login or sign from the ``HomePage``, is used for book cover.
   - More touches related to styling.
+  - I separated the ``AuthPage`` into two: ``LoginPage``  and `RegisterPage`. It causes less confusion to the user.
+  - The `AuthPage` is now used to redirect to ``LoginPage``.

@@ -1,4 +1,14 @@
-'use client';
+import { redirect } from "next/navigation";
+export default function AuthPage() {
+    redirect("/login");
+}
+
+/*-------------
+    PREVOUSLY USED AS A ONE PAGE SIGN IN/SIGN UP
+    NOW USED TO REDIRECT
+/*---------------
+
+/* 'use client';
 import {useState, useEffect} from "react";
 import {auth, db} from "@/data/firebase";
 import {
@@ -119,13 +129,13 @@ export default function AuthPage(){
                             />
                             <div className="flex items-center justify-between">
                                 <button type="button" disabled={loading} onClick={handleLogin} className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
-                                    {/* if loading, button says prosessing otherwise say open book */}
-                                    {loading? "Welcome Back...": "Login"}
+                                    /* if loading, button says prosessing otherwise say open book */ 
+                                    /*{loading? "Welcome Back...": "Login"}
                                 </button>
                                 <div>OR</div>
                                 <button type="button" disabled={loading} onClick={handleSignup}  className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600">
-                                    {/* if loading, button says prosessing otherwise say open book */}
-                                    {loading? "Processing...": "Sign in"}
+                                    /* if loading, button says prosessing otherwise say open book */
+                                    /*{loading? "Processing...": "Sign in"}
                                 </button>
                             </div>
                         </form>
@@ -134,5 +144,4 @@ export default function AuthPage(){
             </div>
         </main>
     );
-}
-
+}*/
