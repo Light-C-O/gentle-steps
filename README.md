@@ -216,3 +216,4 @@
   - I also made a `PaperBackground` component for the images, instead of repeating the same thing accros all pages, it makes sense to create component to lessen load of a single page and that it will react well for bot the client and server components with the backgorund image needing to be chaged when the `BulbButton` is triggered.
   - The dark mode works on the pages that has it implemented.
   - I have implemented the dark mode in the pages. I have properly styled `security/page.tsx`.
+  - More style of the dark mode button.

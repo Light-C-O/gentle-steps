@@ -7,8 +7,8 @@ export default function BulbButton() {
     console.log(theme)
 
     return(
-        <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="text-red-500">
-            Toggle
+        <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="cursor-pointer hover:border-2 border-amber-700 rounded-full w-20 h-20">
+            <img src="/icon-512.png" width="50" height="50" alt="logo" className="rounded-full h-full w-full object-cover" />
         </button>
     )
 }

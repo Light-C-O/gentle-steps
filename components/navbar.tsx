@@ -27,9 +27,9 @@ export default function NavBar(){
     return ( 
         <nav className="text-red-900 dark:dark:text-gray-700">
             <div className="flex justify-between mt-10 text-center items-center pb-5 border-b-2 border-amber-300">
-                <BulbButton/>
+                
                 <Link className="hover:underline underline-offset-2" href="/profile">View Profile</Link>
-                <img src="/icon-512.png" width="50" height="50" alt="logo" />
+                <BulbButton/>
                 <button className="hover:underline underline-offset-2" onClick={handleLogout}>Log Out</button>
             </div>
             <div className="font-bold uppercase text-center py-2">Table of contents</div>
