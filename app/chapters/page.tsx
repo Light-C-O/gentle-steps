@@ -5,7 +5,6 @@ import NavBar from "@/components/navbar";
 
 import { Chapter } from "@/types/chapter";
 import SearchChapter from "@/components/searchchapter";
-import BulbButton from "@/components/bulb";
 import PaperBackground from "@/components/paper-background";
 
 // This is the page that shows the list of chapters
@@ -20,7 +19,7 @@ export default async function ChapterPage() {
 })) as Chapter[];
 
     return (
-    <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
+    <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
         <div className="relative w-[90vw] max-w-3xl">
             <PaperBackground/>
             <div className="relative items-center justify-center h-full px-[8%]  text-red-900 dark:text-gray-700">

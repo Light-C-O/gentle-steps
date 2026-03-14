@@ -34,14 +34,14 @@ export default function SearchChapter({chapters, onClick} : SearchChapterProps){
 
     return (
         <div className="grid">
-            <div className="flex justify-between">
+            <div className="md:flex justify-between">
                 <h1 className="text-3xl font-bold mb-6">Chapters</h1>
                 <input value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} placeholder="Search for a chapter..." className="px-2 py-3 rounded-lg mb-4 shadow-[inset_5px_-5px_30px_5px_#46464620] outline-none" />
             </div>
             <div className="md:grid grid-cols-2 gap-4 mb-4">
                 {filteredChapters.map((chapter) => (
                 <Link href={`/chapters/${chapter.id}`} key={chapter.id}>
-                    <div className="flex items-stretch">
+                    <div className="flex">
                         <div key={chapter.id} className="mb-6 w-full items-center border rounded-xl hover:shadow-[inset_-5px_8px_50px_10px_#46464620] md:mb-0 p-4 md:h-auto md:items-center align-middle">
                             <small>Chapter {chapter.order}</small>
                             <h2 className="text-xl font-semibold">{chapter.title}</h2>

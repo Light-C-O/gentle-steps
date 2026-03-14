@@ -110,37 +110,41 @@ export default function ProfilePage(){
             <div className="relative w-[90vw] max-w-3xl">
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
-                    <Link href={"/chapters"} className="border rounded-2xl py-3 px-2 active:bg-gray-200/50">Back</Link>
                     <div className="grid">
-                        <h1 className="text-3xl font-bold my-6 text-center">My Profile</h1>
-                            
-                        {!userInfo ? (
-                            <div>Loading... Are you logged in?</div>
-                            ):(
-                            <div className="space-y-4 mb-10">
-                                {/* profile */}
-                                <div className="text-center">
-                                    <div className="relative border-2 rounded-full h-50 w-50 mx-auto mb-5 text-center cursor-pointer">
-                                        <input type="file" name="profileImageUrl" onChange={handleImageChange} className="absolute inset-0 h-full w-full z-10 opacity-0 cursor-pointer" />
-                                        
-                                        {/* for the image, if it there display, if not say upload image */}
-                                        {profileImageUrl ? <img src={profileImageUrl} alt="Profile Image" className=" rounded-full h-full w-full object-cover"/> : <img src="/image-placeholder.png" alt="Profile Image" className=" rounded-full h-full w-full object-cover"/>}
-                                    </div>
-
-                                    <div className="mb-10">
-                                        <p className="text-2xl">{username}</p>
-                                        <p className="text-2xl">{email}</p>
-                                        <div className="mt-5">
-                                            <p className="font-bold uppercase">About me:</p>
-                                            <p>{description}</p>
-                                        </div>
-                                        
-                                    </div>
-                                    <Link type="button" href={"/profile/security"} className="border p-2 rounded-lg hover:bg-gray-200/50 active:bg-gray-300">Edit Account</Link>
-                                </div>
+                        <div className="border rounded-2xl py-3 px-4 active:bg-gray-200/50 justify-self-start">
+                            <Link href={"/chapters"} className=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg></Link>
+                        </div>
+                        <div className="grid">
+                            <h1 className="text-3xl font-bold my-6 text-center">My Profile</h1>
                                 
-                            </div>
-                        )}
+                            {!userInfo ? (
+                                <div>Loading... Are you logged in?</div>
+                                ):(
+                                <div className="space-y-4 mb-10">
+                                    {/* profile */}
+                                    <div className="text-center">
+                                        <div className="relative border-2 rounded-full h-50 w-50 mx-auto mb-5 text-center cursor-pointer">
+                                            <input type="file" name="profileImageUrl" onChange={handleImageChange} className="absolute inset-0 h-full w-full z-10 opacity-0 cursor-pointer" />
+                                            
+                                            {/* for the image, if it there display, if not say upload image */}
+                                            {profileImageUrl ? <img src={profileImageUrl} alt="Profile Image" className=" rounded-full h-full w-full object-cover"/> : <img src="/image-placeholder.png" alt="Profile Image" className=" rounded-full h-full w-full object-cover"/>}
+                                        </div>
+
+                                        <div className="mb-10">
+                                            <p className="text-2xl">{username}</p>
+                                            <p className="text-2xl">{email}</p>
+                                            <div className="mt-5">
+                                                <p className="font-bold uppercase">About me:</p>
+                                                <p>{description}</p>
+                                            </div>
+                                            
+                                        </div>
+                                        <Link type="button" href={"/profile/security"} className="border p-2 rounded-lg hover:bg-gray-200/50 active:bg-gray-300">Edit Account</Link>
+                                    </div>
+                                    
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

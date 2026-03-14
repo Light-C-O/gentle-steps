@@ -217,3 +217,5 @@
   - The dark mode works on the pages that has it implemented.
   - I have implemented the dark mode in the pages. I have properly styled `security/page.tsx`.
   - More style of the dark mode button.
+  - I ended up using `HomePage`. Separating the ``AuthPage`` for login or sign from the ``HomePage``, is used for book cover.
+  - More touches related to styling.

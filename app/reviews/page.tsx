@@ -2,9 +2,9 @@ import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import RateStar from "@/components/rating";
 
-
-import NavBar from "@/components/navbar";
 import Link from "next/link";
+import BooKBackground from "@/components/book-background";
+import BulbButton from "@/components/bulb";
 
 //this page shows all the info for Reviews
 export default async function ReviewPage() {
@@ -19,14 +19,12 @@ export default async function ReviewPage() {
     return(
         <main className="flex justify-center mx-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl aspect-3/4 overflow-hidden">
-                <img src="/book.svg" alt=" back cover" className="absolute w-full h-full object-fill rounded-2xl"/>
-                
-                <div className="relative z-10 h-full px-[8%] mt-18 mb-10 md:mt-10">
+                <BooKBackground/>
+                <div className="relative z-10 h-full px-[8%] mt-18 mb-10 md:mt-15">
                     <div className="grid gap-5 mb-10 md:gap-3">
-                        <div className="flex justify-evenly items-center mb-5">
-                            <p className="text-amber-800 text-center font-semibold p-2">You are now logged out!</p>
-                            <Link href="/" className="font-bold hover:bg-amber-400/50 rounded p-2">Sign in</Link>
-                        </div>
+                        <Link href="/" className="font-bold hover:bg-amber-400/50 rounded p-2 text-amber-800">Sign in</Link>
+                        <div className="justify-self-center"><BulbButton/></div>
+                        
                         <h1 className="text-3xl font-bold text-center">See all the Reviews!</h1>
                     </div>
                     
