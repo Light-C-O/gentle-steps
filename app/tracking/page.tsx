@@ -9,6 +9,8 @@ import  useEmblaCarousel from "embla-carousel-react";
 
 import NavBar from "@/components/navbar";
 
+import PaperBackground from "@/components/paper-background";
+
 //the track collection structure/blue print
 type Track = {
     id: string;
@@ -56,10 +58,10 @@ export default function TrackPage() {
     return (
         <main className="flex justify-center mx-auto font-sans min-h-auto drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover rounded-2xl"/>
-                    <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                <PaperBackground/>
+                    <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700">
                         <div><NavBar/></div>
-                        <h1 className="text-3xl font-bold mb-6">Tracking Week by Week</h1>
+                        <h1 className="text-3xl font-bold mb-6">Week by Week</h1>
                         <div ref={emblaRef} className="overflow-hidden mb-4">
                                 <div className="flex">
                                     {/* for each doc, create a silde in side the carousel*/}
@@ -68,8 +70,8 @@ export default function TrackPage() {
                                             <div className="p-6 border rounded-xl shadow-md lex flex-col justify-between h-full">
                                                 <h2 className="text-xl font-semibold text-center">{track.title}</h2>
                                                 <img src={`/${track.visualUrl}`} alt={track.sizeComp} className="mx-auto object-contain"/>
-                                                <p className="text-gray-600 text-center">{track.sizeComp}</p>
-                                                <p className="text-gray-600 text-center">{track.development}</p>
+                                                <p className="text-center">{track.sizeComp}</p>
+                                                <p className="text-center">{track.development}</p>
                                             </div>
                                         </div>
                                     ))}

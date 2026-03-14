@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { signOut } from "firebase/auth"
 import { auth } from "@/data/firebase"
 import {useState} from "react"
+import BulbButton from "@/components/bulb";
 
 
 export default function NavBar(){
@@ -24,8 +25,9 @@ export default function NavBar(){
         }
     }
     return ( 
-        <nav className="">
+        <nav className="text-red-900 dark:dark:text-gray-700">
             <div className="flex justify-between mt-10 text-center items-center pb-5 border-b-2 border-amber-300">
+                <BulbButton/>
                 <Link className="hover:underline underline-offset-2" href="/profile">View Profile</Link>
                 <img src="/icon-512.png" width="50" height="50" alt="logo" />
                 <button className="hover:underline underline-offset-2" onClick={handleLogout}>Log Out</button>

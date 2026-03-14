@@ -9,6 +9,7 @@ import Button from "@/components/button";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import ProgressBar from "@/components/progress-bar";
+import PaperBackground from "@/components/paper-background";
 
 // This is the page that shows the details of a chapter
 type ChapterInfo = {
@@ -212,8 +213,8 @@ export default function ChapterDetails() {
 
     return (
         <main className="flex justify-center mx-auto font-sans min-h-auto drop-shadow-xl/50 mt-10">
-            <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover rounded-2xl"/>
+            <div className="relative w-[90vw] max-w-3xl text-red-900 dark:text-gray-700">
+                <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] mt-6">
                     <div className="flex justify-between">
                         <Link href="/chapters" className="hover:underline underline-offset-2">View All Chapters</Link>

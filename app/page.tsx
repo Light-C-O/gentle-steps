@@ -1,5 +1,5 @@
 'use client';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {auth, db} from "@/data/firebase";
 import {
     signInWithEmailAndPassword,
@@ -8,6 +8,8 @@ import {
 } from "firebase/auth";
 import {doc, setDoc, collection, getDocs} from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes"
+import BulbButton from "@/components/bulb";
 
 export default function AuthPage(){
     const [username, setUsername] = useState("");
@@ -19,6 +21,14 @@ export default function AuthPage(){
 
 
     const router = useRouter();
+    const { theme } = useTheme();
+    const dark = theme === "dark";
+
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
 
     const handleLogin = async ()=>{
         if (!email || !password){
@@ -85,19 +95,20 @@ export default function AuthPage(){
 
     return (
         <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
-            <div className="relative w-[90vw] max-w-3xl aspect-3/4">
-                <img src="/book2.svg" className="absolute inset-0 w-full h-full object-contain rounded-2xl" alt="Book background" />
-                <div className="relative z-10 flex flex-col items-center justify-center h-full px-[8%]">
-                    <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center">
+            <div className="relative w-[90vw] max-w-3xl aspect-3/4 overflow-hidden">
+                <img src={!mounted ? "/book.svg" : dark ? "/book2.svg" : "/book.svg"} className="absolute inset-0 w-full h-full object-fit rounded-2xl" alt="Book background" />
+                <div className="relative flex flex-col items-center justify-center h-full px-[8%]">
+                    <BulbButton/>
+                    <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800">
                 Welcome to Gentle Steps</h1>
-                    <h1 className="text-[clamp(16px,2.5vw,24px)] mb-4 text-center">Login or Sign Up</h1>
+                    <h1 className="text-[clamp(16px,2.5vw,24px)] mb-4 text-center dark:text-gray-800">Login or Sign Up</h1>
 
-                    <div className="align-center">
+                    <div className="align-center dark:text-gray-800">
                         <form className="flex flex-col gap-4 w-full"
                         >
                             <input 
                             type="text"
-                            placeholder="Username (for new users)"
+                            placeholder="Username (required for sign up)"
                             onChange={(e) => setUsername(e.target.value)}
                             className="border rounded-lg p-2 w-full"
                             />

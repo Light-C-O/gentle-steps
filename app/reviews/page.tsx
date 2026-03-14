@@ -18,8 +18,8 @@ export default async function ReviewPage() {
 
     return(
         <main className="flex justify-center mx-auto font-sans drop-shadow-xl/50 mt-10">
-            <div className="relative w-[90vw] max-w-3xl">
-                <img src="/bookr.svg" alt=" back cover" className="absolute inset-0 w-full h-full object-fill rounded-2xl"/>
+            <div className="relative w-[90vw] max-w-3xl aspect-3/4 overflow-hidden">
+                <img src="/book.svg" alt=" back cover" className="absolute w-full h-full object-fill rounded-2xl"/>
                 
                 <div className="relative z-10 h-full px-[8%] mt-18 mb-10 md:mt-10">
                     <div className="grid gap-5 mb-10 md:gap-3">

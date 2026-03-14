@@ -9,6 +9,8 @@ import {onAuthStateChanged} from "firebase/auth";
 import NavBar from "@/components/navbar";
 import Button from "@/components/button";
 
+import PaperBackground from "@/components/paper-background";
+
 type Note = {
     id: string;
     title: string;
@@ -130,8 +132,8 @@ export default function NotePage(){
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-4xl">
-                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover rounded-2xl"/>
-                <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                <PaperBackground/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700">
                     <div><NavBar/></div>
                     <h1 className="text-3xl font-bold mb-2">My Notes</h1>
                     <div className="flex flex-col sm:flex-col lg:flex-row gap-5 mb-4">

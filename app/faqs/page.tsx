@@ -6,7 +6,9 @@ import {useEffect, useState} from "react"
 import NavBar from "@/components/navbar";
 import Link from "next/link";
 import { FAQ } from "@/types/faq";
+
 import SearchFAQ from "@/components/searchfaq";
+import PaperBackground from "@/components/paper-background";
 
 // type FAQ = {
 //     id: string;
@@ -41,16 +43,14 @@ export default function FaqPage() {
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover rounded-2xl"/>
-                <div className="relative z-10 items-center justify-center h-full px-[8%]">
+                <PaperBackground/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700">
                     <div><NavBar/></div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between ">
                         <h1 className="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
                         <Link href={"/resources"}className="hover: underline underline-offset-2">For More</Link>
                     </div>
-                    
                         <SearchFAQ faqs={faqs}/>
-                    
                 </div>
             </div>
         </main>

@@ -10,6 +10,7 @@ import { collection, getDocs, doc, updateDoc} from "firebase/firestore";
 import CheckForm from "@/components/check-form";
 import NavBar from "@/components/navbar";
 import Checkbox from "@/components/checkbox";
+import PaperBackground from "@/components/paper-background";
 
 //the layout
 type Checklist = {
@@ -182,15 +183,15 @@ export default function CheckPage() {
     return(
         <main className="flex justify-center mx-auto font-sans min-h-auto drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper2.svg" alt="background paper" className="absolute w-full h-full object-cover rounded-2xl"/>
+                <PaperBackground/>
                 <div className="relative items-center justify-center h-full px-[8%]">
                     <div><NavBar/></div>
                     <div className="">
-                        <h1 className="text-3xl font-bold mb-6">Checklists</h1>
+                        <h1 className="text-3xl font-bold mb-6 text-red-900 dark:text-gray-700">Checklists</h1>
                         {checklists.map((checklist) => (
                             // loop through each checklist document
                             <div key={checklist.id} className="mb-6 p-4 rounded-xl">
-                                <h2 className="text-xl font-semibold text-center mb-5">{checklist.title}</h2>
+                                <h2 className="text-xl font-semibold text-center mb-5 text-red-900 dark:text-gray-700">{checklist.title}</h2>
                                 <ul className="mt-2 space-y-2">
                                     {
                                         checklist.items?.map((item, index: number) => (
@@ -202,7 +203,7 @@ export default function CheckPage() {
                                                             <input 
                                                             value={editingValue}
                                                             onChange={(e) => setEditingValue(e.target.value)}
-                                                            className="outline-none"/>
+                                                            className="outline-none text-red-900 dark:text-gray-700"/>
                                                         </div>
                                                         <div className="flex justify-end gap-4">
                                                             <button className="text-amber-500 whitespace-nowrap border rounded-lg px-2 hover:bg-amber-200 active:bg-amber-500 active:text-amber-50" onClick={updateItem}>update</button>
@@ -214,7 +215,7 @@ export default function CheckPage() {
                                                         <div className="flex gap-2 w-full">
                                                             <Checkbox checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>
                                                         
-                                                            <span className={item.completed ? "line-through text-gray-400" : ""}>{item.info?.length > 40 ?`${item.info.substring(0, 40)}...`: item.info }</span>
+                                                            <span className={item.completed ? "line-through text-gray-400" : "text-red-900 dark:text-gray-700"}>{item.info?.length > 40 ?`${item.info.substring(0, 40)}...`: item.info }</span>
                                                         </div>
                                                         <div className="flex justify-end gap-4">
                                                             <button className="text-blue-500 whitespace-nowrap border rounded-lg px-2 hover:bg-blue-200 active:bg-blue-500 active:text-amber-50" onClick={()=>editItem(checklist.id, index, item.info)}>edit</button>
@@ -228,7 +229,7 @@ export default function CheckPage() {
                                     }
 
                                     <div>
-                                        <ul>
+                                        <ul className="text-red-900 dark:text-gray-700">
                                             <CheckForm
                                             checklistId={checklist.id}
                                             onAdd= {(info)=> addItem(
