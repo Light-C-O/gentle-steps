@@ -215,3 +215,4 @@
   - The toggle is working but it not updating on the browser. I checked `global.css` and it was using `@media (prefers-color-scheme: dark)` which systems preference not the user when they toggle to light or dark. It had to be replaced it with `.dark`, it is knows that it is the class that it should look at.
   - I also made a `PaperBackground` component for the images, instead of repeating the same thing accros all pages, it makes sense to create component to lessen load of a single page and that it will react well for bot the client and server components with the backgorund image needing to be chaged when the `BulbButton` is triggered.
   - The dark mode works on the pages that has it implemented.
+  - I have implemented the dark mode in the pages. I have properly styled `security/page.tsx`.

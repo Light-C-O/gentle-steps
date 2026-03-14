@@ -9,6 +9,8 @@ import {useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+import PaperBackground from "@/components/paper-background";
+
 type User = {
     id:string;
     username: string;
@@ -106,41 +108,40 @@ export default function ProfilePage(){
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover rounded-2xl"/>
-                <div className="relative z-10 items-center justify-center h-full px-[8%]">
-                    <div className="flex justify-between items-center">
-                        <Link type="button" href={"/chapters"}>Back</Link>
+                <PaperBackground/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
+                    <Link href={"/chapters"} className="border rounded-2xl py-3 px-2 active:bg-gray-200/50">Back</Link>
+                    <div className="grid">
                         <h1 className="text-3xl font-bold my-6 text-center">My Profile</h1>
-                        <div></div>
-                    </div>
-
-                    {!userInfo ? (
-                        <div>Loading... Are you logged in?</div>
-                        ):(
-                        <div className="space-y-4 mb-10">
-                            {/* profile */}
-                            <div className="text-center">
-                                <div className="relative border-2 rounded-full h-100 w-100 mx-auto mb-5 text-center cursor-pointer">
-                                    <input type="file" name="profileImageUrl" onChange={handleImageChange} className="absolute inset-0 h-full w-full z-10 opacity-0 cursor-pointer" />
-                                    
-                                    {/* for the image, if it there display, if not say upload image */}
-                                    {profileImageUrl ? <img src={profileImageUrl} alt="Profile Image" className=" rounded-full h-full w-full object-cover"/> : <img src="/image-placeholder.png" alt="Profile Image" className=" rounded-full h-full w-full object-cover"/>}
-                                </div>
-
-                                <div className="mb-5">
-                                    <p>{username}</p>
-                                    <p>{email}</p>
-                                    <div className="mt-5">
-                                        <p className="font-bold uppercase">About me</p>
-                                        <p>{description}</p>
-                                    </div>
-                                    
-                                </div>
-                                <Link type="button" href={"/profile/security"} className="border p-2 rounded">Edit Account</Link>
-                            </div>
                             
-                        </div>
-                    )}
+                        {!userInfo ? (
+                            <div>Loading... Are you logged in?</div>
+                            ):(
+                            <div className="space-y-4 mb-10">
+                                {/* profile */}
+                                <div className="text-center">
+                                    <div className="relative border-2 rounded-full h-50 w-50 mx-auto mb-5 text-center cursor-pointer">
+                                        <input type="file" name="profileImageUrl" onChange={handleImageChange} className="absolute inset-0 h-full w-full z-10 opacity-0 cursor-pointer" />
+                                        
+                                        {/* for the image, if it there display, if not say upload image */}
+                                        {profileImageUrl ? <img src={profileImageUrl} alt="Profile Image" className=" rounded-full h-full w-full object-cover"/> : <img src="/image-placeholder.png" alt="Profile Image" className=" rounded-full h-full w-full object-cover"/>}
+                                    </div>
+
+                                    <div className="mb-10">
+                                        <p className="text-2xl">{username}</p>
+                                        <p className="text-2xl">{email}</p>
+                                        <div className="mt-5">
+                                            <p className="font-bold uppercase">About me:</p>
+                                            <p>{description}</p>
+                                        </div>
+                                        
+                                    </div>
+                                    <Link type="button" href={"/profile/security"} className="border p-2 rounded-lg hover:bg-gray-200/50 active:bg-gray-300">Edit Account</Link>
+                                </div>
+                                
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </main>

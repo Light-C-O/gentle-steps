@@ -8,8 +8,10 @@ import {useEffect, useState} from "react";
 
 import { useRouter } from "next/navigation";
 
-import Button from "@/components/button";
+import AccountButton from "@/components/account-button";
 import Link from "next/link";
+
+import PaperBackground from "@/components/paper-background";
 
 type User = {
     id:string;
@@ -216,83 +218,89 @@ export default function SecurityPage(){
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
-                <img src="/paper2.svg" alt="background paper" className="absolute inset-0 w-full h-full object-cover rounded-2xl"/>
-                <div className="relative z-10 items-center justify-center h-full px-[8%]">
-                    <div className="grid items-center my-6 gap-5">
-                        <Link type="button" href="/profile">Back to Profile</Link>
-                        <h1 className="text-3xl font-bold ">Account & Security</h1>
-                    </div>
+                <PaperBackground/>
+                <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
+                    <Link href={"/profile"} className="border rounded-2xl py-3 px-2 active:bg-gray-200/50">Back to Profile</Link>
 
-                    {!userInfo ? (
-                        <div>Loading... Are you logged in?</div>
-                        ):(
-                        <div className="space-y-4 mb-10">
-                            {/* Username */}
-                            <div>
+                    <div className="grid">
+                        <h1 className="text-3xl font-bold my-6 justify-self-center">Account & Security</h1>
+                        {!userInfo ? (
+                            <div>Loading... Are you logged in?</div>
+                            ):(
+                            <div className="space-y-4 mb-10">
+                                {/* Username */}
                                 <div className="grid">
-                                    <label className="uppercase">Username</label>
-                                    <input 
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    className="border p-2 w-full text-2xl"/>
+                                    <label className="font-semibold uppercase">Username</label>
+                                    <div className="flex justify-between items-center">
+                                        <input 
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        className="border rounded-lg p-2 w-auto text-2xl"/>
+                                        <AccountButton onClick={handleUpdateUsername}>Save Username</AccountButton>
+                                    </div>
+                                    
                                 </div>
-                                <Button onClick={handleUpdateUsername}>Save Username</Button>
-                            </div>
 
-                            {/* Description */}
-                            <div>
-                                <div className="grid">
-                                    <label className="uppercase">About You</label>
-                                    <textarea 
-                                    placeholder="Tell something about yourself..." 
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    className="border p-2 overflow-auto text-2xl rounded-lg  outline-none" 
-                                    cols={20}
-                                    rows={10}
-                                    ></textarea>
-                                </div>
-                                <Button onClick={handleUpdateDescription}>Save Description</Button>
-                            </div>
-                                
-
-                            {/* Email */}
-                            <div>
+                                {/* Description */}
                                 <div>
                                     <div className="grid">
-                                        <label className="uppercase">Email</label>
-                                        <small className="text-red-500 font-mono">A verification will be sent to the current email to update</small>
+                                        <label className="uppercase">About You</label>
+                                        <textarea 
+                                        placeholder="Tell something about yourself..." 
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        className="border p-2 overflow-auto text-2xl rounded-lg  outline-none" 
+                                        cols={20}
+                                        rows={5}
+                                        ></textarea>
                                     </div>
-                                    <input 
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="border p-2 rounded-lg w-full text-2xl"/>
+                                    <AccountButton onClick={handleUpdateDescription}>Save Description</AccountButton>
                                 </div>
-                                <Button onClick={handleUpdateEmail}>Update Email</Button>
-                            </div>
+                                    
 
-                            {/* Password */}
-                            <div>
+                                {/* Email */}
                                 <div>
-                                    <label className="uppercase">Password</label>
-                                    <input
-                                    placeholder="Minimum 6 characters"
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="border p-2 rounded-lg w-full text-2xl"/>
-                                </div>
-                                <Button onClick={handleUpdatePassword}>Update Password</Button>
-                            </div>
+                                    <div className="grid">
+                                        <label className="uppercase font-semibold">Email</label>
+                                        <small className="text-red-500 font-mono">A verification will be sent to the current email</small>
 
-                            {/* delete account */}
-                            <div className="border-t-2 border-amber-700">
-                                <div className="text-red-500 uppercase">Danger Zone - Proceed with caution</div>
-                                <Button onClick={handleDeleteAccount}>Delete Account</Button>
+                                        <div className="flex justify-between items-center">
+                                            <input 
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="border p-2 rounded-lg w-auto text-lg"/>
+                                            <AccountButton onClick={handleUpdateEmail}>Update Email</AccountButton>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                {/* Password */}
+                                <div className="grid">
+                                    <label className="uppercase">Password</label>
+                                    <div className="flex justify-between items-center">
+                                        <input
+                                        placeholder="Minimum 6 characters"
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="border p-2 rounded-lg text-lg"/>
+                                    
+                                        <AccountButton onClick={handleUpdatePassword}>Update Password</AccountButton>
+                                    </div>
+                                </div>
+
+                                {/* delete account */}
+                                <div className="border-t-5 border-red-700 grid justify-center">
+                                    <div className="text-red-500 uppercase p-4 font-black">Danger Zone - Proceed with caution</div>
+                                    <div className="justify-self-center mt-2">
+                                        <button className="px-10 py-4 bg-linear-to-b from-red-500 via-red-600 to-red-700 text-white font-bold rounded-full border-4 border-red-900 shadow-[inset_0_2px_4px_rgba(255,255,255,0.2),inset_0_-4px_8px_rgba(0,0,0,0.3),0_8px_16px_rgba(0,0,0,0.4)] active:shadow-[inset_0_4px_8px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.2)] transition-all cursor-pointer" onClick={handleDeleteAccount} >Delete Account</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         </main>

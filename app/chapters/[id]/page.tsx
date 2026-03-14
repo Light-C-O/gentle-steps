@@ -224,14 +224,16 @@ export default function ChapterDetails() {
                         <div className="flex items-center">
                                 {chapterIds.map((chapter)=>(
                                     <div key={chapter.id} className="min-w-full max-w-3xl mx-auto px-4">
-                                        <h1 className="text-3xl font-bold text-center">{chapter.title}</h1>
-                                        <p className="mt-5 text-base font-light text-center italic mb-4">{chapter.summary}</p>
-                                    
+                                        <div className="grid text-center mb-5 border-b-2 pb-5">
+                                            <p className="text-xl uppercase mb-2 justify-self-start">Chapter {chapter.order}</p>
+                                            <h1 className="text-3xl font-bold"> {chapter.title}</h1>
+                                            <p className="mt-5 text-base font-light italic">{chapter.summary}</p>
+                                        </div>
                                         {/* loop throught the maped fields */}
                                         {/* //take all the section sort them based on order field */}
-                                        {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-4 scroll-smooth">
+                                        {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-10 scroll-smooth">
                                                 <div className="flex justify-between">
-                                                    <h2 className="font-semibold text-xl">{sectionMap.title}</h2>
+                                                    <h2 className="font-semibold text-xl mb-2">{sectionMap.title}</h2>
                                                     <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as ChapterInfo & {id:string}, key, sectionMap.title, sectionMap.content
                                                     )}/>
                                                 </div>
