@@ -21,7 +21,7 @@ export default function SearchChapter({chapters, onClick} : SearchChapterProps){
     let filteredChapters = chapters;
 
     //if you search something
-    if (searchTerm.length > 1) {
+    if (searchTerm.length >= 1) {
         //allow these when searching
         filteredChapters = chapters.filter((chapter)=> 
             chapter.title.toLowerCase().includes(searchTerm) ||

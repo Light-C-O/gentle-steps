@@ -233,3 +233,4 @@
   - Needed to add `react-jsx` in `jest.config.ts` because TS can't handle TS with JSX (.tsx), only pure TS (.ts).
   - Now I just passed a test that renders ``SearchFAQ`` with mock data and checks a faq question is visible on screen using screeen.getByText.
   - I added a search bar for resources as well, similar to have been made to chapters and faqs.
+  - I'm trying to test the search/filter behaviour of the ``SearchFAQ`` component.

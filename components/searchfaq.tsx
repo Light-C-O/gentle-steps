@@ -16,7 +16,7 @@ export default function SearchFAQ({faqs, onClick} : SearchFAQProps){
     let filteredFAQs = faqs;
 
     //if you search something
-    if (searchTerm.length > 1) {
+    if (searchTerm.length >= 1) {
         //allow these when searching
         filteredFAQs = faqs.filter((faq)=> 
             faq.category.toLowerCase().includes(searchTerm) ||

@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen, fireEvent} from '@testing-library/react';
 import SeachFAQ from '../components/searchfaq';
 import {FAQ} from '../types/faq';
 
@@ -13,5 +13,16 @@ const mockFAQs: FAQ[] = [
 
 test('show "What is gentle steps?" on screen', () => {
     render(<SeachFAQ faqs={mockFAQs} />);
+    
     expect(screen.getByText("What is gentle steps?")).toBeInTheDocument();
+});
+
+test('shows "Search for a faq..." on screen', ()=> {
+    render(<SeachFAQ faqs={mockFAQs} />);
+
+    const inputNode = screen.getByPlaceholderText('Search for a faq...');
+    fireEvent.change(inputNode, {target: {value: 'l'}});
+    
+
+    expect(screen.getByText("lecture")).toBeInTheDocument();
 });

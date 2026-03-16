@@ -16,7 +16,7 @@ export default function SearchResource({resources, onClick} : SearchResourceProp
     let filteredResources = resources;
 
     //if you search something
-    if (searchTerm.length > 1) {
+    if (searchTerm.length >= 1) {
         //allow these when searching
         filteredResources = resources.filter((resource)=> 
             resource.title.toLowerCase().includes(searchTerm) ||
@@ -33,7 +33,6 @@ export default function SearchResource({resources, onClick} : SearchResourceProp
                     <div key={resource.id} className="mb-6">
                         <small className="font-light uppercase"> {resource.category}</small>
                         <h2 className="text-xl font-semibold">{resource.title}</h2>
-                        {/* <p className="text-xl italic text-gray-400">{resource.description}</p> */}
                         <div className="">
                             <button onClick={()=>setAnswerOpen(answerOpen === resource.id ? null : resource.id)} className="rounded-lg px-2 py-2 border border-amber-300 hover:bg-amber-100 active:bg-amber-200 focus:bg-amber-200 w-full">
                                 <div className="text-x text-left font-semibold">{resource.title}</div>
