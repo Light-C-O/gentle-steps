@@ -6,6 +6,12 @@
 import type {Config} from 'jest';
 
 const config: Config = {
+  clearMocks: true,
+  preset: 'ts-jest',
+  testEnvironment: 'jest-environment-jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  coverageProvider: "v8",
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -16,7 +22,7 @@ const config: Config = {
   // cacheDirectory: "C:\\Users\\n00242379\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls, instances, contexts and results before every test
-  clearMocks: true,
+  // clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -33,7 +39,7 @@ const config: Config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  // coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
