@@ -8,7 +8,7 @@ export default function BulbButton() {
 
     return(
         <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="cursor-pointer border-2 border-transparent hover:border-amber-700 rounded-full w-20 h-20">
-            <img src="/icon-512.png" width="50" height="50" alt="logo" className="rounded-full h-full w-full object-cover" />
+            <img src="/transparent _logo.png" width="50" height="50" alt="logo" className="rounded-full h-full w-full object-cover" />
         </button>
     )
 }

@@ -20,7 +20,7 @@ export default async function ReviewPage() {
         <main className="flex justify-center mx-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl aspect-3/4 overflow-hidden">
                 <BooKBackground/>
-                <div className="relative z-10 h-full px-[8%] mt-18 mb-10 md:mt-15">
+                <div className="relative z-10 h-full px-[8%] text-red-900 dark:text-gray-700 mt-18 mb-10 md:mt-15">
                     <div className="grid gap-5 mb-10 md:gap-3">
                         <Link href="/" className="font-bold hover:bg-amber-400/50 rounded p-2 text-amber-800">Sign in</Link>
                         <div className="justify-self-center"><BulbButton/></div>

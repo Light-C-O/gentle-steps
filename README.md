@@ -224,7 +224,11 @@
 
 ### WEEK 6
 - **Monday 16th Mar:**
-  - I'm begining the automatued testing. I had to change fre thing in my setup. I'm using TypeScript(TS) and Jest doesn't understand it on it's own. It needs to be transformed ``.ts`` files into JS before running. I have already instaled ``ts-jest`` to tackled that. I had to add few more thing in ``jest.config.ts``. Those are: `preset: 'ts-jest'`, to handle TS; ``testEnvironment: 'jest-environment-jsdom'``, for React/Next; `setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],`, it points to `jest.setup.ts`.
+  - I'm begining the automatued testing. I had to change a few things in my setup. I'm using TypeScript(TS) and Jest doesn't understand it on it's own. It needs to be transformed ``.ts`` files into JS before running. I have already installed ``ts-jest`` to tackled that. I had to add few more thing in ``jest.config.ts``. Those are: `preset: 'ts-jest'`, to handle TS; ``testEnvironment: 'jest-environment-jsdom'``, for React/Next; `setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],`, it points to `jest.setup.ts`.
   - Jest can't read TS, I needed top install ``ts-node``.
   - I replaced `require()` in ``sum.ts`` to `import {sum} from "./sum";`. I soon fine out that.
-  - Now it runs perfectly when I tested a function by using `npm test`
+  - Now it runs perfectly when I tested a function by using `npm test`.
+  - I made a test for the component `searchfaq`. Created first a test file `searchfaq.test` in the test folder. I created a ``mockFAQ`` array with one fake FAQ containing what is in ``faq.ts`` and just added fake data in it. It is better instead of calling the real API or database, that way I have more control and wouldn't have to worry about if it will add data to my actual database every time I test.
+  - In `searchfaq.test.tsx`, `toBeInTheDocument()` is not recognised in TS, using ``@testing-library/jest-do`` makes sure that it adds `toBeInTheDocument()` to Jest.
+  - Needed to add `react-jsx` in `jest.config.ts` because TS can't handle TS with JSX (.tsx), only pure TS (.ts).
+  - Now I just passed a test that renders ``SearchFAQ`` with mock data and checks a faq question is visible on screen using screeen.getByText.

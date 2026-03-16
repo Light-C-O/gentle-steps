@@ -95,7 +95,7 @@ export default function SecurityPage(){
         alert("Username has been updated!");
     };
 
-    //fir username and description
+    //for description
     const handleUpdateDescription = async ()=>{
         if (!userId) return;
 
@@ -234,25 +234,25 @@ export default function SecurityPage(){
                                     {/* Username */}
                                     <div className="grid">
                                         <label className="font-semibold uppercase">Username</label>
-                                        <div className="flex justify-between items-center">
+                                        <div className="grid gap-5 sm:flex justify-between items-center">
                                             <input 
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
-                                            className="border rounded-lg p-2 w-auto text-2xl"/>
+                                            className="border rounded-lg p-2 w-95 text-xl outline-none"/>
                                             <AccountButton onClick={handleUpdateUsername}>Save Username</AccountButton>
                                         </div>
                                         
                                     </div>
 
                                     {/* Description */}
-                                    <div>
+                                    <div className="grid gap-5">
                                         <div className="grid">
-                                            <label className="uppercase">About You</label>
+                                            <label className="uppercase font-semibold">About You</label>
                                             <textarea 
                                             placeholder="Tell something about yourself..." 
                                             value={description}
                                             onChange={(e) => setDescription(e.target.value)}
-                                            className="border p-2 overflow-auto text-2xl rounded-lg  outline-none" 
+                                            className="border p-2 overflow-auto text-xl rounded-lg  outline-none" 
                                             cols={20}
                                             rows={5}
                                             ></textarea>
@@ -262,40 +262,37 @@ export default function SecurityPage(){
                                         
 
                                     {/* Email */}
-                                    <div>
-                                        <div className="grid">
-                                            <label className="uppercase font-semibold">Email</label>
-                                            <small className="text-red-500 font-mono">A verification will be sent to the current email</small>
+                                    <div className="grid">
+                                        <label className="uppercase font-semibold">Email</label>
+                                        <small className="text-red-500 font-mono">A verification will be sent to the current email</small>
 
-                                            <div className="flex justify-between items-center">
-                                                <input 
-                                                type="email"
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                className="border p-2 rounded-lg w-auto text-lg"/>
-                                                <AccountButton onClick={handleUpdateEmail}>Update Email</AccountButton>
-                                            </div>
+                                        <div className=" grid gap-5 sm:flex justify-between items-center">
+                                            <input 
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="border p-2 rounded-lg w-95 text-xl"/>
+                                            <AccountButton onClick={handleUpdateEmail}>Update Email</AccountButton>
                                         </div>
-                                        
                                     </div>
 
                                     {/* Password */}
                                     <div className="grid">
-                                        <label className="uppercase">Password</label>
-                                        <div className="flex justify-between items-center">
+                                        <label className="uppercase font-semibold">Password</label>
+                                        <div className="grid gap-5 sm:flex justify-between items-center">
                                             <input
                                             placeholder="Minimum 6 characters"
                                             type="password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="border p-2 rounded-lg text-lg"/>
+                                            className="border p-2 rounded-lg w-95 text-xl"/>
                                         
                                             <AccountButton onClick={handleUpdatePassword}>Update Password</AccountButton>
                                         </div>
                                     </div>
 
                                     {/* delete account */}
-                                    <div className="border-t-5 border-red-700 grid justify-center">
+                                    <div className="border-t-5 border-red-700 grid justify-center mt-10">
                                         <div className="text-red-500 uppercase p-4 font-black">Danger Zone - Proceed with caution</div>
                                         <div className="justify-self-center mt-2">
                                             <button className="px-10 py-4 bg-linear-to-b from-red-500 via-red-600 to-red-700 text-white font-bold rounded-full border-4 border-red-900 shadow-[inset_0_2px_4px_rgba(255,255,255,0.2),inset_0_-4px_8px_rgba(0,0,0,0.3),0_8px_16px_rgba(0,0,0,0.4)] active:shadow-[inset_0_4px_8px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.2)] transition-all cursor-pointer" onClick={handleDeleteAccount} >Delete Account</button>

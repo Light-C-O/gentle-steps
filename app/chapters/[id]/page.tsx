@@ -212,7 +212,7 @@ export default function ChapterDetails() {
     }, [emblaApi]);
 
     return (
-        <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
+        <main className="flex items-center justify-center mx-auto min-h-auto font-sans overflow-hidden drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl text-red-900 dark:text-gray-700">
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] mt-6">

@@ -136,6 +136,21 @@ export default function ProfilePage(){
                                             <div className="mt-5">
                                                 <p className="font-bold uppercase">About me:</p>
                                                 <p>{description}</p>
+                                                {/* Description */}
+                                                {/* <div className="grid gap-5">
+                                                    <div className="grid">
+                                                        <label className="uppercase font-semibold">About You</label>
+                                                        <textarea 
+                                                        placeholder="Tell something about yourself..." 
+                                                        value={description}
+                                                        onChange={(e) => setDescription(e.target.value)}
+                                                        className="border p-2 overflow-auto text-2xl rounded-lg  outline-none" 
+                                                        cols={20}
+                                                        rows={5}
+                                                        ></textarea>
+                                                    </div>
+                                                    <AccountButton onClick={handleUpdateDescription}>Save Description</AccountButton>
+                                                </div> */}
                                             </div>
                                             
                                         </div>
