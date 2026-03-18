@@ -19,9 +19,9 @@ export default function SearchFAQ({faqs, onClick} : SearchFAQProps){
     if (searchTerm.length >= 1) {
         //allow these when searching
         filteredFAQs = faqs.filter((faq)=> 
-            faq.category.toLowerCase().includes(searchTerm) ||
-            faq.question.toLowerCase().includes(searchTerm) ||
-            faq.answer.toLowerCase().includes(searchTerm)
+            faq.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }
 

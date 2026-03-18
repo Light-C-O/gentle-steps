@@ -24,5 +24,5 @@ test('shows "Search for a faq..." on screen', ()=> {
     fireEvent.change(inputNode, {target: {value: 'l'}});
     
 
-    expect(screen.getByText("lecture")).toBeInTheDocument();
+    expect(screen.getByText("Lecture")).toBeInTheDocument();
 });

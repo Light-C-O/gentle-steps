@@ -234,3 +234,8 @@
   - Now I just passed a test that renders ``SearchFAQ`` with mock data and checks a faq question is visible on screen using screeen.getByText.
   - I added a search bar for resources as well, similar to have been made to chapters and faqs.
   - I'm trying to test the search/filter behaviour of the ``SearchFAQ`` component.
+  - I had imported ``fireEvent``. The placeholder needs to match what is being tested. 
+  - The filter wasn't triggering at first, instead of `> 1` because it only took more than 1 meaning, if you put one letter it will not trigger the filter. I changed it to `>= 1`. However, it was still not working.
+
+- **Wednesday 18th Mar:**
+  - I have passed the test of the filter of `SearchFAQ`. The reason to why the filter wasn't working, ``searchTerm`` wasn't being lowercased before comparing. Tests should always reflect real user behavour, not be adjusted to match a broken code.
