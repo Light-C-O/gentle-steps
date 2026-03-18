@@ -149,7 +149,7 @@ export default function ChapterDetails() {
 
     //create a carousel for each chapter
     useEffect (() => {
-        //get the data from the collection called tracks
+        //get the data from the collection called chapters
         const fetchChapters = async () => {
             const querySnapshot = await getDocs(collection(db, "chapters"));
             //then converts them into objects

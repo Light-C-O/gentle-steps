@@ -33,6 +33,7 @@ export default function SearchFAQ({faqs, onClick} : SearchFAQProps){
                     <div key={faq.id} className={`p-4 ${answerOpen === faq.id ? 'self-start' : ''}`}>
                         <h2 className="text-xl font-semibold">{faq.category}</h2>
                         <div className="">
+                            {/* is answerOpen currently equal to this faq.id? if yes, set it to null(close the drop down) : if no, set it to faq.id (open) */}
                             <button onClick={()=>setAnswerOpen(answerOpen === faq.id ? null : faq.id)} className="rounded-lg px-2 py-2 border border-amber-300 hover:bg-amber-100 active:bg-amber-200 focus:bg-amber-200 w-full">
                                 <div className="text-x text-left font-semibold">{faq.question}</div>
                             </button>
