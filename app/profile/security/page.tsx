@@ -89,6 +89,7 @@ export default function SecurityPage(){
 
     //fir username and description
     const handleUpdateUsername = async ()=>{
+        console.log("userId is:", userId);
         if (!userId) return;
 
         await updateDoc (doc(db, "users", userId),{username: username || ""});
@@ -170,6 +171,17 @@ export default function SecurityPage(){
         if(!confirmDelete) return;
 
         try {
+            //prompt for password
+            const password = prompt("Please enter your current password to confirm:")
+            if(!password) return;
+
+            //check if password matches
+            const credential = EmailAuthProvider.credential(
+                auth.currentUser.email!, password
+            );
+
+            await reauthenticateWithCredential(auth.currentUser, credential);
+
             //delete first the subcollections
                 //notes
                 const notesRef = collection(db, "users", userId, "notes");
@@ -201,10 +213,11 @@ export default function SecurityPage(){
             // and then delete the user - the order of deletion matters
             await deleteUser(auth.currentUser);
 
-            
 
-            router.push("/");
             alert("Account has been deleted! Sad to see you go :(");
+
+            //success
+            router.push("/");
         }catch(error:any){//if any error, catch it
             if(error.code === "auth/requires-recent-login"){
                 alert("Session ended. Please log out and log back in before deleting the account");

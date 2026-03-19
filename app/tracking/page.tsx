@@ -25,7 +25,7 @@ type Track = {
 export default function TrackPage() {
     //create a box to store lists of tracks from the database
     const [tracks, setTracks] = useState<Track []>([]);
-    const [emblaRef, emblaApi] = useEmblaCarousel({loop:false});
+    const [emblaRef, emblaApi] = useEmblaCarousel({loop:true});
 
     //runs once when the carousel first loads, 
     useEffect (() => {
