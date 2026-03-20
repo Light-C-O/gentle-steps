@@ -17,7 +17,6 @@ type User = {
     id:string;
     username: string;
     email: string;
-    description: string;
     createdAt: any;
 }
 
@@ -31,7 +30,6 @@ export default function SecurityPage(){
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [description, setDescription] = useState("");
 
     //for authentication
     useEffect (()=>{
@@ -61,13 +59,11 @@ export default function SecurityPage(){
                 id: snapshot.id,
                 username: data.username,
                 email: data.email,
-                description: data.description,
                 createdAt: data.createdAt
             };
             setUserInfo(UserData);
             setUsername(data.username);
             setEmail(data.email);
-            setDescription(data.description);
         });
         return()=> unsubscribe();
     }, [userId]);
@@ -94,14 +90,6 @@ export default function SecurityPage(){
 
         await updateDoc (doc(db, "users", userId),{username: username || ""});
         alert("Username has been updated!");
-    };
-
-    //for description
-    const handleUpdateDescription = async ()=>{
-        if (!userId) return;
-
-        await updateDoc (doc(db, "users", userId),{description: description || ""});
-        alert("Description has been updated!");
     };
 
     //update an email
@@ -234,11 +222,12 @@ export default function SecurityPage(){
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
                     <div className="grid">
-                        <div className="border rounded-2xl py-3 px-4 active:bg-gray-200/50 justify-self-start">
-                            <Link href={"/profile"} className=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg></Link>
-                        </div>
-
-                        <div className="grid">
+                        <Link href={"/profile"}>
+                            <div className="border rounded-2xl py-3 px-4 active:bg-gray-200/50 justify-self-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg>
+                            </div>
+                        </Link>
+                        <div className="grid min-w-0">
                             <h1 className="text-3xl font-bold my-6 justify-self-center">Account & Security</h1>
                             {!userInfo ? (
                                 <div>Loading... Are you logged in?</div>
@@ -251,29 +240,12 @@ export default function SecurityPage(){
                                             <input 
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
-                                            className="border rounded-lg p-2 w-95 text-xl outline-none"/>
+                                            className="border rounded-lg p-2 md:w-95 text-xl outline-none min-w-0"/>
                                             <AccountButton onClick={handleUpdateUsername}>Save Username</AccountButton>
                                         </div>
                                         
                                     </div>
-
-                                    {/* Description */}
-                                    <div className="grid gap-5">
-                                        <div className="grid">
-                                            <label className="uppercase font-semibold">About You</label>
-                                            <textarea 
-                                            placeholder="Tell something about yourself..." 
-                                            value={description}
-                                            onChange={(e) => setDescription(e.target.value)}
-                                            className="border p-2 overflow-auto text-xl rounded-lg  outline-none" 
-                                            cols={20}
-                                            rows={5}
-                                            ></textarea>
-                                        </div>
-                                        <AccountButton onClick={handleUpdateDescription}>Save Description</AccountButton>
-                                    </div>
                                         
-
                                     {/* Email */}
                                     <div className="grid">
                                         <label className="uppercase font-semibold">Email</label>
@@ -284,7 +256,7 @@ export default function SecurityPage(){
                                             type="email"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="border p-2 rounded-lg w-95 text-xl"/>
+                                            className="border p-2 rounded-lg md:w-95 text-xl outline-none min-w-0"/>
                                             <AccountButton onClick={handleUpdateEmail}>Update Email</AccountButton>
                                         </div>
                                     </div>
@@ -298,7 +270,7 @@ export default function SecurityPage(){
                                             type="password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="border p-2 rounded-lg w-95 text-xl"/>
+                                            className="border p-2 rounded-lg md:w-95 text-xl outline-none min-w-0"/>
                                         
                                             <AccountButton onClick={handleUpdatePassword}>Update Password</AccountButton>
                                         </div>

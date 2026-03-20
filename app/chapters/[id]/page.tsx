@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import BookmarkButton from "@/components/bookmark-button";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
-import Button from "@/components/button";
+import Button from "@/components/cancel-button";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import ProgressBar from "@/components/progress-bar";

@@ -7,7 +7,11 @@ import { collection, doc, updateDoc, deleteDoc, addDoc, query, orderBy, onSnapsh
 import {onAuthStateChanged} from "firebase/auth";
 
 import NavBar from "@/components/navbar";
-import Button from "@/components/button";
+import CancelButton from "@/components/cancel-button";
+import UpdateButton from "@/components/update-button";
+import CreateButton from "@/components/create-button";
+import DeleteButton from "@/components/delete-button";
+import EditButton from "@/components/edit-button";
 
 import PaperBackground from "@/components/paper-background";
 
@@ -164,15 +168,32 @@ export default function NotePage(){
 
                             {/* for edit, cancel and update */}
                             <div className="flex place-content-between">
-                                <Button type="submit">{editingId? "Update Note" : "Create Note"}</Button>
-                                <Button type="button" onClick={resetNote}>Cancel</Button>
+                                {
+                                editingId ? (
+                                    <UpdateButton type="submit"><div className="p-2 font-bold">Update Note</div></UpdateButton>
+                                    
+                                    
+
+                                    ): (
+                                    
+                                    <CreateButton type="submit"><div className="p-2 font-bold">Create Note</div></CreateButton>
+                                    
+                                    ) 
+                                }
+            
+
+                                {/* <button className="text-amber-500 whitespace-nowrap border rounded-lg px-2 hover:bg-amber-200 active:bg-amber-500 active:text-amber-50">{editingId? "Update Note" : "Create Note"}</button> */}
+
+                                {/* <button className="text-gray-500 whitespace-nowrap border rounded-lg px-2 active:bg-gray-200 " onClick={resetNote}>Cancel</button> */}
+
+                                <CancelButton type="button" onClick={resetNote}><div className="p-2 font-bold">Cancel</div></CancelButton>
                             </div>
                         </form>
                     
                         {/* the note lists */}
                         <div className="space-y-4 flex-1">
                             {notes.map((note)=>(
-                                <div key={note.id} className="p-4 border border-amber-500 rounded-xl">
+                                <div key={note.id} className="p-4 border border-amber-500 rounded-xl grid">
                                     <div className="flex justify-between">
                                         <h2 className="font-semibold text-2xl">{note.title}</h2>
                                         <p className="text-gray-500">
@@ -180,9 +201,9 @@ export default function NotePage(){
                                             {note.createdAt?.toDate().toLocaleDateString()}</p>
                                     </div>
                                     
-                                    <div className="flex gap-2">
-                                        <Button onClick={()=>editNote(note)}>Edit</Button>
-                                        <Button onClick={()=>deleteNote(note.id)}>Delete</Button>
+                                    <div className="justify-self-end flex gap-2">
+                                        <EditButton onClick={()=>editNote(note)}><div className="p-2 font-bold">Edit</div></EditButton>
+                                        <DeleteButton onClick={()=>deleteNote(note.id)}><div className="p-2 font-bold">Delete</div></DeleteButton>
                                     </div>
                                 </div>
                             ))}
