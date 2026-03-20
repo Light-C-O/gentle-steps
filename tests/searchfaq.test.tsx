@@ -26,3 +26,21 @@ test('shows "Search for a faq..." on screen', ()=> {
 
     expect(screen.getByText("Lecture")).toBeInTheDocument();
 });
+
+test('shows that toggle works', ()=> {
+    render(<SeachFAQ faqs={mockFAQs} />);
+
+
+    const buttonText = screen.getByText("What is gentle steps?");
+
+    //the before - dropdown closed
+    const drop = screen.queryByText("A web-based interactive digital book for mothers");
+    expect(drop).toBeNull();
+
+    // once clicked
+    fireEvent.click(buttonText);
+
+    //the after - dropdwon opened
+    const seen = screen.queryByText("A web-based interactive digital book for mothers");
+    expect(seen).toBeInTheDocument();
+});

@@ -239,3 +239,10 @@
 
 - **Wednesday 18th Mar:**
   - I have passed the test of the filter of `SearchFAQ`. The reason to why the filter wasn't working, ``searchTerm`` wasn't being lowercased before comparing. Tests should always reflect real user behavour, not be adjusted to match a broken code.
+
+- **Thursday 19th Mar:**
+	- In the AccountButtton() onClick prop wasn't set properly. I forgot to link it to onClick={onClick}.
+	- Delete an account didn't fully do its work, it only deleted the users id in the users collection in Firestore but not in the Firebase Authentication, which led to the user being able to still log in despite all their information no longer there. deleteUser() requires recent authentication and I had call the reauthenticateWithCredential first before deleting a user to fix that.
+
+- **Friday 20th Mar:**
+  - I'll be testing the FAQ dropdown. I had to make a toggle. It is important visualise what it should do. I made a button and wrote what to expect before and after the toggled button. The automated test for the toggling of the dropdown has succesfully passed.

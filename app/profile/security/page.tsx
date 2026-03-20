@@ -277,7 +277,7 @@ export default function SecurityPage(){
                                     {/* Email */}
                                     <div className="grid">
                                         <label className="uppercase font-semibold">Email</label>
-                                        <small className="text-red-500 font-mono">A verification will be sent to the current email</small>
+                                        <small className="text-red-500 font-mono">A verification will be sent to the new email</small>
 
                                         <div className=" grid gap-5 sm:flex justify-between items-center">
                                             <input 

@@ -24,11 +24,11 @@ export default function SearchChapter({chapters, onClick} : SearchChapterProps){
     if (searchTerm.length >= 1) {
         //allow these when searching
         filteredChapters = chapters.filter((chapter)=> 
-            chapter.title.toLowerCase().includes(searchTerm) ||
+            chapter.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             chapter.order.toString().includes(searchTerm) ||
 
             // overview is optional
-            chapter.overview?.toLowerCase().includes(searchTerm)
+            chapter.overview?.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }
 
