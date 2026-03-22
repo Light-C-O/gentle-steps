@@ -143,25 +143,25 @@ export default function ProfilePage(){
                                         </div>
 
                                         <div className="mb-10">
-                                            <p className="text-2xl">{username}</p>
-                                            <p className="text-2xl">{email}</p>
+                                            <p className="text-lg sm:text-2xl">{username}</p>
+                                            <p className="text-base sm:text-2xl">{email}</p>
                                             <div className="mt-5">
                                                 {/* Description */}
                                                 <div className="grid gap-5">
                                                     <div className="grid">
-                                                        <label className="text-2xl font-bold uppercase">About Me:</label>
+                                                        <label className="text-base sm:text-2xl font-bold uppercase">About Me:</label>
                                                         <textarea 
                                                         placeholder="Tell something about yourself..." 
                                                         value={description}
                                                         onChange={(e) => setDescription(e.target.value)}
-                                                        className="border p-2 overflow-auto text-2xl rounded-lg  outline-none min-w-10 max-w-full"></textarea>
+                                                        className="border p-2 overflow-auto text-base sm:text-2xl rounded-lg  outline-none min-w-10 max-w-full"></textarea>
                                                     </div>
                                                     <AccountButton onClick={handleUpdateDescription}>Save Description</AccountButton>
                                                 </div>
                                             </div>
                                             
                                         </div>
-                                        <Link type="button" href={"/profile/security"} className="border p-2 rounded-lg text-2xl hover:bg-gray-200/50 active:bg-gray-300 hover:font-semibold">Edit Account</Link>
+                                        <Link type="button" href={"/profile/security"} className="border p-2 rounded-lg text-lg sm:text-2xl hover:bg-gray-200/50 active:bg-gray-300 hover:font-semibold">Edit Account</Link>
                                     </div>
                                     
                                 </div>
