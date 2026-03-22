@@ -27,7 +27,7 @@ export default function SearchResource({resources, onClick} : SearchResourceProp
 
     return (
         <div>
-            <input value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} placeholder="Search for resources..." className="px-2 py-3 border rounded-lg w-full mb-4 shadow-[inset_5px_-5px_30px_5px_#46464620] outline-none" />
+            <input value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} placeholder="Search for resources..." className="px-2 py-3 border rounded-lg w-full mb-4 hover:shadow-[inset_5px_-5px_30px_5px_#46464620] outline-none" />
             <div className="md:grid grid-cols-2 gap-4 mb-4">
                 {filteredResources.map((resource) => (
                     <div key={resource.id} className="mb-6">
@@ -39,7 +39,7 @@ export default function SearchResource({resources, onClick} : SearchResourceProp
                             </button>
                             {answerOpen === resource.id && (
                                 <div className="mt-3 mb-3">
-                                    <p className="text-xl italic text-gray-600">{resource.description}</p>
+                                    <p className="text-lg italic">{resource.description}</p>
                                 </div>
                             )}
                         </div>

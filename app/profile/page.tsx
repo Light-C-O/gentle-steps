@@ -120,8 +120,8 @@ export default function ProfilePage(){
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
                     <div className="grid">
-                        <Link href={"/chapters"}>
-                            <div className="border rounded-2xl py-3 px-4 active:bg-gray-200/50 justify-self-start">
+                        <Link href={"/chapters"} className="justify-self-start">
+                            <div className="hover:shadow-[inset_5px_-5px_30px_5px_#46464620] border rounded-2xl py-3 px-4 active:bg-gray-200/50">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg>
                             </div>
                         </Link>
@@ -130,7 +130,7 @@ export default function ProfilePage(){
                             <h1 className="font-bold my-6 text-center">My Profile</h1>
                                 
                             {!userInfo ? (
-                                <div>Loading... Are you logged in?</div>
+                                <div>Are you logged in?</div>
                                 ):(
                                 <div className="space-y-4 mb-10 ">
                                     {/* profile */}
@@ -154,10 +154,7 @@ export default function ProfilePage(){
                                                         placeholder="Tell something about yourself..." 
                                                         value={description}
                                                         onChange={(e) => setDescription(e.target.value)}
-                                                        className="border p-2 overflow-auto text-2xl rounded-lg  outline-none" 
-                                                        cols={10}
-                                                        rows={5}
-                                                        ></textarea>
+                                                        className="border p-2 overflow-auto text-2xl rounded-lg  outline-none min-w-10 max-w-full"></textarea>
                                                     </div>
                                                     <AccountButton onClick={handleUpdateDescription}>Save Description</AccountButton>
                                                 </div>

@@ -151,7 +151,7 @@ export default function NotePage(){
                             placeholder="Add Title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="p-2 rounded outline-none font-bold"
+                            className="p-2 rounded outline-none font-bold hover:shadow-[inset_-12px_-8px_40px_#46464620] "
                             />
 
                             {/* content */}
@@ -161,7 +161,7 @@ export default function NotePage(){
                             placeholder="What is on your mind..." 
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="p-2 overflow-auto outline-none" 
+                            className="p-2 overflow-auto outline-none hover:shadow-[inset_-12px_-8px_40px_#46464620] rounded" 
                             cols={40}
                             rows={20}
                             ></textarea>

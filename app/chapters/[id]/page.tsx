@@ -5,7 +5,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import BookmarkButton from "@/components/bookmark-button";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
-import Button from "@/components/cancel-button";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import ProgressBar from "@/components/progress-bar";
@@ -212,59 +211,63 @@ export default function ChapterDetails() {
     }, [emblaApi]);
 
     return (
-        <main className="flex items-center justify-center mx-auto min-h-auto font-sans overflow-hidden drop-shadow-xl/50 mt-10">
-            <div className="relative w-[90vw] max-w-3xl text-red-900 dark:text-gray-700">
+        <main className="flex items-center justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
+            <div className="relative w-[90vw] flex flex-col h-[90vh] max-w-3xl text-red-900 dark:text-gray-700">
                 <PaperBackground/>
-                <div className="relative z-10 items-center justify-center h-full px-[8%] mt-6">
-                    <div className="flex justify-between">
-                        <Link href="/chapters" className="hover:underline underline-offset-2">View All Chapters</Link>
-                        <Link href="/bookmarks" className="hover:underline underline-offset-2">View All Bookmarks</Link>
-                    </div>
-                    <div className="overflow-hidden mt-6" ref={emblaRef}>
-                        <div className="flex items-center">
-                                {chapterIds.map((chapter)=>(
-                                    <div key={chapter.id} className="min-w-full max-w-3xl mx-auto px-4">
-                                        <div className="grid text-center mb-5 border-b-2 pb-5">
-                                            <p className="text-xl uppercase mb-2 justify-self-start">Chapter {chapter.order}</p>
-                                            <h1 className="text-3xl font-bold"> {chapter.title}</h1>
-                                            <p className="mt-5 text-base font-light italic">{chapter.summary}</p>
-                                        </div>
-                                        {/* loop throught the maped fields */}
-                                        {/* //take all the section sort them based on order field */}
-                                        {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-10 scroll-smooth">
-                                                <div className="flex justify-between">
-                                                    <h2 className="font-semibold text-xl mb-2">{sectionMap.title}</h2>
-                                                    <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as ChapterInfo & {id:string}, key, sectionMap.title, sectionMap.content
-                                                    )}/>
-                                                </div>
-
-                                                {Array.isArray(sectionMap.content) 
-                                                    ? sectionMap.content.map((line, i) => (
-                                                        <p key={i} className="mb-4">{line}</p>
-                                                    ))
-                                                    : <p>{sectionMap.content}</p>
-                                                } 
+                <div className="flex justify-between sticky top bg px-[8%] mt-5">
+                    <Link href="/chapters" className="py-2 px-4 border rounded-lg hover:shadow-[inset_-12px_-8px_40px_#46464620] hover:font-bold active:bg-amber-100/50 dark:active:bg-gray-300/50">All Chapters</Link>
+                    <Link href="/bookmarks" className="py-2 px-4 border rounded-lg hover:shadow-[inset_-12px_-8px_40px_#46464620] hover:font-bold active:bg-amber-100/50 dark:active:bg-gray-300/50">All Bookmarks</Link>
+                </div>
+                <div className="relative z-10 items-center justify-center h-full px-[8%] overflow-y-auto mt-6">
+                    <div className="grid">
+                        {/* chapter carousel */}
+                        <div className="overflow-hidden mt-6" ref={emblaRef}>
+                            <div className="flex items-center">
+                                    {chapterIds.map((chapter)=>(
+                                        <div key={chapter.id} className="min-w-full max-w-3xl mx-auto px-4">
+                                            <div className="grid text-center mb-5 border-b-2 pb-5">
+                                                <p className="text-xl uppercase mb-2 justify-self-start">Chapter {chapter.order}</p>
+                                                <h1 className="text-3xl font-bold"> {chapter.title}</h1>
+                                                <p className="mt-5 text-base font-light italic">{chapter.summary}</p>
                                             </div>
-                                        ))}
-                                    </div>
-                                ))}
+                                            {/* loop throught the maped fields */}
+                                            {/* //take all the section sort them based on order field */}
+                                            {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-10 scroll-smooth">
+                                                    <div className="flex justify-between">
+                                                        <h2 className="font-semibold text-xl mb-2">{sectionMap.title}</h2>
+                                                        <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as ChapterInfo & {id:string}, key, sectionMap.title, sectionMap.content
+                                                        )}/>
+                                                    </div>
+
+                                                    {Array.isArray(sectionMap.content) 
+                                                        ? sectionMap.content.map((line, i) => (
+                                                            <p key={i} className="mb-4">{line}</p>
+                                                        ))
+                                                        : <p>{sectionMap.content}</p>
+                                                    } 
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </div>
-                    <div className="sticky bottom-10" >
+
+                </div>
+                <footer className="relative z-10 px-[8%] pb-6 bg-transparent" >
                         <ProgressBar emblaApi={emblaApi} total={chapterIds.length}/>
-                    
                         <div className="flex justify-between my-6 items-center">
                             {/* prevous button */}
-                            <Button onClick={goToPrev} >
+                            <div onClick={goToPrev} className="cursor-pointer border-2 rounded-full p-4 hover:bg-red-200/70 dark:hover:bg-gray-300/70">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg>
-                            </Button>
+                            </div>
                             {/* next button */}
-                            <Button onClick={goToNext} >
+                            <div onClick={goToNext} className="cursor-pointer border-2 rounded-full p-4 hover:bg-red-200/70 dark:hover:bg-gray-300/70">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14.143 15.962a.5.5 0 0 1-.244.68l-9.402 4.193c-1.495.667-3.047-.814-2.306-2.202l3.152-5.904c.245-.459.245-1 0-1.458L2.191 5.367c-.74-1.388.81-2.87 2.306-2.202l3.525 1.572a2 2 0 0 1 .974.932z"/><path fill="currentColor" d="M15.533 15.39a.5.5 0 0 0 .651.233l4.823-2.15c1.323-.59 1.323-2.355 0-2.945L12.109 6.56a.5.5 0 0 0-.651.68z" opacity="0.5"/></svg>
-                            </Button>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                </footer>
+                
             </div>
         </main>
     );

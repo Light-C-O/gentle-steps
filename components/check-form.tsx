@@ -1,5 +1,6 @@
 'use client';
 import {useState} from "react";
+import CreateButton from "./create-button";
 
 
 type FormProps = {
@@ -32,9 +33,9 @@ export default function CheckForm ({checklistId, onAdd}: FormProps) {
         placeholder="Add a new item"
         value={info}
         onChange={(e) => setInfo(e.target.value)}
-        className="px-3 py-2 w-full outline-none"
+        className="px-3 py-2 w-full outline-none border rounded-lg hover:shadow-[inset_5px_-5px_30px_5px_#46464620]"
         />
-        <button type="submit" className="text-cyan-500 whitespace-nowrap border rounded-lg px-2 hover:bg-cyan-200 active:bg-cyan-500 active:text-cyan-50">New Item</button>
+        <CreateButton type="submit"><div className="px-2">New Item</div></CreateButton>
     </form>
     );
 }

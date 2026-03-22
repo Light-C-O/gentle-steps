@@ -11,6 +11,11 @@ import CheckForm from "@/components/check-form";
 import NavBar from "@/components/navbar";
 import Checkbox from "@/components/checkbox";
 import PaperBackground from "@/components/paper-background";
+import UpdateButton from "@/components/update-button";
+import EditButton from "@/components/edit-button";
+import DeleteButton from "@/components/delete-button";
+import CreateButton from "@/components/create-button";
+import CancelButton from "@/components/cancel-button";
 
 //the layout
 type Checklist = {
@@ -206,8 +211,9 @@ export default function CheckPage() {
                                                             className="outline-none text-red-900 dark:text-gray-700"/>
                                                         </div>
                                                         <div className="flex justify-end gap-4">
-                                                            <button className="text-amber-500 whitespace-nowrap border rounded-lg px-2 hover:bg-amber-200 active:bg-amber-500 active:text-amber-50" onClick={updateItem}>update</button>
-                                                            <button className="text-gray-500 whitespace-nowrap border rounded-lg px-2 active:bg-gray-200 " onClick={resetItem}>cancel</button>
+                                                            <UpdateButton type="button" onClick={updateItem}><div className="whitespace-nowrap">update</div></UpdateButton>
+                                                            
+                                                            <CancelButton type="button" onClick={resetItem}><div className="whitespace-nowrap">cancel</div></CancelButton>
                                                         </div>
                                                     </div>
                                                 ) :(
@@ -218,9 +224,10 @@ export default function CheckPage() {
                                                             <span className={item.completed ? "line-through text-gray-400" : "text-red-900 dark:text-gray-700"}>{item.info?.length > 40 ?`${item.info.substring(0, 40)}...`: item.info }</span>
                                                         </div>
                                                         <div className="flex justify-end gap-4">
-                                                            <button className="text-blue-500 whitespace-nowrap border rounded-lg px-2 hover:bg-blue-200 active:bg-blue-500 active:text-amber-50" onClick={()=>editItem(checklist.id, index, item.info)}>edit</button>
-
-                                                            <button className="text-red-500 whitespace-nowrap border rounded-lg px-2 hover:bg-red-200 active:bg-red-500 active:text-amber-50" onClick={()=> deleteItem(checklist.id, index)}>delete</button>
+                                                            <EditButton type="button" onClick={()=>editItem(checklist.id, index, item.info)}><div className=" whitespace-nowrap">edit</div></EditButton>
+                                                            
+                                                            <DeleteButton type="button" onClick={()=> deleteItem(checklist.id, index)}><div className="whitespace-nowrap">delete</div></DeleteButton>
+                                                            
                                                         </div>
                                                     </div>
                                                 )}

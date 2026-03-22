@@ -27,7 +27,7 @@ export default function SearchFAQ({faqs, onClick} : SearchFAQProps){
 
     return (
         <div>
-            <input value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} placeholder="Search for a faq..." className="px-2 py-3 rounded-lg w-50% mb-4 shadow-[inset_5px_-5px_30px_5px_#46464620] outline-none" />
+            <input value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} placeholder="Search for a faq..." className="px-2 py-3 rounded-lg border w-50% mb-4 hover:shadow-[inset_5px_-5px_30px_5px_#46464620] outline-none" />
             <div className="md:grid grid-cols-2 gap-4 mb-4">
                 {filteredFAQs.map((faq) => (
                     <div key={faq.id} className={`p-4 ${answerOpen === faq.id ? 'self-start' : ''}`}>

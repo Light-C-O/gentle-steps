@@ -48,7 +48,7 @@ export default function FaqPage() {
                     <div><NavBar/></div>
                     <div className="flex justify-between ">
                         <h1 className="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
-                        <Link href={"/resources"}className="hover: underline underline-offset-2">For More</Link>
+                        <Link href={"/resources"}className="hover:shadow-[inset_5px_-5px_30px_5px_#46464620] p-2 border rounded-lg self-start">For More</Link>
                     </div>
                         <SearchFAQ faqs={faqs}/>
                 </div>

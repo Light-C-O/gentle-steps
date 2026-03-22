@@ -13,9 +13,9 @@ export default function Checkbox({ checked, onChange }: CheckboxProps) {
         className="peer hidden"
         />
 
-        <div className="w-5 h-5 flex items-center justify-center rounded border border-amber-400 peer-checked:bg-amber-500 peer-checked:border-amber-500 transition">
+        <div className="w-5 h-5 flex items-center justify-center rounded border border-amber-400 peer-checked:bg-amber-500 peer-checked:border-amber-500 transition hover:shadow-[inset_5px_-5px_30px_5px_#46464620] hover:border-2">
         <svg
-            className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100"
+            className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 "
             fill="none"
             stroke="currentColor"
             strokeWidth="3"
