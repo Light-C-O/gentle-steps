@@ -240,7 +240,7 @@ export default function SecurityPage(){
                                             <input 
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
-                                            className="border rounded-lg p-2 md:w-95 text-xl outline-none min-w-0"/>
+                                            className="border rounded-lg p-2 md:w-95 text-lg sm:text-xl outline-none min-w-0"/>
                                             <AccountButton onClick={handleUpdateUsername}>Save Username</AccountButton>
                                         </div>
                                         
@@ -256,7 +256,7 @@ export default function SecurityPage(){
                                             type="email"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="border p-2 rounded-lg md:w-95 text-xl outline-none min-w-0"/>
+                                            className="border p-2 rounded-lg md:w-95 text-lg sm:text-xl outline-none min-w-0"/>
                                             <AccountButton onClick={handleUpdateEmail}>Update Email</AccountButton>
                                         </div>
                                     </div>
@@ -270,7 +270,7 @@ export default function SecurityPage(){
                                             type="password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="border p-2 rounded-lg md:w-95 text-xl outline-none min-w-0"/>
+                                            className="border p-2 rounded-lg md:w-95 text-lg sm:text-xl outline-none min-w-0"/>
                                         
                                             <AccountButton onClick={handleUpdatePassword}>Update Password</AccountButton>
                                         </div>
@@ -280,7 +280,7 @@ export default function SecurityPage(){
                                     <div className="border-t-5 border-red-700 dark:border-blue-700 grid justify-center mt-10">
                                         <div className="text-red-500 dark:text-blue-500 uppercase p-4 font-light">Danger Zone - Proceed with caution</div>
                                         <div className="justify-self-center mt-2">
-                                            <button className="px-10 py-4 bg-linear-to-b from-red-500 dark:from-blue-500 via-red-600 dark:via-blue-600 to-red-700 dark:to-blue-700 text-white font-bold rounded-full border-4 border-red-900 dark:border-blue-900 shadow-[inset_0_2px_4px_rgba(255,255,255,0.2),inset_0_-4px_8px_rgba(0,0,0,0.3),0_8px_16px_rgba(0,0,0,0.4)] active:shadow-[inset_0_4px_8px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.2)] transition-all cursor-pointer" onClick={handleDeleteAccount} >Delete Account</button>
+                                            <button className="px-10 py-4 bg-linear-to-b from-red-500 dark:from-blue-500 via-red-600 dark:via-blue-600 to-red-700 dark:to-blue-700 text-white font-bold rounded-3xl border-4 border-red-900 dark:border-blue-900 shadow-[inset_0_2px_4px_rgba(255,255,255,0.2),inset_0_-4px_8px_rgba(0,0,0,0.3),0_8px_16px_rgba(0,0,0,0.4)] active:shadow-[inset_0_4px_8px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.2)] transition-all cursor-pointer" onClick={handleDeleteAccount} >Delete Account</button>
                                         </div>
                                     </div>
                                 </div>
