@@ -6,6 +6,7 @@ import { auth } from "@/data/firebase"
 import {useState} from "react"
 import BulbButton from "@/components/bulb";
 import ProfileButton from "./profile-button";
+import LogoIcon from "./logo";
 
 
 export default function NavBar(){
@@ -28,9 +29,12 @@ export default function NavBar(){
     }
     return ( 
         <nav className="text-red-900 dark:dark:text-gray-700">
-            <div className="flex justify-between mt-10 text-center items-center pb-5 border-b-2 border-amber-300">
+            
+            <div className="flex justify-end"><BulbButton/></div>
+            
+            <div className="flex justify-between mt-5 text-center items-center pb-5 border-b-2 border-amber-300">
                 <ProfileButton enabled={false}/>
-                <BulbButton/>
+                <LogoIcon/>
                 <button className="active:border sm:hover:shadow-[inset_5px_-5px_30px_5px_#46464620] p-2 rounded-lg sm:*:active:border" onClick={handleLogout}>Log Out</button>
             </div>
             <div className="font-bold uppercase text-center py-2">Table of contents</div>
