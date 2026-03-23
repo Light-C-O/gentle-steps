@@ -70,7 +70,7 @@ export default function LoginPage() {
                     type="button"
                     disabled={loading}
                     onClick={handleLogin}
-                    className="bg-indigo-600 text-gray-100 p-2 rounded-lg hover:bg-amber-400 hover:text-gray-900 active:bg-amber-600"
+                    className="dark:hover:bg-indigo-500 dark:bg-blue-500 text-gray-100 p-2 rounded-lg hover:bg-amber-600 bg-yellow-400 cursor-pointer"
                 >
                     {loading ? "Welcome Back..." : "Login"}
                 </button>
