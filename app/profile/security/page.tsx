@@ -249,7 +249,7 @@ export default function SecurityPage(){
                                     {/* Email */}
                                     <div className="grid">
                                         <label className="uppercase font-semibold">Email</label>
-                                        <small className="text-red-500 font-mono">A verification will be sent to the new email</small>
+                                        <small className="text-red-500 dark:text-blue-500 font-mono">A verification will be sent to the new email</small>
 
                                         <div className=" grid gap-5 sm:flex justify-between items-center">
                                             <input 
@@ -277,10 +277,10 @@ export default function SecurityPage(){
                                     </div>
 
                                     {/* delete account */}
-                                    <div className="border-t-5 border-red-700 grid justify-center mt-10">
-                                        <div className="text-red-500 uppercase p-4 font-black">Danger Zone - Proceed with caution</div>
+                                    <div className="border-t-5 border-red-700 dark:border-blue-700 grid justify-center mt-10">
+                                        <div className="text-red-500 dark:text-blue-500 uppercase p-4 font-light">Danger Zone - Proceed with caution</div>
                                         <div className="justify-self-center mt-2">
-                                            <button className="px-10 py-4 bg-linear-to-b from-red-500 via-red-600 to-red-700 text-white font-bold rounded-full border-4 border-red-900 shadow-[inset_0_2px_4px_rgba(255,255,255,0.2),inset_0_-4px_8px_rgba(0,0,0,0.3),0_8px_16px_rgba(0,0,0,0.4)] active:shadow-[inset_0_4px_8px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.2)] transition-all cursor-pointer" onClick={handleDeleteAccount} >Delete Account</button>
+                                            <button className="px-10 py-4 bg-linear-to-b from-red-500 dark:from-blue-500 via-red-600 dark:via-blue-600 to-red-700 dark:to-blue-700 text-white font-bold rounded-full border-4 border-red-900 dark:border-blue-900 shadow-[inset_0_2px_4px_rgba(255,255,255,0.2),inset_0_-4px_8px_rgba(0,0,0,0.3),0_8px_16px_rgba(0,0,0,0.4)] active:shadow-[inset_0_4px_8px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.2)] transition-all cursor-pointer" onClick={handleDeleteAccount} >Delete Account</button>
                                         </div>
                                     </div>
                                 </div>
