@@ -35,7 +35,7 @@ export default function NavBar(){
             <div className="flex justify-between mt-5 text-center items-center pb-5 border-b-2 border-amber-300">
                 <ProfileButton enabled={false}/>
                 <LogoIcon/>
-                <button className="active:border sm:hover:shadow-[inset_5px_-5px_30px_5px_#46464620] p-2 rounded-lg sm:*:active:border" onClick={handleLogout}>Log Out</button>
+                <button className="cursor-pointer border hover:font-semibold hover:shadow-[inset_5px_-5px_30px_5px_#46464620] p-2 rounded-lg" onClick={handleLogout}>Log Out</button>
             </div>
             <div className="font-bold uppercase text-center py-2">Table of contents</div>
             <div className="mb-10 border-t-2 border-amber-300 pt-5">
@@ -50,8 +50,8 @@ export default function NavBar(){
 
                 {/* for mobile - dropdown */}
                 <div className="sm:hidden">
-                    <div className="flex justify-between mx-auto">
-                        <Link className="hover:border-b-2 border-amber-300 focus:border-amber-300" href="/chapters">Chapters</Link>
+                    <div className="flex justify-between items-center mx-auto">
+                        <Link className={pathname === "/chapters" ? "border-b-2  border-amber-300 px-8 font-bold" : "hover:border-b-2 rounded-tl-lg border-gray-300 hover:shadow-[inset_5px_-5px_30px_5px_#46464620] px-8"} href="/chapters">Chapters</Link>
                         {/* once you click the button it state become true */}
                         <div className="grid">
                             <button onClick={()=>setMenuOpen(!menuOpen)} className="flex justify-center items-center rounded-lg px-2 py-2 border border-amber-300 hover:bg-amber-100 active:bg-amber-200 focus:bg-amber-200 relative">

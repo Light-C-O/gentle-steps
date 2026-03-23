@@ -135,7 +135,7 @@ export default function ProfilePage(){
                                 <div className="space-y-4 mb-10 ">
                                     {/* profile */}
                                     <div className="sm:text-center">
-                                        <div className="relative border-4 border-transparent hover:border-amber-600 dark:hover:border-gray-600 rounded-full h-30 w-30 sm:h-50 sm:w-50 mx-auto mb-5 text-center cursor-pointer">
+                                        <div className="relative border-4 border-transparent hover:border-red-900 dark:hover:border-gray-600 rounded-full h-30 w-30 sm:h-50 sm:w-50 mx-auto mb-5 text-center cursor-pointer">
                                             <input type="file" name="profileImageUrl" onChange={handleImageChange} className="absolute inset-0 h-full w-full z-10 opacity-0 cursor-pointer" />
                                             
                                             {/* for the image, if it there display, if not say upload image */}

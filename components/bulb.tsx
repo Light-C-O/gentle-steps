@@ -11,9 +11,11 @@ export default function BulbButton({onClick} : BulbProps) {
     console.log(theme)
 
     return(
-        <div onClick={() =>{onClick?.(); setTheme(theme === "dark" ? "light" : "dark")}}
-            className="cursor-pointer border-2 border-transparent rounded-l w-10 h-10 flex items-center justify-center mt-10">
-            {theme === "dark"? <DisabledMoonIcon/> : <EnabledSunIcon/> }
+        <div className="p-2 rounded-full hover:shadow-[inset_-12px_-8px_40px_#46464620] mt-5">
+            <div onClick={() =>{onClick?.(); setTheme(theme === "dark" ? "light" : "dark")}}
+                className="cursor-pointer border-2 border-transparent rounded-l w-10 h-10 flex items-center justify-center">
+                {theme === "dark"? <DisabledMoonIcon/> : <EnabledSunIcon/> }
+            </div>
         </div>
     )
 }
