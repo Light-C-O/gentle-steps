@@ -208,9 +208,9 @@ export default function CheckPage() {
                                                             <input 
                                                             value={editingValue}
                                                             onChange={(e) => setEditingValue(e.target.value)}
-                                                            className="outline-none text-red-900 dark:text-gray-700"/>
+                                                            className="px-3 py-2 w-full outline-none border rounded-lg hover:shadow-[inset_5px_-5px_30px_5px_#46464620] text-red-900 dark:text-gray-700"/>
                                                         </div>
-                                                        <div className="flex justify-end gap-4">
+                                                        <div className="flex justify-end gap-4 place-self-center">
                                                             <UpdateButton type="button" onClick={updateItem}><div className="whitespace-nowrap">update</div></UpdateButton>
                                                             
                                                             <CancelButton type="button" onClick={resetItem}><div className="whitespace-nowrap">cancel</div></CancelButton>

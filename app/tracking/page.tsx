@@ -78,11 +78,11 @@ export default function TrackPage() {
                                 </div>
                                 <div className="flex justify-between">
                                     {/* prevous button */}
-                                    <button onClick={goToPrev} className="cursor-pointer p-4 rounded-4xl bg-amber-500/50 active:bg-amber-500 absolute top-140 left-10">
+                                    <button onClick={goToPrev} className="cursor-pointer p-4 rounded-4xl bg-amber-500/50 active:bg-amber-500 absolute top-180 left-10">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg>
                                     </button>
                                     {/* next button */}
-                                    <button onClick={goToNext} className="cursor-pointer p-4 rounded-4xl bg-amber-500/50 active:bg-amber-500 absolute top-140 right-10">
+                                    <button onClick={goToNext} className="cursor-pointer p-4 rounded-4xl bg-amber-500/50 active:bg-amber-500 absolute top-180 right-10">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14.143 15.962a.5.5 0 0 1-.244.68l-9.402 4.193c-1.495.667-3.047-.814-2.306-2.202l3.152-5.904c.245-.459.245-1 0-1.458L2.191 5.367c-.74-1.388.81-2.87 2.306-2.202l3.525 1.572a2 2 0 0 1 .974.932z"/><path fill="currentColor" d="M15.533 15.39a.5.5 0 0 0 .651.233l4.823-2.15c1.323-.59 1.323-2.355 0-2.945L12.109 6.56a.5.5 0 0 0-.651.68z" opacity="0.5"/></svg>
                                     </button>
                                 </div>
