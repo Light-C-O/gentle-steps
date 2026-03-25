@@ -4,10 +4,9 @@ import { FAQ } from "@/types/faq";
 
 type SearchFAQProps = {
     faqs: FAQ[];
-    onClick?: (value:string)=> void;
 }
 
-export default function SearchFAQ({faqs, onClick} : SearchFAQProps){
+export default function SearchFAQ({faqs} : SearchFAQProps){
     //for a dropdewn for the anser of each faq question
     const [answerOpen, setAnswerOpen] = useState<string | null>(null);
 

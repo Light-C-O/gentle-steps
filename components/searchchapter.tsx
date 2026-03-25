@@ -12,10 +12,9 @@ import { Chapter } from "@/types/chapter";
 
 type SearchChapterProps = {
     chapters: Chapter[];
-    onClick?: (value:string)=> void;
 }
 
-export default function SearchChapter({chapters, onClick} : SearchChapterProps){
+export default function SearchChapter({chapters} : SearchChapterProps){
     const[searchTerm, setSearchTerm] = useState('');
 
     let filteredChapters = chapters;
@@ -38,7 +37,7 @@ export default function SearchChapter({chapters, onClick} : SearchChapterProps){
                 <div className="flex justify-between sm:gap-10 items-center mb-6">
                     <h1 className="text-3xl font-bold">Chapters</h1>
                     <Link href="/bookmarks" className="cursor-pointer border p-2 rounded-lg hover:shadow-[inset_-12px_-8px_40px_#46464620]">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><defs><mask id="SVGP24RLffG"><g fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4"><path fill="#555555" d="M10 44a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v36a2 2 0 0 1-2 2z"/><path fill="#555555" fillRule="evenodd" stroke-linecap="round" d="M21 22V4h12v18l-6-6.273z" clip-rule="evenodd"/><path stroke-linecap="round" d="M10 4h28"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGP24RLffG)"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><defs><mask id="SVGP24RLffG"><g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4"><path fill="#555555" d="M10 44a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v36a2 2 0 0 1-2 2z"/><path fill="#555555" fillRule="evenodd" strokeLinecap="round" d="M21 22V4h12v18l-6-6.273z" clipRule="evenodd"/><path strokeLinecap="round" d="M10 4h28"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGP24RLffG)"/>
                             </svg>
                     </Link>
                 </div>

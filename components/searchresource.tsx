@@ -5,10 +5,9 @@ import Link from "next/link";
 
 type SearchResourceProps = {
     resources: Resource[];
-    onClick?: (value:string)=> void;
 }
 
-export default function SearchResource({resources, onClick} : SearchResourceProps){
+export default function SearchResource({resources} : SearchResourceProps){
     const[searchTerm, setSearchTerm] = useState('');
     //for a dropdewn for the anser of each faq question
     const [answerOpen, setAnswerOpen] = useState<string | null>(null);
