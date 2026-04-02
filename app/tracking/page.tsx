@@ -1,6 +1,5 @@
 'use client';
 import { db } from "@/data/firebase";
-
 import { collection, getDocs } from "firebase/firestore";
 
 import {useCallback, useEffect, useState} from "react";
@@ -8,7 +7,6 @@ import {useCallback, useEffect, useState} from "react";
 import  useEmblaCarousel from "embla-carousel-react";
 
 import NavBar from "@/components/navbar";
-
 import PaperBackground from "@/components/paper-background";
 
 //the track collection structure/blue print
@@ -20,7 +18,6 @@ type Track = {
     week: number;
     visualUrl: string;
 }
-
 
 export default function TrackPage() {
     //create a box to store lists of tracks from the database
@@ -45,8 +42,6 @@ export default function TrackPage() {
         };
         fetchTracks();
     }, []);
-
-
 
     const goToPrev = useCallback(() => {
         emblaApi?.scrollPrev();
@@ -76,6 +71,7 @@ export default function TrackPage() {
                                         </div>
                                     ))}
                                 </div>
+                                
                                 <div className="flex justify-between">
                                     {/* prevous button */}
                                     <button onClick={goToPrev} className="cursor-pointer p-4 rounded-4xl bg-amber-500/50 active:bg-amber-500 absolute top-180 left-10">

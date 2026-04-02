@@ -1,14 +1,16 @@
 'use client';
 import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
+
 import {useEffect, useState} from "react"
 
-import NavBar from "@/components/navbar";
 import Link from "next/link";
-import { FAQ } from "@/types/faq";
 
+import NavBar from "@/components/navbar";
 import SearchFAQ from "@/components/searchfaq";
 import PaperBackground from "@/components/paper-background";
+
+import { FAQ } from "@/types/faq";
 
 // type FAQ = {
 //     id: string;
@@ -21,10 +23,7 @@ import PaperBackground from "@/components/paper-background";
 export default function FaqPage() {
     const [faqs, setFaqs] = useState<FAQ []>([])
 
-    
-
     useEffect (()=>{
-
         const fecthFAQs = async () => {
             const querySnapshot = await getDocs(collection(db, "faqs"));
 
@@ -39,7 +38,6 @@ export default function FaqPage() {
         fecthFAQs();
     }, []);
     
-
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
@@ -50,7 +48,7 @@ export default function FaqPage() {
                         <h1 className="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
                         <Link href={"/resources"}className="hover:shadow-[inset_5px_-5px_30px_5px_#46464620] p-2 border rounded-lg self-start">For More</Link>
                     </div>
-                        <SearchFAQ faqs={faqs}/>
+                    <SearchFAQ faqs={faqs}/>
                 </div>
             </div>
         </main>

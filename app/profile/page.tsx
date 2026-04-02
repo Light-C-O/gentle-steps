@@ -1,6 +1,5 @@
 'use client';
 import { db, auth} from "@/data/firebase";
-
 import { doc, onSnapshot, updateDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 
@@ -35,8 +34,6 @@ export default function ProfilePage(){
     //image 
     const [profileImageUrl, setProfileImageUrl] = useState("")
 
-    
-
     //for authentication
     useEffect (()=>{
         const unsubscribe = onAuthStateChanged (auth, (user)=>{
@@ -58,7 +55,6 @@ export default function ProfilePage(){
 
         const unsubscribe = onSnapshot(userRef, (snapshot)=>{
             if(!snapshot.exists()) return;
-
             const data = snapshot.data();
             
             const UserData: User = {
@@ -91,7 +87,6 @@ export default function ProfilePage(){
         //call to cloudinary to upload
         const res = await fetch(`https://api.cloudinary.com/v1_1/dyfzs7muf/image/upload`, {method: "post", body: formData});
 
-
         const data = await res.json();
         
         //get the url
@@ -113,7 +108,6 @@ export default function ProfilePage(){
         alert("Description has been updated!");
     };
 
-
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
@@ -130,7 +124,7 @@ export default function ProfilePage(){
                             <h1 className="font-bold my-6 text-center">My Profile</h1>
                                 
                             {!userInfo ? (
-                                <div>Are you logged in?</div>
+                                <div className="text-3xl mb-4">Are you logged in?</div>
                                 ):(
                                 <div className="space-y-4 mb-10 ">
                                     {/* profile */}
@@ -163,7 +157,6 @@ export default function ProfilePage(){
                                         </div>
                                         <Link type="button" href={"/profile/security"} className="border p-2 rounded-lg text-lg sm:text-2xl hover:bg-gray-200/50 active:bg-gray-300 hover:font-semibold">Edit Account</Link>
                                     </div>
-                                    
                                 </div>
                             )}
                         </div>

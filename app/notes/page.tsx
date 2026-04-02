@@ -2,7 +2,6 @@
 import {useState, useEffect} from "react";
 
 import { db, auth } from "@/data/firebase";
-
 import { collection, doc, updateDoc, deleteDoc, addDoc, query, orderBy, onSnapshot, serverTimestamp} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 
@@ -12,8 +11,9 @@ import UpdateButton from "@/components/update-button";
 import CreateButton from "@/components/create-button";
 import DeleteButton from "@/components/delete-button";
 import EditButton from "@/components/edit-button";
-
 import PaperBackground from "@/components/paper-background";
+
+import Link from "next/link";
 
 type Note = {
     id: string;
@@ -50,7 +50,6 @@ export default function NotePage(){
 
     //for the note collection
     useEffect(()=>{
-
         //do nothing if it is not a user
         if(!userId) return;
 
@@ -131,7 +130,12 @@ export default function NotePage(){
     };
 
     //display this if not logged in
-    if(!userId) return <p className="text-bold text-2xl text-center">Please log in to use notes! 📋</p>
+    if(!userId) return (
+        <div className="font-bold text-2xl text-center mt-4 text-gray-900 ">
+            <p className="mb-8">Please log in to use notes! 📝</p>
+            <Link href={"/login"} className="border bg-amber-50 dark:bg-gray-300 rounded-2xl p-4 hover:bg-amber-900 hover:text-gray-100 dark:hover:bg-gray-700">Login</Link>
+        </div>
+    )
 
     return(
         <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
@@ -151,8 +155,7 @@ export default function NotePage(){
                             placeholder="Add Title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="p-2 rounded outline-none font-bold hover:shadow-[inset_-12px_-8px_40px_#46464620] "
-                            />
+                            className="p-2 rounded outline-none font-bold hover:shadow-[inset_-12px_-8px_40px_#46464620] "/>
 
                             {/* content */}
                             {/* <h5>Content</h5> */}
@@ -171,16 +174,10 @@ export default function NotePage(){
                                 {
                                 editingId ? (
                                     <UpdateButton type="submit"><div className="p-2 font-bold">Update Note</div></UpdateButton>
-                                    
-                                    
-
-                                    ): (
-                                    
+                                    ):(
                                     <CreateButton type="submit"><div className="p-2 font-bold">Create Note</div></CreateButton>
-                                    
                                     ) 
                                 }
-            
 
                                 {/* <button className="text-amber-500 whitespace-nowrap border rounded-lg px-2 hover:bg-amber-200 active:bg-amber-500 active:text-amber-50">{editingId? "Update Note" : "Create Note"}</button> */}
 

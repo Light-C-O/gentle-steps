@@ -1,8 +1,9 @@
 import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import RateStar from "@/components/rating";
 
 import Link from "next/link";
+
+import RateStar from "@/components/rating";
 import BooKBackground from "@/components/book-background";
 import BulbButton from "@/components/bulb";
 import LogoIcon from "@/components/logo";
@@ -28,7 +29,6 @@ export default async function ReviewPage() {
                             <BulbButton/>
                         </div>
                         <div className="justify-self-center w-40 h-40"><LogoIcon/></div>
-                        
                         <h1 className="text-3xl font-bold text-center">See all the Reviews!</h1>
                     </div>
                     

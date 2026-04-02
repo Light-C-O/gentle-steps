@@ -1,15 +1,13 @@
 import { db } from "@/data/firebase";
 import { collection, getDocs } from "firebase/firestore";
+
 import NavBar from "@/components/navbar";
-
-
-import { Chapter } from "@/types/chapter";
 import SearchChapter from "@/components/searchchapter";
 import PaperBackground from "@/components/paper-background";
 
+import { Chapter } from "@/types/chapter";
+
 // This is the page that shows the list of chapters
-
-
 export default async function ChapterPage() {
     const querySnapshot = await getDocs(collection(db, "chapters"));
 

@@ -1,12 +1,12 @@
 'use client';
 import { db, auth } from "@/data/firebase";
-
-import { useEffect, useState } from "react";
-
 //Firebase auth listener to detect logged-in user
 import {onAuthStateChanged} from "firebase/auth";
 import { collection, getDocs, doc, updateDoc} from "firebase/firestore";
 
+import { useEffect, useState } from "react";
+
+//components
 import CheckForm from "@/components/check-form";
 import NavBar from "@/components/navbar";
 import Checkbox from "@/components/checkbox";
@@ -14,8 +14,9 @@ import PaperBackground from "@/components/paper-background";
 import UpdateButton from "@/components/update-button";
 import EditButton from "@/components/edit-button";
 import DeleteButton from "@/components/delete-button";
-import CreateButton from "@/components/create-button";
 import CancelButton from "@/components/cancel-button";
+
+import Link from "next/link";
 
 //the layout
 type Checklist = {
@@ -30,12 +31,7 @@ type ChecklistItem = {
     completed: boolean;
 }
 
-
-
-
 export default function CheckPage() {
-
-
     //local state to store all checklists for the logged in user
     const [checklists, setChecklists] = useState<Checklist[]>([]);
 
@@ -71,7 +67,6 @@ export default function CheckPage() {
             //saves them
             setChecklists(data);
         });
-
         //clean up 
         return()=> unsubscribe();
     }, []);
@@ -153,7 +148,6 @@ export default function CheckPage() {
         prev.map(c =>
             c.id === editingChecklistId ? { ...c, items: updatedItems} : c));
 
-
          //set the edit id to null, in exit edit mode
         setEditingChecklistId(null);
         setEditingIndex(null);
@@ -183,7 +177,8 @@ export default function CheckPage() {
         setEditingIndex(null);
         setEditingValue("");
     };
-    
+
+    const user = auth.currentUser;
 
     return(
         <main className="flex justify-center mx-auto font-sans min-h-auto drop-shadow-xl/50 mt-10">
@@ -193,6 +188,12 @@ export default function CheckPage() {
                     <div><NavBar/></div>
                     <div className="">
                         <h1 className="text-3xl font-bold mb-6 text-red-900 dark:text-gray-700">Checklists</h1>
+                        {!user &&(
+                            <div className="font-bold text-2xl text-center mt-4 text-gray-900 ">
+                                <p className="mb-8">Please log in to use checklist! 📋</p>
+                                <Link href={"/login"} className="border bg-amber-50 dark:bg-gray-300 rounded-2xl p-4 hover:bg-amber-900 hover:text-gray-100 dark:hover:bg-gray-700">Login</Link>
+                            </div>
+                        )}
                         {checklists.map((checklist) => (
                             // loop through each checklist document
                             <div key={checklist.id} className="mb-6 p-4 rounded-xl">
@@ -216,7 +217,7 @@ export default function CheckPage() {
                                                             <CancelButton type="button" onClick={resetItem}><div className="whitespace-nowrap">cancel</div></CancelButton>
                                                         </div>
                                                     </div>
-                                                ) :(
+                                                ):(
                                                     <div className="grid gap-2 w-full sm:flex">
                                                         <div className="flex gap-2 w-full">
                                                             <Checkbox checked={item.completed} onChange={() => toggleItem(checklist.id, index, checklist.items)}/>

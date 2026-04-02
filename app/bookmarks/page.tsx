@@ -1,9 +1,13 @@
 'use client';
 import {useState, useEffect} from "react";
+
 import { db } from "@/data/firebase";
 import {getAuth} from "firebase/auth";
 import { collection, getDocs} from "firebase/firestore";
+
 import Link from "next/link";
+
+//components
 import PaperBackground from "@/components/paper-background";
 
 type Bookmark = {
@@ -43,7 +47,7 @@ export default function BookmarksPage() {
 
     return(
         <div className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
-            <div className="relative w-[90vw] max-w-3xl aspect-3/4">
+            <div className="relative w-[90vw] max-w-3xl min-h-[75vh]">
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
                     <div className="grid">
@@ -54,7 +58,6 @@ export default function BookmarksPage() {
                             </Link>
                         </div>
                         <h1 className="text-3xl text-center font-bold mb-4">My Bookmarks</h1>
-                        
                         <div>
                             {/* a for each loop of the bookmarks docs */}
                             {bookmarks.map((bookmark) =>(

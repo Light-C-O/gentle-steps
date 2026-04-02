@@ -7,13 +7,10 @@ import BooKBackground from "@/components/book-background";
 import LogoIcon from "@/components/logo";
 
 export default function HomePage() {
-
-
   //on click of the button go to another page
   return (
     <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
       <div className="relative w-[90vw] max-w-3xl aspect-3/4 overflow-hidden">
-        
         <BooKBackground/>
         <div className="relative flex flex-col items-center justify-center h-full px-[8%]">
             <div className="absolute top-10 right-10 sm:top-20 sm:right-20 dark:text-gray-800"><BulbButton/></div>

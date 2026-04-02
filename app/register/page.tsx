@@ -1,10 +1,13 @@
 'use client';
 import { useState } from "react";
+
 import { auth, db } from "@/data/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc, collection, getDocs } from "firebase/firestore";
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
 import BulbButton from "@/components/bulb";
 import LogoIcon from "@/components/logo";
 
@@ -58,8 +61,8 @@ export default function RegisterPage() {
 
     return (
         <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
-            <div className="relative w-[90vw] max-w-3xl aspect-3/4 overflow-hidden">
-                <div className="relative flex flex-col items-center justify-center h-auto px-[8%] rounded-2xl mt-10 py-5 bg-[#FFF7EB] dark:bg-[#E9E2E2]">
+            <div className="relative w-[90vw] max-w-3xl overflow-hidden">
+                <div className="relative flex flex-col items-center justify-center px-[8%] rounded-2xl mt-10 py-10 pb-14 bg-[#FFF7EB] dark:bg-[#E9E2E2]">
                     <div className="flex self-end dark:text-gray-900 justify-items-center"><BulbButton /></div>
                     <div className="w-40 h-40"><LogoIcon/></div>
                     <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800">

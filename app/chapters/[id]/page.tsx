@@ -1,12 +1,16 @@
 'use client';
 import { db } from "@/data/firebase";
 import { doc, deleteDoc, getDocs, query, where, collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useEffect, useState, useCallback } from "react";
-import { useParams } from "next/navigation";
-import BookmarkButton from "@/components/bookmark-button";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+
+import { useEffect, useState, useCallback } from "react";
+
 import Link from "next/link";
+import { useParams } from "next/navigation";
+
 import useEmblaCarousel from "embla-carousel-react";
+
+import BookmarkButton from "@/components/bookmark-button";
 import ProgressBar from "@/components/progress-bar";
 import PaperBackground from "@/components/paper-background";
 
@@ -23,7 +27,6 @@ type ChapterInfo = {
     }>;
 }
 
-
 export default function ChapterDetails() {
     const params = useParams();
     //stores the loggied user, it can be a string or null
@@ -35,13 +38,11 @@ export default function ChapterDetails() {
     // the ChapterInfo object is optional, null or not, defualt value null
     // const [chapterData, setChapterData] = useState <ChapterInfo | null>(null);
 
-
     //for the carousel for each chapter
     const[emblaRef, emblaApi] = useEmblaCarousel({loop:false});
 
     //store it as array
     const[chapterIds, setChapterIds] = useState<(ChapterInfo &{id:string})[]>([]);
-
 
     //related to the bookmark per section, by default it is an array, 
     const [bookmarkedSections, setbookmarkedSections] = useState<string[]>([]);
@@ -56,7 +57,6 @@ export default function ChapterDetails() {
         //if not the user id do nothing
         if (!user) return;
 
-
         //get the reference
         const bookmarksRef = collection(db, "users", user.uid, "bookmarks");
 
@@ -67,7 +67,6 @@ export default function ChapterDetails() {
             );
 
         const snapshot = await getDocs(q);
-
         //if not empty(has been bookmarked)
         if(!snapshot.empty){
             //delete it
@@ -93,7 +92,6 @@ export default function ChapterDetails() {
             setbookmarkedSections(prev=>[...prev, `${chapter.id}-${sectionId}`],);
         }
     }
-
 
     //if(enabled) {
     //  setEnabled(false);

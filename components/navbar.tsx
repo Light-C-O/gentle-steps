@@ -34,7 +34,7 @@ export default function NavBar(){
             
             <div className="flex justify-between text-center items-center pb-5 border-b-2 border-amber-300">
                 <ProfileButton enabled={false}/>
-                <div className="rounded-full w-30 h-30"><LogoIcon/></div>
+                <Link href={"/home"} className="rounded-full w-30 h-30 cursor-pointer"><LogoIcon/></Link>
                 <button className="cursor-pointer border hover:font-semibold hover:shadow-[inset_5px_-5px_30px_5px_#46464620] p-2 rounded-lg" onClick={handleLogout}>Log Out</button>
             </div>
             <div className="font-bold uppercase text-center py-2">Table of contents</div>

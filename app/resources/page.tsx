@@ -5,21 +5,20 @@ import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
 
 import Link from "next/link";
+
 import PaperBackground from "@/components/paper-background";
 import SearchResource from "@/components/searchresource";
-import { Resource } from "@/types/resource";
 
+import { Resource } from "@/types/resource";
 
 //this page shows all the info for Resources
 export default  function ResourcePage() {
     const [resources, setResources] = useState<Resource []>([])
 
     useEffect (()=>{
-
         const fecthResources = async () => {
             const querySnapshot = await getDocs(collection(db, "resources"));
-
-            //covert intom objects
+            //covert into objects
             const data = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),

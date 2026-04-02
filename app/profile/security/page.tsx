@@ -1,15 +1,14 @@
 'use client';
 import { db, auth} from "@/data/firebase";
-
 import {collection, doc, getDocs, updateDoc, onSnapshot, deleteDoc} from "firebase/firestore";
 import {onAuthStateChanged, updatePassword, deleteUser, verifyBeforeUpdateEmail, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
 
 import {useEffect, useState} from "react";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import AccountButton from "@/components/account-button";
-import Link from "next/link";
 
 import PaperBackground from "@/components/paper-background";
 
@@ -52,7 +51,6 @@ export default function SecurityPage(){
 
         const unsubscribe = onSnapshot(userRef, (snapshot)=>{
             if(!snapshot.exists()) return;
-
             const data = snapshot.data();
             
             const UserData: User = {
@@ -227,6 +225,7 @@ export default function SecurityPage(){
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.857 15.962a.5.5 0 0 0 .243.68l9.402 4.193c1.496.667 3.047-.814 2.306-2.202l-3.152-5.904c-.245-.459-.245-1 0-1.458l3.152-5.904c.741-1.388-.81-2.87-2.306-2.202l-3.524 1.572a2 2 0 0 0-.975.932z"/><path fill="currentColor" d="M8.466 15.39a.5.5 0 0 1-.65.233l-4.823-2.15c-1.324-.59-1.324-2.355 0-2.945L11.89 6.56a.5.5 0 0 1 .651.68z" opacity="0.5"/></svg>
                             </div>
                         </Link>
+
                         <div className="grid min-w-0">
                             <h1 className="text-3xl font-bold my-6 justify-self-center">Account & Security</h1>
                             {!userInfo ? (
@@ -243,14 +242,12 @@ export default function SecurityPage(){
                                             className="border rounded-lg p-2 md:w-95 text-lg sm:text-xl outline-none min-w-0"/>
                                             <AccountButton onClick={handleUpdateUsername}>Save Username</AccountButton>
                                         </div>
-                                        
                                     </div>
                                         
                                     {/* Email */}
                                     <div className="grid">
                                         <label className="uppercase font-semibold">Email</label>
                                         <small className="text-red-500 dark:text-blue-500 font-mono">A verification will be sent to the new email</small>
-
                                         <div className=" grid gap-5 sm:flex justify-between items-center">
                                             <input 
                                             type="email"
@@ -271,7 +268,6 @@ export default function SecurityPage(){
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             className="border p-2 rounded-lg md:w-95 text-lg sm:text-xl outline-none min-w-0"/>
-                                        
                                             <AccountButton onClick={handleUpdatePassword}>Update Password</AccountButton>
                                         </div>
                                     </div>
