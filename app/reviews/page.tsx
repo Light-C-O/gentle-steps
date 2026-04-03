@@ -23,12 +23,12 @@ export default async function ReviewPage() {
             <div className="relative w-[90vw] max-w-3xl ">
                 <BooKBackground/>
                 <div className="relative z-10 h-full px-[8%] text-red-900 dark:text-gray-700 mt-1 mb-10 md:mt-15">
-                    <div className="grid gap-5 mb-8 md:gap-3">
+                    <div className="grid gap-5 mb-8 md:gap-2">
                         <div className="flex justify-between items-center justify-items-center">
                             <Link href="/" className="font-bold hover:bg-amber-400/50 dark:hover:bg-gray-400/50 border rounded p-2">Log In</Link>
                             <BulbButton/>
                         </div>
-                        <div className="justify-self-center w-40 h-40 border rounded-full"><LogoIcon/></div>
+                        <div className="justify-self-center w-40 h-40"><LogoIcon/></div>
                         <h1 className="text-3xl font-bold text-center">See all the Reviews!</h1>
                     </div>
                     

@@ -51,7 +51,7 @@ export default function LoginPage() {
                     <div className="flex self-end dark:text-gray-900 justify-items-center">
                         <BulbButton />
                     </div>
-                    <div className="w-40 h-40"><LogoIcon/></div>
+                    <div className="w-40 h-40"><img src="../transparent_logo.png" alt="main logo" className="mx-auto"/></div>
                 
                     <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800">
                         Welcome Back

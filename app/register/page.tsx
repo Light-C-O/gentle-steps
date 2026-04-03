@@ -64,7 +64,7 @@ export default function RegisterPage() {
             <div className="relative w-[90vw] max-w-3xl overflow-hidden">
                 <div className="relative flex flex-col items-center justify-center px-[8%] rounded-2xl mt-10 py-10 pb-14 bg-[#FFF7EB] dark:bg-[#E9E2E2]">
                     <div className="flex self-end dark:text-gray-900 justify-items-center"><BulbButton /></div>
-                    <div className="w-40 h-40"><LogoIcon/></div>
+                    <div className="w-40 h-40"><img src="../transparent_logo.png" alt="main logo" className="mx-auto"/></div>
                     <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800">
                         Create Account
                     </h1>
