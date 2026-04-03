@@ -28,7 +28,7 @@ export default async function ReviewPage() {
                             <Link href="/" className="font-bold hover:bg-amber-400/50 dark:hover:bg-gray-400/50 border rounded p-2">Log In</Link>
                             <BulbButton/>
                         </div>
-                        <div className="justify-self-center w-40 h-40 border rounded-full"><img src="../transparent-logo_2.png" alt="main logo" className="mx-auto"/></div>
+                        <div className="justify-self-center w-40 h-40 border rounded-full"><LogoIcon/></div>
                         <h1 className="text-3xl font-bold text-center">See all the Reviews!</h1>
                     </div>
                     
