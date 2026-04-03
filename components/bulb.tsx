@@ -1,5 +1,6 @@
 'use client'
 import { useTheme } from "next-themes"
+import { useState, useEffect } from "react"
 
 type BulbProps ={
     onClick?: ()=> void;
@@ -9,6 +10,17 @@ export default function BulbButton({onClick} : BulbProps) {
 
     const { theme, setTheme } = useTheme()
     console.log(theme)
+
+    //tracks whether the componenet has finished loading on the client
+    //false by default
+    const [mounted, setMounted] = useState(false)
+
+    //becomes true after the component as been loaded
+    //it prevents hydration mismatch between server and client components
+    useEffect(() => { setMounted(true) }, [])
+
+    //if it does
+    if(!mounted) return null;
 
     return(
         <div className="p-2 rounded-full border hover:shadow-[inset_-12px_-8px_40px_#46464620]">
