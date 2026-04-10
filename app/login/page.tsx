@@ -45,7 +45,7 @@ export default function LoginPage() {
     };
 
     return (
-        <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
+        <main className="flex items-center justify-center mx-auto min-h-screen font-yomogi overflow-hidden drop-shadow-xl/50">
             <div className="relative w-[90vw] max-w-3xl overflow-hidden">
                 <div className="relative flex flex-col items-center justify-center px-[8%] rounded-2xl mt-10 py-10 pb-14 bg-[#FFF7EB] dark:bg-[#E9E2E2]">
                     <div className="flex self-end dark:text-gray-900 justify-items-center">
@@ -53,7 +53,7 @@ export default function LoginPage() {
                     </div>
                     <div className="w-40 h-40"><img src="../transparent_logo.png" alt="main logo" className="mx-auto"/></div>
                 
-                    <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800">
+                    <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800 font-chango">
                         Welcome Back
                     </h1>
                     <h1 className="text-[clamp(16px,2.5vw,24px)] mb-4 text-center dark:text-gray-800">
@@ -78,7 +78,7 @@ export default function LoginPage() {
                             type="button"
                             disabled={loading}
                             onClick={handleLogin}
-                            className="dark:hover:bg-indigo-500 dark:bg-blue-500 text-gray-100 p-2 rounded-lg hover:bg-amber-600 bg-yellow-400 cursor-pointer"
+                            className="dark:hover:bg-indigo-500 dark:bg-blue-500 text-gray-100 p-2 rounded-lg hover:bg-amber-600 bg-yellow-400 cursor-pointer font-knewave md:text-2xl"
                         >
                             {loading ? "Welcome Back..." : "Login"}
                         </button>

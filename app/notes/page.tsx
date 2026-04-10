@@ -138,7 +138,7 @@ export default function NotePage(){
     )
 
     return(
-        <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
+        <main className="flex justify-center mx-auto min-h-auto font-yogomi drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-4xl">
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700">
@@ -155,7 +155,7 @@ export default function NotePage(){
                             placeholder="Add Title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="p-2 rounded outline-none font-bold hover:shadow-[inset_-12px_-8px_40px_#46464620] "/>
+                            className="p-2 rounded outline-none font-bold hover:shadow-[inset_-12px_-8px_40px_#46464620] font-calgi text-xl"/>
 
                             {/* content */}
                             {/* <h5>Content</h5> */}
@@ -164,7 +164,7 @@ export default function NotePage(){
                             placeholder="What is on your mind..." 
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="p-2 overflow-auto outline-none hover:shadow-[inset_-12px_-8px_40px_#46464620] rounded" 
+                            className="p-2 overflow-auto outline-none hover:shadow-[inset_-12px_-8px_40px_#46464620] rounded font-nothing text-lg font-bold" 
                             cols={40}
                             rows={20}
                             ></textarea>
@@ -192,7 +192,7 @@ export default function NotePage(){
                             {notes.map((note)=>(
                                 <div key={note.id} className="p-4 border border-amber-500 rounded-xl grid">
                                     <div className="flex justify-between">
-                                        <h2 className="font-semibold text-2xl">{note.title}</h2>
+                                        <h2 className="font-semibold text-2xl font-calgi">{note.title}</h2>
                                         <p className="text-gray-500">
                                             {/* made it a date */}
                                             {note.createdAt?.toDate().toLocaleDateString()}</p>

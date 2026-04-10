@@ -46,7 +46,7 @@ export default function BookmarksPage() {
     },[]);
 
     return(
-        <div className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
+        <div className="flex justify-center mx-auto min-h-auto font-yomogi drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl min-h-[75vh]">
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
@@ -63,7 +63,7 @@ export default function BookmarksPage() {
                             {bookmarks.map((bookmark) =>(
                                 <Link key={bookmark.id} href={`/chapters/${bookmark.chapterId}#${bookmark.sectionId}`}>
                                     <div key={bookmark.id} className="mb-6 border p-4 rounded-2xl hover:bg-amber-100/50 dark:hover:bg-gray-300/50">
-                                        <h2>{bookmark.chapterTitle}</h2>
+                                        <h2 className="font-bold">{bookmark.chapterTitle}</h2>
                                         <h3>{bookmark.sectionTitle}</h3>
                                     </div>
                                 </Link>

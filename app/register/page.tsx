@@ -60,16 +60,16 @@ export default function RegisterPage() {
     };
 
     return (
-        <main className="flex items-center justify-center mx-auto min-h-screen font-sans overflow-hidden drop-shadow-xl/50">
+        <main className="flex items-center justify-center mx-auto min-h-screen font-yogomi overflow-hidden drop-shadow-xl/50">
             <div className="relative w-[90vw] max-w-3xl overflow-hidden">
                 <div className="relative flex flex-col items-center justify-center px-[8%] rounded-2xl mt-10 py-10 pb-14 bg-[#FFF7EB] dark:bg-[#E9E2E2]">
                     <div className="flex self-end dark:text-gray-900 justify-items-center"><BulbButton /></div>
                     <div className="w-40 h-40"><img src="../transparent_logo.png" alt="main logo" className="mx-auto"/></div>
-                    <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800">
+                    <h1 className="text-[clamp(28px,4vw,48px)] font-bold mb-4 text-center dark:text-gray-800 font-chango">
                         Create Account
                     </h1>
                     <h1 className="text-[clamp(16px,2.5vw,24px)] mb-4 text-center dark:text-gray-800">
-                        Join us today
+                        Join us <span className="underline underline-offset-2">today</span>
                     </h1>
 
                     <div className="w-full dark:text-gray-800">
@@ -96,7 +96,7 @@ export default function RegisterPage() {
                             type="button"
                             disabled={loading}
                             onClick={handleSignup}
-                            className="dark:hover:bg-indigo-500 dark:bg-blue-500 text-gray-100 p-2 rounded-lg hover:bg-amber-600 bg-yellow-400 cursor-pointer"
+                            className="dark:hover:bg-indigo-500 dark:bg-blue-500 text-gray-100 p-2 rounded-lg hover:bg-amber-600 bg-yellow-400 cursor-pointer font-knewave md:text-2xl"
                         >
                             {loading ? "Creating account..." : "Sign Up"}
                         </button>

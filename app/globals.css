@@ -10,6 +10,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-calgi: var(--font-calgi);
+  --font-yogomi: var(--font-yogomi);
+  --font-nothing: var(--font-nothing);
+  --font-knewave: var(--font-knewave);
+  --font-chango: var(--font-chango);
+  --font-dongle: var(--font-dongle);
 }
 
 @variant dark (&:where(.dark, .dark *));
