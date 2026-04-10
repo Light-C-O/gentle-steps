@@ -30,7 +30,7 @@ export default  function ResourcePage() {
     }, []);
 
     return(
-        <main className="flex justify-center mx-auto min-h-auto font-sans drop-shadow-xl/50 mt-10">
+        <main className="flex justify-center mx-auto min-h-auto font-yogomi drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] max-w-3xl">
                 <PaperBackground/>
                 <div className="relative z-10 items-center justify-center h-full px-[8%] text-red-900 dark:text-gray-700 mt-10">
