@@ -15,7 +15,7 @@ export default function HomePage() {
         <div className="relative flex flex-col items-center justify-center h-full px-[8%]">
             <div className="absolute top-10 right-10 sm:top-20 sm:right-20 dark:text-gray-800"><BulbButton/></div>
             <div className="grid">
-              <h1 className="text-[clamp(40px,4vw,60px)] font-bold mb-4 text-center dark:text-gray-800 font-chango">Gentle Steps</h1>
+              <h1 className="text-[clamp(30px,4vw,60px)] font-bold mb-4 text-center dark:text-gray-800 font-chango">Gentle Steps</h1>
               <div className="justify-self-center w-40 sm:w-100 h-auto mb-5 md:mb-10 rounded-full border-red-900 dark:border-gray-800"><LogoIcon/></div>
               
               {/* link to the chapters page */}
