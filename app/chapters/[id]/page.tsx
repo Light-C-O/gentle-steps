@@ -212,7 +212,7 @@ export default function ChapterDetails() {
         <main className="flex items-center justify-center mx-auto min-h-auto font-yogomi drop-shadow-xl/50 mt-10">
             <div className="relative w-[90vw] flex flex-col h-[90vh] max-w-3xl text-red-900 dark:text-gray-700">
                 <PaperBackground/>
-                <div className="flex justify-between sticky top bg px-[8%] mt-5">
+                <div className="flex justify-between sticky top bg px-[8%] mt-5 text-xs md:text-base">
                     <Link href="/chapters" className="py-2 px-4 border rounded-lg hover:shadow-[inset_-12px_-8px_40px_#46464620] hover:font-bold active:bg-amber-100/50 dark:active:bg-gray-300/50">All Chapters</Link>
                     <Link href="/bookmarks" className="py-2 px-4 border rounded-lg hover:shadow-[inset_-12px_-8px_40px_#46464620] hover:font-bold active:bg-amber-100/50 dark:active:bg-gray-300/50">All Bookmarks</Link>
                 </div>
@@ -224,15 +224,15 @@ export default function ChapterDetails() {
                                     {chapterIds.map((chapter)=>(
                                         <div key={chapter.id} className="min-w-full max-w-3xl mx-auto px-4">
                                             <div className="grid text-center mb-5 border-b-2 pb-5">
-                                                <p className="text-xl uppercase mb-2 justify-self-start">Chapter {chapter.order}</p>
-                                                <h1 className="text-3xl font-bold font-knewave"> {chapter.title}</h1>
+                                                <p className="text-xl uppercase mb-2 justify-self-start font-knewave">Chapter {chapter.order}</p>
+                                                <h1 className="text-3xl font-bold "> {chapter.title}</h1>
                                                 <p className="mt-5 text-base font-light italic">{chapter.summary}</p>
                                             </div>
                                             {/* loop throught the maped fields */}
                                             {/* //take all the section sort them based on order field */}
                                             {chapter.sections && Object.entries(chapter.sections).sort((a, b) => a[1].order - b[1].order).map(([key, sectionMap]) => (<div key={key} id={key} className="mb-10 scroll-smooth font-dongle">
-                                                    <div className="flex justify-between">
-                                                        <h2 className="font-bold text-5xl mb-2">{sectionMap.title}</h2>
+                                                    <div className="flex justify-between content-center">
+                                                        <h2 className="font-bold text-2xl md:text-5xl">{sectionMap.title}</h2>
                                                         <div className="self-center">
                                                             <BookmarkButton enabled={bookmarkedSections.includes(`${chapter.id}-${key}`)} onClick={()=> handleBookmarkButtonClick(chapter as ChapterInfo & {id:string}, key, sectionMap.title, sectionMap.content
                                                             )}/>
@@ -241,7 +241,7 @@ export default function ChapterDetails() {
 
                                                     {Array.isArray(sectionMap.content) 
                                                         ? sectionMap.content.map((line, i) => (
-                                                            <p key={i} className="mb-4 font-dongle text-3xl font-extralight">{line}</p>
+                                                            <p key={i} className="mb-4 font-dongle text-lg md:text-3xl font-extralight">{line}</p>
                                                         ))
                                                         : <p>{sectionMap.content}</p>
                                                     } 

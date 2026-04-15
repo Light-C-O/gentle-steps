@@ -1,4 +1,4 @@
-## SOFTWARE PROJECT - IMPLEMENTATION
+## SOFTWARE PROJECT : IMPLEMENTATION - (Rough Draft)
 
 ### WEEK 1
 - **Monday - 9th Feb:**
@@ -10,7 +10,7 @@
 
 - **Thursday - 12th Feb:**
   - Imported the database to the repo, tested it and it works
-  - Managed redirect between pages using Link tag with href of the route. The link tag is for navigation.
+  - Managed redirect between pages using ``Link`` tag with href of the route. The ``Link`` tag is for navigation.
 
 - **Friday - 13th Feb:**
   - Created page.tsx files to display the information fron the databy pulling from the firebase using ``import { collection } data/firebase``. The ``import{db} data/firebase`` is to connect to the database.
@@ -20,20 +20,20 @@
 
 - **Saturday - 14th Feb:**
   - Changes naviations through removing the subcollection Selections and instead made it a maped field. This made things easier when it comes to accessing the data without making complex function. Instead, using loops and if statements, I was able to show display the informtion while still having control on what part should be displayed. I have completed the overall behaviour of the chapter page.
-  - Added a new page in a folder called checklists, that will be route.
-  - At first, import getDocs to fecth all the checklists documents from firestore, and it correctly displayed the title, trimester. I made a loop to target target the items. However I had issues. the items were objects, and it became complex to acess the fields.
+  - Added a new page in a folder called ``checklists``, that will be route.
+  - At first, import ``getDocs`` to fecth all the ``checklists`` documents from firestore, and it correctly displayed the title, trimester. I made a loop to target target the items. However I had issues. the items were objects, and it became complex to acess the fields.
   - I changed the items inro an array that holds objects instead, it was easier to code. I made input tag with type being checkbox. I wanted a line-trough to appear when an item is checked.
   - Intially, it didn't work, it was pre-ticked and could be unticked becasues it was contolled by firestore data; it displayed what was in the database instead of the user chossing what it ticked or not. 
   - A few reason to this was the component was server-side - an ``async function``. I had to remove async and add 'use client'; on the top for it. I also added ``useState`` and ``useEffect``. ``useEffect`` helps you manage side effects in the components. Side effects can be things like fectching data. And in my case, I used it for that situation.
-  - I added a toggle funtionallity in order to update what the client does into the database. In this case, ``useState`` was implemented. It allows you to add a state to a functional componment. It returns an array containing the curretn state and a function to update. This makes sure my component can remember and mage data. I also added a updateDoc for Firestore to update based on the changes. 
-  - Now the chackbox toogels both way; can tick and untick. However for it to actually update in FireStore, it needs permission. The inital rule was ``allow read: if true; allo wwrite: if false;``, not it has been updated to ``allow read, write: if true``. Now, the checkboxes can be toggled without any errors.
+  - I added a toggle funtionallity in order to update what the client does into the database. In this case, ``useState`` was implemented. It allows you to add a state to a functional componment. It returns an array containing the curretn state and a function to update. This makes sure my component can remember and mage data. I also added a ``updateDoc`` for Firestore to update based on the changes. 
+  - Now the chackbox toggels both way; can tick and untick. However, for it to actually update in FireStore, it needs permission. The inital rule was ``allow read: if true; allo wwrite: if false;``, not it has been updated to ``allow read, write: if true``. Now, the checkboxes can be toggled without any errors.
   - The checklists are dispalyed properly with item having a line-through when completed (ticked), and user can now tick/untick with the changes being updated remembers in Firestore. I have completed the checklists page
 
 ### WEEK 2
 - **Monday 16th Feb:**
-  - In regard to checklists, I implemented that the user has a premade template. Howeer they can also add their own info as well.
+  - In regard to checklists, I implemented that the user has a pre-made template. However, they can also add their own info as well.
   - I has to do almost the same thing like the checkbox. But not it is the information. I made an addItem function that allows the user to add an item and it updates in the databse. 
-  - I created a compoment called check-form, that is where the user can wtite their own list and then I imported it the checklists page for it to be displayed there.
+  - I created a compoment called ``check-form``, that is where the user can wtite their own list and then I imported it the checklists page for it to be displayed there.
   - I ran into commplettion, I wanted that user gets a temple an then ad thirs on top, however it is multi user yet. Meaning, if someone changes it, everyone had the same update. So, I must made ``auth/page.tsx``.
   - I have now added a one page that has both login and sighn up.
   - I have now managed to created a user document anytime a new user user is created and they automatically get a copy of the checklist. And changed the route to make it more seemless. Added comments for more clearity.
@@ -65,7 +65,7 @@
   - I attempted to call a method called ``goToNext()``, but it seems it doesn't have that. Instead it uses ``scrollNext()``. The runtime error has disapeared, carousel works correctly and so does the navigation function.
   
 - **Saturday 21st Feb:**
-  - Started the ``notes/page.tsx``. At, I wanted to be a component like check-form, but decided against it, there was need for that since it is not a template.
+  - Started the ``notes/page.tsx``. At, I wanted to be a component like ``check-form``, but decided against it, there was need for that since it is not a template.
   - I went make a full crud functionality on it. That way, the user can create, read, update and delete their notes. And also added an orderBy to sort it by the newest based on createdAt field.
   - I have now implemented the all the crud functions, I'm now trying to display it on screen.
   - I had to update firestore rules to make sure that the users can only create notes if there logged in. Users can only see, edit and delete their own notes. I used ``request.resource``, whichrepesents incoming data and it exists for creating and updating while ``resource`` means the document that is currently stored in Firestore, used for read, update and delete.
@@ -230,8 +230,8 @@
   - Now it runs perfectly when I tested a function by using `npm test`.
   - I made a test for the component `searchfaq`. Created first a test file `searchfaq.test` in the test folder. I created a ``mockFAQ`` array with one fake FAQ containing what is in ``faq.ts`` and just added fake data in it. It is better instead of calling the real API or database, that way I have more control and wouldn't have to worry about if it will add data to my actual database every time I test.
   - In `searchfaq.test.tsx`, `toBeInTheDocument()` is not recognised in TS, using ``@testing-library/jest-do`` makes sure that it adds `toBeInTheDocument()` to Jest.
-  - Needed to add `react-jsx` in `jest.config.ts` because TS can't handle TS with JSX (.tsx), only pure TS (.ts).
-  - Now I just passed a test that renders ``SearchFAQ`` with mock data and checks a faq question is visible on screen using screeen.getByText.
+  - Needed to add `react-jsx` in `jest.config.ts` because TS can't handle TS with JSX (``.tsx``), only pure TS (.ts).
+  - Now I just passed a test that renders ``SearchFAQ`` with mock data and checks a faq question is visible on screen using ``screen.getByText``.
   - I added a search bar for resources as well, similar to have been made to chapters and faqs.
   - I'm trying to test the search/filter behaviour of the ``SearchFAQ`` component.
   - I had imported ``fireEvent``. The placeholder needs to match what is being tested. 
@@ -241,8 +241,8 @@
   - I have passed the test of the filter of `SearchFAQ`. The reason to why the filter wasn't working, ``searchTerm`` wasn't being lowercased before comparing. Tests should always reflect real user behavour, not be adjusted to match a broken code.
 
 - **Thursday 19th Mar:**
-	- In the AccountButtton() onClick prop wasn't set properly. I forgot to link it to onClick={onClick}.
-	- Delete an account didn't fully do its work, it only deleted the users id in the users collection in Firestore but not in the Firebase Authentication, which led to the user being able to still log in despite all their information no longer there. deleteUser() requires recent authentication and I had call the reauthenticateWithCredential first before deleting a user to fix that.
+	- In the ``AccountButtton()``, ``onClick`` prop wasn't set properly. I forgot to link it to ``onClick={onClick}``.
+	- Delete an account didn't fully do its work, it only deleted the users id in the users collection in Firestore but not in the Firebase Authentication, which led to the user being able to still log in despite all their information no longer there. ``deleteUser()`` requires recent authentication and I had call the ``reauthenticateWithCredential`` first before deleting a user to fix that.
 
 - **Friday 20th Mar:**
   - I'll be testing the FAQ dropdown. I had to make a toggle. It is important visualise what it should do. I made a button and wrote what to expect before and after the toggled button. The automated test for the toggling of the dropdown has succesfully passed.

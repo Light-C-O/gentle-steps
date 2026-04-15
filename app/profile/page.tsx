@@ -129,11 +129,11 @@ export default function ProfilePage(){
                                 <div className="space-y-4 mb-10 ">
                                     {/* profile */}
                                     <div className="sm:text-center">
-                                        <div className="relative border-4 border-transparent hover:border-red-900 dark:hover:border-gray-600 rounded-full h-30 w-30 sm:h-50 sm:w-50 mx-auto mb-5 text-center cursor-pointer">
+                                        <div className="relative border-4 border-transparent hover:border-red-900 dark:hover:border-gray-600 rounded-full h-30 w-30 sm:h-50 sm:w-50 mx-auto mb-5 text-center cursor-pointer text-base md:text-xl">
                                             <input type="file" name="profileImageUrl" onChange={handleImageChange} className="absolute inset-0 h-full w-full z-10 opacity-0 cursor-pointer" />
                                             
                                             {/* for the image, if it there display, if not say upload image */}
-                                            {profileImageUrl ? <img src={profileImageUrl} alt="Profile Image" className=" rounded-full h-full w-full object-cover"/> : <img src="/image-placeholder.png" alt="Profile Image" className=" rounded-full h-full w-full object-cover"/>}
+                                            {profileImageUrl ? <img src={profileImageUrl} alt="Profile Image" className="place-content-center rounded-full h-full w-full object-cover"/> : <img src="/image-placeholder.png" alt="Profile Image" className="place-content-cente rounded-full h-full w-full object-cover"/>}
                                         </div>
 
                                         <div className="mb-10">
